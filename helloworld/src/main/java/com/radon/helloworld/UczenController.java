@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package com.radon.helloworld;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public class UczenController implements Controller {
 
-    @Override
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("uczniowie");
         
