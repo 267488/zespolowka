@@ -7,7 +7,6 @@ package model.dao;
 
 import java.util.List;
 import model.pojo.Uczen;
-import model.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
