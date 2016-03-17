@@ -5,10 +5,10 @@
  */
 package com.radon.helloworld;
 
+import com.radon.helloworld.dao.UczenDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.UczenDAO;
 import model.pojo.Uczen;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
