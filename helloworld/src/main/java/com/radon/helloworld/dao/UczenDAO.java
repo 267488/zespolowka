@@ -8,7 +8,7 @@ package com.radon.helloworld.dao;
 
 import com.radon.helloworld.util.HibernateUtil;
 import java.util.List;
-import model.pojo.Uczen;
+import com.radon.helloworld.pojo.Uczen;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -19,7 +19,6 @@ import org.hibernate.Session;
 public class UczenDAO {
     public static List<Uczen> layDS(){
         List<Uczen> ls = null;
-        
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
             
@@ -28,7 +27,6 @@ public class UczenDAO {
             ls=query.list();
             session.close();
         } catch (Exception e){
-            System.out.println("Blad w UczenDAO");
             e.printStackTrace();
         }
         return ls;

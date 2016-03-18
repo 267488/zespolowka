@@ -9,7 +9,7 @@ import com.radon.helloworld.dao.UczenDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.pojo.Uczen;
+import com.radon.helloworld.pojo.Uczen;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public class UczenController implements Controller {
 
+    @Override
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("uczniowie");
         
