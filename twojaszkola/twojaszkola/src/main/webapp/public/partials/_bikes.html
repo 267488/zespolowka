@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Bikes</h2>
+	<p>Fellow bikers will understand that there is no such thing as too many bikes:</p>
+
+	<p>
+	    <img src="/img/bikes.jpg" alt="Bikes" class="img-thumbnail img-responsive" />
+	</p>
+	<p class="text-muted"><small>(Someone sent me this picture, if its copyrighted, please just let me know and don't sue me.)</small></p>
+	<div class="row">
+	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12">
+		<p>So here is my fleet:</p>
+		<table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+			    <th>Name</th>
+			    <th>Bought on</th>
+			    <th>Decommissioned on</th>
+			    <!--<th class="text-right">Last milage</th>
+			    <th>Read more</th>
+                            -->
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="bike in bikes | orderBy:['boughtOn', 'decommissionedOn', 'name']">
+			    <td>{{ bike.name }}</td>
+			    <td>{{ bike.boughtOn | date: 'dd.MM.yyyy' }}</td>
+			    <td>{{ bike.decommissionedOn | date: 'dd.MM.yyyy' }}</td>
+			    <!--<td class="text-right">{{ bike.lastMilage | number:0 }}km</td>
+			    <td><a ng-if="bike.story !== null" href="{{bike.story.url}}">{{ bike.story.label }}</a></td>
+                            -->
+                        </tr>
+		    </tbody>
+		</table>
+		<button type="button" class="btn btn-default" data-ng-click="openNewBikeDlg();">New bike</button>
+	    </div>
+	</div>
+    </div>
+</div>
