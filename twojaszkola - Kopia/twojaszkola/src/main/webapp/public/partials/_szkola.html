@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Szkola</h2>
+	<p>Obrazek Szkola:</p>
+	<p>
+	    <img src="/img/uczen.png" alt="Uczen" class="img-thumbnail img-responsive" />
+	</p>
+	<p class="text-muted"><small>(Warto napisać coś o prawach autorskich)</small></p>
+	<div class="row">
+	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12">
+		<p>Lista szkol</p>
+		<table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+                            <th>Nazwa</th>
+			    <th>Mail</th>
+			    <th>Haslo</th>
+                            <th>adres</th>
+                            <th>kod pocztowy</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="s in szkola | orderBy:['name', 'mail', 'password', 'adres','kod_pocztowy']">
+			    <td>{{ s.name }}</td>
+                            <td>{{ s.mail }}</td>
+			    <td>{{ s.password }}</td>
+                            <td>{{ s.adres }}</td>
+                            <td>{{ s.kod_pocztowy }}</td>
+                        </tr>
+		    </tbody>
+		</table>
+		<button type="button" class="btn btn-default" data-ng-click="openNewSzkolaDlg();">Nowa szkola</button>
+	    </div>
+	</div>
+    </div>
+</div>
