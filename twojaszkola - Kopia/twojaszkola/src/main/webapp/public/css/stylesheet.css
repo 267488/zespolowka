@@ -110,3 +110,61 @@ table.track_table a {
 .giant {
     width:64px;
 }
+
+.main .list-container {
+    background: #f6f6f6;
+}
+.main .list-container .content {
+    min-height: 63px;
+    margin-bottom: 1px;
+    border-left: 3px solid #64dd17;
+    border-radius: 3px;
+    background: #fff;
+    position: relative;
+}
+.main .list-container .content > .img-container {
+    padding-right: 20px;
+    float: left;
+}
+.main .list-container .content > .img {
+    width: 37px;
+    height: 37px;
+    
+    position: absolute;
+   top: 50%;
+    left: 15px;
+   margin-top: -18px;
+    
+    background: #64dd17;
+    border-radius: 50%;
+}.main .list-container .content > .text-container {
+    height: 63px;
+    padding-left: 72px;
+   padding-right: 15px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.main .list-container .content > .text-container > .name {
+    padding-bottom: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    color: #1d1d26;
+    float: none;
+}
+.main .list-container .content > .text-container > .subject,
+.main .list-container .content > .text-container > .distance,
+.main .list-container .content > .text-container > .unit {
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 300;
+    font-style: normal;
+    color: #acacaf;
+    float: left;
+}
+.main .list-container .content > .text-container > .subject {
+    padding-right: 20px;
+}
+.main .list-container .content > .text-container > .distance {
+    padding-right: 4px;
+}

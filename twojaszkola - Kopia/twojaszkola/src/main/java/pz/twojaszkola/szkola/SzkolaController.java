@@ -51,7 +51,7 @@ public class SzkolaController {
         @RequestMapping(value = "/szkola", method = GET)
         public List<SzkolaEntity> getSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             List<SzkolaEntity> rv;
-            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kod_pocztowy"));
+            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
             return rv;
         }
         
@@ -63,7 +63,7 @@ public class SzkolaController {
             }
 	
             
-            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getMail(), newSzkola.getPassword(), newSzkola.getAdres(),newSzkola.getKod_pocztowy());
+            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getMail(), newSzkola.getPassword(), newSzkola.getAdres(),newSzkola.getKodpocztowy());
             return this.szkolaRepository.save(szkola);	
         }
         

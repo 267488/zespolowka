@@ -16,10 +16,6 @@
 package pz.twojaszkola.uczen;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -42,6 +38,18 @@ public class UczenCmd {
     @Size(max = 255)
     private String lastname;
 
+    @NotBlank
+    @Size(max = 255)
+    private String mail;
+    
+    @NotBlank
+    @Size(min=6, max = 255)
+    private String password;
+    
+    @NotBlank
+    @Size(min=6, max = 6)
+    private String kodpocztowy;
+    
     public String getPesel() {
         return pesel;
     }
@@ -65,7 +73,29 @@ public class UczenCmd {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    
-    
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getKodpocztowy() {
+        return kodpocztowy;
+    }
+
+    public void setKodpocztowy(String kodpocztowy) {
+        this.kodpocztowy = kodpocztowy;
+    }
     
 }

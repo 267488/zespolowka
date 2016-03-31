@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.uczen;
+package pz.twojaszkola.przedmioty;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -38,47 +38,46 @@ import pz.twojaszkola.support.ResourceNotFoundException;
  */
 @RestController
 @RequestMapping("/api")
-public class UczenController {
- 
-        private final UczenRepository uczenRepository;
+public class przedmiotyController {
+        private final przedmiotyRepository przedmiotyRepository;
 
         @Autowired
-        public UczenController(final UczenRepository uczenRepository) {
-            this.uczenRepository = uczenRepository;
+        public przedmiotyController(final przedmiotyRepository przedmiotyRepository) {
+            this.przedmiotyRepository = przedmiotyRepository;
         }
         
-        @RequestMapping(value = "/uczen", method = GET)
-        public List<UczenEntity> getUczen(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            List<UczenEntity> rv;
-            rv = uczenRepository.findAll(new Sort(Sort.Direction.ASC, "pesel", "name", "lastname", "mail", "password", "kodpocztowy"));
+        @RequestMapping(value = "/przedmioty", method = GET)
+        public List<przedmiotyEntity> getPrzedmioty(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            List<przedmiotyEntity> rv;
+            rv = przedmiotyRepository.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
             return rv;
         }
         
-        @RequestMapping(value = "/uczen", method = POST) 
+        @RequestMapping(value = "/przedmioty", method = POST) 
         @PreAuthorize("isAuthenticated()")
-        public UczenEntity createUczen(final @RequestBody @Valid UczenCmd newUczen, final BindingResult bindingResult) {
+        public przedmiotyEntity createPrzedmioty(final @RequestBody @Valid przedmiotyCmd newPrzedmiot, final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final UczenEntity uczen = new UczenEntity(newUczen.getPesel(), newUczen.getName(), newUczen.getLastname(), newUczen.getMail(), newUczen.getPassword(), newUczen.getKodpocztowy());
-            return this.uczenRepository.save(uczen);	
+            final przedmiotyEntity przedmiot = new przedmiotyEntity(newPrzedmiot.getName(), newPrzedmiot.getKategoria());
+            return this.przedmiotyRepository.save(przedmiot);	
         }
         
-        @RequestMapping(value = "/uczen/{id:\\d+}", method = PUT)
+        @RequestMapping(value = "/przedmioty/{id:\\d+}", method = PUT)
         @PreAuthorize("isAuthenticated()")
         @Transactional
-        public UczenEntity updateUczen(final @PathVariable Integer id, final @RequestBody @Valid UczenCmd updatedUczen, final BindingResult bindingResult) {
+        public przedmiotyEntity updatePrzedmiot(final @PathVariable Integer id, final @RequestBody @Valid przedmiotyCmd updatedPrzedmiot, final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final UczenEntity uczen = uczenRepository.findOne(id);
+            final przedmiotyEntity przedmiot = przedmiotyRepository.findOne(id);
 		
-            if(uczen == null) {
+            if(przedmiot == null) {
                 throw new ResourceNotFoundException();
             } 
             
-            return uczen;
+            return przedmiot;
         }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 michael-simons.eu.
+ * Copyright 2016 michael-simons.eu.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,39 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.bikes;
+package pz.twojaszkola.kategorie;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 /**
- * @author Michael J. Simons, 2015-09-21
+ *
+ * @author Agata
  */
-class StoryCmd implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class kategorieCmd {
+    
+    @NotBlank //niepusty
+    @Size(max = 255)
+    private String name;
 
-    private static final long serialVersionUID = -3074796999424910373L;
-
-    @NotBlank
-    @URL
-    private String url;
-
-    @NotBlank
-    private String label;
-
-    public String getUrl() {
-	return url;
+    public String getName() {
+        return name;
     }
 
-    public void setUrl(String url) {
-	this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public String getLabel() {
-	return label;
-    }
-
-    public void setLabel(String label) {
-	this.label = label;
-    }
+ 
 }

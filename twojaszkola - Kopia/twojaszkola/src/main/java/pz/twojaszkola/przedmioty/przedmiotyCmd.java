@@ -13,42 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.szkola;
+package pz.twojaszkola.przedmioty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import pz.twojaszkola.kategorie.kategorieEntity;
 
 /**
  *
- * @author radon
+ * @author Agata
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SzkolaCmd {
-
+public class przedmiotyCmd {
     
-
     @NotBlank //niepusty
     @Size(max = 255)
     private String name;
-
-    @NotBlank //niepusty
-    @Size(max = 255)
-    private String mail;
-
-    @NotBlank //niepusty
-    @Size(max = 255)
-    private String password;
-
-    @NotBlank //niepusty
-    @Size(max = 255)
-    private String adres;
-
-    @NotBlank //niepusty
-    @Size(max = 6)
-    private String kodpocztowy;
-
     
+    @NotBlank //niepusty
+    private kategorieEntity kategoria;
+
     public String getName() {
         return name;
     }
@@ -57,35 +42,12 @@ public class SzkolaCmd {
         this.name = name;
     }
 
-    public String getMail() {
-        return mail;
+    public kategorieEntity getKategoria() {
+        return kategoria;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setKategoria(kategorieEntity kategoria) {
+        this.kategoria = kategoria;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAdres() {
-        return adres;
-    }
-
-    public void setAdres(String adres) {
-        this.adres = adres;
-    }
-
-    public String getKodpocztowy() {
-        return kodpocztowy;
-    }
-
-    public void setKodpocztowy(String kodpocztowy) {
-        this.kodpocztowy = kodpocztowy;
-    }
+    
 }

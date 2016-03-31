@@ -30,6 +30,27 @@
 		<input id="inputLastname" name="inputLastname" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="uczen.lastname" data-ng-required="true"/>
 	    </div>
 	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputMail.$invalid,'has-success': theForm.inputMail.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Mail</label>
+	    <div class="col-sm-10">
+		<input id="inputMail" name="inputMail" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" data-ng-model="uczen.mail" data-ng-required="true"/>
+	    </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputPassword.$invalid,'has-success': theForm.inputPassword.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Password</label>
+	    <div class="col-sm-10">
+		<input id="inputPassword" name="inputPassword" type="password" pattern=".{6,}$" title="Six or more characters" class="form-control" data-ng-model="uczen.password" data-ng-required="true"/>
+	    </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputKodpocztowy.$invalid,'has-success': theForm.inputKodpocztowy.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Kodpocztowy</label>
+	    <div class="col-sm-10">
+		<input id="inputKodpocztowy" name="inputKodpocztowy" type="kodpocztowy" pattern="[0-9]{2,2}+-[0-9]{2,2}" class="form-control" data-ng-model="uczen.kodpocztowy" data-ng-required="true"/>
+	    </div>
+	</div>
     </form>
 </div>
 <div class="modal-footer">

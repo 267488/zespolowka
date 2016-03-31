@@ -23,12 +23,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.bikes.BikeEntity;
 
 /**
  *
@@ -61,13 +58,31 @@ public class UczenEntity implements Serializable {
     @Size(max = 255)
     private String lastname;
 
+    @Column(name = "mail", length = 255, nullable = false)
+    @NotBlank
+    @Size(max = 255)
+    private String mail;
+    
+    @Column(name = "password", length = 255, nullable = false)
+    @NotBlank
+    @Size(min=6, max = 255)
+    private String password;
+    
+    @Column(name = "kodpocztowy", length = 255, nullable = false)
+    @NotBlank
+    @Size(min=6, max = 6)
+    private String kodpocztowy;
+    
     protected UczenEntity() {
     }
     
-    public UczenEntity(String pesel, String name, String lastname) {
+    public UczenEntity(String pesel, String name, String lastname, String  mail, String password, String kodpocztowy) {
         this.pesel=pesel;
         this.name = name;
         this.lastname = lastname;
+        this.mail = mail;
+        this.password = password;
+        this.kodpocztowy = kodpocztowy;
     }
     
     public Integer getId() {
@@ -100,6 +115,30 @@ public class UczenEntity implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getKodpocztowy() {
+        return kodpocztowy;
+    }
+
+    public void setKodpocztowy(String kodpocztowy) {
+        this.kodpocztowy = kodpocztowy;
     }
     
     @Override

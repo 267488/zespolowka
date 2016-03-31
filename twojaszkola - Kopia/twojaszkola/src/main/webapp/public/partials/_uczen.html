@@ -16,13 +16,19 @@
                             <th>Pesel</th>
 			    <th>Name</th>
 			    <th>Lastname</th>
+                            <th>Mail</th>
+                            <th>Password</th>
+                            <th>Kodpocztowy</th>
 			</tr>
 		    </thead>
 		    <tbody>
-			<tr ng-repeat="u in uczen | orderBy:['pesel', 'name', 'lastname']">
+			<tr ng-repeat="u in uczen | orderBy:['pesel', 'name', 'lastname', 'mail', 'password', 'kodpocztowy']">
 			    <td>{{ u.pesel }}</td>
                             <td>{{ u.name }}</td>
 			    <td>{{ u.lastname }}</td>
+                            <td>{{ u.mail }}</td>
+                            <td>{{ u.password }}</td>
+                            <td>{{ u.kodpocztowy }}</td>
                         </tr>
 		    </tbody>
 		</table>

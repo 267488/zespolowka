@@ -46,27 +46,27 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', func
     });
 }]);
 
-biking2Controllers.controller('BikesCtrl', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-    $http.get('/api/bikes?all=true').success(function(data) {
-	$scope.bikes = data;
-    });
-
-    $scope.openNewBikeDlg = function() {
-	var modalInstance = $modal.open({
-	    templateUrl: '/partials/_new_bike.html',
-	    controller: 'AddNewBikeCtrl',
-	    scope: $scope
-	});
-
-	modalInstance.result.then(
-		function(newBike) {
-		    $scope.bikes.push(newBike);
-		},
-		function() {
-		}
-	);
-    };
-}]);
+//biking2Controllers.controller('BikesCtrl', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+//    $http.get('/api/bikes?all=true').success(function(data) {
+//	$scope.bikes = data;
+//    });
+//
+//    $scope.openNewBikeDlg = function() {
+//	var modalInstance = $modal.open({
+//	    templateUrl: '/partials/_new_bike.html',
+//	    controller: 'AddNewBikeCtrl',
+//	    scope: $scope
+//	});
+//
+//	modalInstance.result.then(
+//		function(newBike) {
+//		    $scope.bikes.push(newBike);
+//		},
+//		function() {
+//		}
+//	);
+//    };
+//}]);
 
 biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
     $http.get('/api/uczen?all=true').success(function(data) {
@@ -98,7 +98,7 @@ biking2Controllers.controller('AddNewUczenCtrl', ['$scope', '$modalInstance', '$
 	lastname: null,
         mail: null,
         password: null,
-        kod_pocztowy: null
+        kodpocztowy: null
     };
 
     $scope.cancel = function() {
@@ -153,7 +153,7 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
 	adres: null,
         mail: null,
         password: null,
-        kod_pocztowy: null
+        kodpocztowy: null
     };
 
     $scope.cancel = function() {

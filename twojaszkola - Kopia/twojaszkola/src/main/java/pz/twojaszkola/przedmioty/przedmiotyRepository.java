@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Michael J. Simons.
+ * Copyright 2016 michael-simons.eu.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.trips;
+package pz.twojaszkola.przedmioty;
 
-import java.math.BigDecimal;
 import org.springframework.data.jpa.repository.JpaRepository;
+import pz.twojaszkola.uczen.UczenEntity;
 
 /**
- * @author Michael J. Simons, 2014-02-08
+ *
+ * @author Agata
  */
-public interface AssortedTripRepository extends JpaRepository<AssortedTripEntity, Integer> {
-
-    BigDecimal getTotalDistance();
+public interface przedmiotyRepository extends JpaRepository<przedmiotyEntity, Integer>  {
+    
+    UczenEntity findById(final int id);
+    
 }

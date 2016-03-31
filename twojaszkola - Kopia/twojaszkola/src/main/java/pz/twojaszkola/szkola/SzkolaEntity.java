@@ -36,19 +36,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class SzkolaEntity implements Serializable {
 
-    protected SzkolaEntity()
-    {
-        
-    }
-    
-    public SzkolaEntity(String name, String mail, String password, String adres, String kod_pocztowy) {
-        this.name = name;
-        this.mail = mail;
-        this.password = password;
-        this.adres = adres;
-        this.kod_pocztowy = kod_pocztowy;
-    }
-
     private static final long serialVersionUID = 0001L;
     @Id
     @Column(name = "Id")
@@ -75,10 +62,23 @@ public class SzkolaEntity implements Serializable {
     @Size(max = 255)
     private String adres;
 
-    @Column(name = "kod_pocztowy", length = 6, nullable = false)
+    @Column(name = "kodpocztowy", length = 6, nullable = false)
     @NotBlank //niepusty
     @Size(max = 6)
-    private String kod_pocztowy;
+    private String kodpocztowy;
+    
+    protected SzkolaEntity()
+    {
+        
+    }
+    
+    public SzkolaEntity(String name, String mail, String password, String adres, String kodpocztowy) {
+        this.name = name;
+        this.mail = mail;
+        this.password = password;
+        this.adres = adres;
+        this.kodpocztowy = kodpocztowy;
+    }
     
     public String getName() {
         return name;
@@ -112,12 +112,12 @@ public class SzkolaEntity implements Serializable {
         this.adres = adres;
     }
 
-    public String getKod_pocztowy() {
-        return kod_pocztowy;
+    public String getKodpocztowy() {
+        return kodpocztowy;
     }
 
-    public void setKod_pocztowy(String kod_pocztowy) {
-        this.kod_pocztowy = kod_pocztowy;
+    public void setKodpocztowy(String kodpocztowy) {
+        this.kodpocztowy = kodpocztowy;
     }
 
     

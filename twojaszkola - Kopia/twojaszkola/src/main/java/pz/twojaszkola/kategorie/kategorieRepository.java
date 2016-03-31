@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Michael J. Simons.
+ * Copyright 2016 michael-simons.eu.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.bikes;
+package pz.twojaszkola.kategorie;
 
-import java.util.Calendar;
-import java.util.List;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import pz.twojaszkola.kategorie.kategorieEntity;
 
 /**
- * @author Michael J. Simons, 2014-02-08
+ *
+ * @author Agata
  */
-public interface BikeRepository extends JpaRepository<BikeEntity, Integer> {
-    List<BikeEntity> findActive(final Calendar cutoffDate);
+public interface kategorieRepository extends JpaRepository<kategorieEntity, Integer> {
     
-    BikeEntity findByName(final String name);
- 
-    List<BikeEntity> findByDecommissionedOnIsNull(final Sort sort);
+    kategorieEntity findById(final int id);
     
-    Calendar getDateOfFirstRecord();
 }
