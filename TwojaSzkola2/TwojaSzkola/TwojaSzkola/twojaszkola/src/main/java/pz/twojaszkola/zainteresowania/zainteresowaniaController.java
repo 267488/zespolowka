@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.kategorie.kategorieEntity;
 import pz.twojaszkola.mediany.MedianyController;
 import pz.twojaszkola.mediany.MedianyEntity;
+import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.przedmioty.przedmiotyEntity;
 import pz.twojaszkola.przedmioty.przedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
@@ -52,12 +53,14 @@ public class zainteresowaniaController {
      private final zainteresowaniaRepository zainteresowaniaRepo;
      private final UczenRepository uczenRepo;
      private final przedmiotyRepository przedmiotRepo;
+     private final MedianyRepository medianyRepo;
      
     @Autowired
-    public zainteresowaniaController(final zainteresowaniaRepository zainteresowaniaRepo, final UczenRepository uczenRepo, final przedmiotyRepository przedmiotRepo) {
+    public zainteresowaniaController(final zainteresowaniaRepository zainteresowaniaRepo, final UczenRepository uczenRepo, final przedmiotyRepository przedmiotRepo, final MedianyRepository medianyRepo) {
         this.zainteresowaniaRepo = zainteresowaniaRepo;
         this.uczenRepo=uczenRepo;
         this.przedmiotRepo=przedmiotRepo;
+        this.medianyRepo = medianyRepo;
     }
         
     @RequestMapping(value = "/zainteresowania", method = GET)
@@ -79,7 +82,7 @@ public class zainteresowaniaController {
     
     //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
     
-    final UczenEntity uczen = uczenRepo.findById(8);
+    final UczenEntity uczen = uczenRepo.findById(2);
     Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
     final przedmiotyEntity przedmiot = przedmiotRepo.findByName(newZainteresowania.getPrzedmiotName());
     
@@ -93,10 +96,17 @@ public class zainteresowaniaController {
         }
         
         if(dodawanie){
-            Integer a =50;
+            Integer a =20;
             final zainteresowaniaEntity zainteresowania = new zainteresowaniaEntity(uczen, przedmiot,a);
-            //MedianyController conn = null;
-            //MedianyEntity med = conn.createOrUpdateMediana(uczen);
+            //final zainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
+            
+            List<Integer> lz;
+            lz = zainteresowaniaRepo.findByUczenId(uczen.getId());
+            Integer med = Integer.valueOf(MedianyController.med(lz));
+            Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + uczen.getName() + " - mediana : "+ med);
+           // final MedianyEntity mediana = new MedianyEntity(uczen, med);
+           // final MedianyEntity m = this.medianyRepo.save(mediana);
+
             return this.zainteresowaniaRepo.save(zainteresowania);	
         }
         return null;

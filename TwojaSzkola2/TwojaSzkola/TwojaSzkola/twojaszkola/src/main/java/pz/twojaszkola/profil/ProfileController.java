@@ -16,6 +16,8 @@
 package pz.twojaszkola.profil;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -63,21 +65,35 @@ public class ProfileController {
             return rv;
         }
         
-        @RequestMapping(value = "/profile/{id:\\d+}{id1:\\d+}", method = POST) 
+        @RequestMapping(value = "/profile/{id:\\d+}", method = POST) 
         @PreAuthorize("isAuthenticated()")
         public ProfilEntity createProfil(final @PathVariable Integer id,
-                final @PathVariable Integer id1,
                 final @RequestBody @Valid ProfilCmd newProfil, 
                 final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
             final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
-            final SzkolaEntity szkola = szkolaRepository.findById(id1);
+            final SzkolaEntity szkola = szkolaRepository.findById(1);
+          
+            List<ProfilEntity> rv;
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2 ID SZKOLY: " + szkola.getId());
+            rv=profilRepository.findByPrzedmiotNazwaIdAndSzkola(id, szkola.getId());
+            boolean dodawanie=true;
+            for(ProfilEntity prof : rv) {
+                if(prof.getProfil_nazwa().getId() == id){
+                    dodawanie=false;
+                }
+            }
+        
+            if(dodawanie){
+                final ProfilEntity profil = new ProfilEntity(profil_nazwa, szkola);
             
-            final ProfilEntity profil = new ProfilEntity(profil_nazwa, szkola);
+                return this.profilRepository.save(profil);	
+            }
             
-            return this.profilRepository.save(profil);	
+            return null;
         }
         
         @RequestMapping(value = "/profile{id:\\d+}", method = PUT)

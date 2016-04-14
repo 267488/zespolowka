@@ -477,7 +477,12 @@ biking2Controllers.controller('ProfileCtrl', ['$scope', '$http', '$modal', funct
 
 	modalInstance.result.then(
 		function(newProfil) {
-		    $scope.profile.push(newProfil);
+                    if(!newProfil){
+                        alert('Nie można dodać po raz drugi tego samego profilu');
+                    }
+                    else{
+                        $scope.profile.push(newProfil);
+                    }
 		},
 		function() {
 		}
@@ -494,8 +499,6 @@ biking2Controllers.controller('AddNewProfilCtrl', ['$scope', '$modalInstance', '
         id: null,
         profil_nazwaId: null,
         szkolaId: null
-        //profil_nazwaId: $scope.profile_nazwa.id,
-        //szkolaId: $scope.szkoly.id
     };
 
     $scope.cancel = function() {
@@ -503,11 +506,10 @@ biking2Controllers.controller('AddNewProfilCtrl', ['$scope', '$modalInstance', '
     };
 
     $scope.submit = function() {
-        $scope.profil.profil_nazwaId=document.getElementById("WybranaNazwaProfilu").options[document.getElementById("WybranaNazwaProfilu").selectedIndex].text;
-	$scope.submitting = true;
+        $scope.submitting = true;
 	$http({
 	    method: 'POST',
-            url: '/api/profile/'+$scope.profil.profil_nazwaId+$scope.profil.szkolaId,
+            url: '/api/profile/'+$scope.profil.profil_nazwaId,
             data: $scope.profil
 	}).success(function(data) {
 	    $scope.submitting = false;

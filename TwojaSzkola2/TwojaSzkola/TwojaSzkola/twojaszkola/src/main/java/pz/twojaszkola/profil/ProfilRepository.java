@@ -15,6 +15,7 @@
  */
 package pz.twojaszkola.profil;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -23,4 +24,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ProfilRepository extends JpaRepository<ProfilEntity, Integer> {
     ProfilEntity findById(final int id);
+    List<ProfilEntity> findByPrzedmiotNazwaIdAndSzkola(final Integer idPrzedmiotu, final Integer idSzkoly);
 }

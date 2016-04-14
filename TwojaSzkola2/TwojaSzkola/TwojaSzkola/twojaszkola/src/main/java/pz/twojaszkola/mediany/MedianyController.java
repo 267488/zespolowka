@@ -17,12 +17,15 @@ package pz.twojaszkola.mediany;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
+import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
 import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
 
 /**
@@ -31,51 +34,47 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
  */
 @RestController
 public class MedianyController {
-    
+
     private final MedianyRepository medianyRepository;
-    private final UczenRepository uczenRepository;
     private final zainteresowaniaRepository zainteresowaniaRepository;
-    
+     private final UczenRepository uczenRepository;
+
     @Autowired
-        public MedianyController(final MedianyRepository medianyRepository, final UczenRepository uczenRepository, final zainteresowaniaRepository zainteresowaniaRepository) {
-            this.medianyRepository = medianyRepository;
-            this.uczenRepository = uczenRepository;
-            this.zainteresowaniaRepository = zainteresowaniaRepository;
-        }
-    
-        /*public MedianyEntity getMediana(final @RequestBody UczenCmd Uczen) {
-            MedianyEntity rv;
-            rv = medianyRepository.findUczenById(Integer.SIZE)
-            return rv;
-        }*/
-        
-        public static double med(List<Integer> tablica) {
-        double mediana = 0.0; // zmienna, która będzie przechowywać medianę
-        double srednia = 0.0; // zmienna do trzymania średniej wartości dwóch zmiennych
-        Collections.sort(tablica); // mediana jest wartością środkową w danym zbiorze
-        // aby uzyskać tę wartość, należy w pierwszym kroku
-        // posortować elementy tablicy (dowolną metodą)
-        // tutaj użyliśmy wbudowanej metody Javy sort.
-        // jeżeli tablica zawiera parzystą liczbę elementów, to mediana jest 
-        // średnią wartością dwóch środkowych elementów
+    public MedianyController(final MedianyRepository medianyRepository, final zainteresowaniaRepository zainteresowaniaRepository, final UczenRepository uczenRepository) {
+        this.medianyRepository = medianyRepository;
+        this.zainteresowaniaRepository = zainteresowaniaRepository;
+        this.uczenRepository = uczenRepository;
+    }
+
+    /*public MedianyEntity getMediana(final @RequestBody UczenCmd Uczen) {
+     MedianyEntity rv;
+     rv = medianyRepository.findUczenById(Integer.SIZE)
+     return rv;
+     }*/
+    public static int med(List<Integer> tablica) {
+        double mediana = 0.0; 
+        double srednia = 0.0; 
+        Collections.sort(tablica); 
         if (tablica.size() % 2 == 0) {
             srednia = tablica.get(tablica.size() / 2) + tablica.get((tablica.size() / 2) - 1);
-            // w zmiennej średnia trzymamy sumę dwóch środkowych elementów tablicy
-            mediana = srednia / 2.0; //obliczamy średnią wartość dwóch elementów
-        } else // jeżeli tablica zawiera nieparzystą liczbę elementów, to mediana
-        {    // jest dokładnie wartością środkową
+            mediana = srednia / 2.0; 
+
+        } else 
+        {    
             mediana = tablica.get(tablica.size() / 2);
         }
-        return mediana;
+
+        return (int)mediana;
     }
 
-    public void createOrUpdateMediana(UczenEntity uczen) {
+    /*public void createOrUpdateMediana() {
 
+        final UczenEntity uczen = uczenRepository.findById(1);
         List<Integer> lz;
         lz = zainteresowaniaRepository.findByUczenId(uczen.getId());
+        Logger.getLogger(MedianyController.class.getName()).log(Level.SEVERE, "LOG: " + med(lz));
         final MedianyEntity mediana = new MedianyEntity(uczen, med(lz));
         this.medianyRepository.save(mediana);
-    }
-        
-        
+    }*/
+
 }

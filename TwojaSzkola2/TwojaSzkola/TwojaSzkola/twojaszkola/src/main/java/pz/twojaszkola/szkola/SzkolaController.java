@@ -36,6 +36,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
+import pz.twojaszkola.mediany.MedianyEntity;
 import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
@@ -96,7 +97,10 @@ public class SzkolaController {
                 for(przedmiotyEntity przed : przedmioty) {
                     Integer stZaint = 0;
                     Integer ocenaPrzed = 0;
-                    double mediana = 0.0;//medianyRepository.getByUczenId(idUcznia);
+                    double mediana = 20.0;
+                    //MedianyEntity med = medianyRepository.findByUczenId2(idUcznia);
+                    //mediana = med.getMediana();
+                    Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + uczen.getName() + " - mediana " + mediana);
                     if(zainteresowaniaRepo.getStopienZaintByUczenAndPrzedmiot(idUcznia, przed.getId())!=null){
                         stZaint = zainteresowaniaRepo.getStopienZaintByUczenAndPrzedmiot(idUcznia, przed.getId());
                     }                
@@ -107,8 +111,8 @@ public class SzkolaController {
                         punktacja = punktacja +stZaint*ocenaPrzed;
                     }
                     
-                    Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + przed.getName() + ", " + stZaint);
-                    Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG2: " + prof.getProfil_nazwa().getNazwa() + ", " + ocenaPrzed);
+                    //Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG1: " + przed.getName() + ", " + stZaint);
+                    //Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG2: " + prof.getProfil_nazwa().getNazwa() + ", " + ocenaPrzed);
                 }
                 proponowaneSzkolyEntity p = new proponowaneSzkolyEntity(uczen, prof, punktacja);
                 proponowane.add(p);

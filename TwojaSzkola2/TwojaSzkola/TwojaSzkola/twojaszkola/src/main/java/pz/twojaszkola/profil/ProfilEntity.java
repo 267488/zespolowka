@@ -23,6 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import pz.twojaszkola.szkola.SzkolaEntity;
 
@@ -32,7 +34,15 @@ import pz.twojaszkola.szkola.SzkolaEntity;
  */
 @Entity
 @Table(name = "profil")
-
+@NamedQueries({
+    @NamedQuery(
+	    name = "ProfilEntity.findByPrzedmiotNazwaIdAndSzkola",
+	    query
+	    = "Select b from ProfilEntity b "
+	    + " where b.profilNazwa.id = :idPrzedmiotu"
+            + " and b.szkola.id = :idSzkoly"
+    )
+})
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class ProfilEntity implements Serializable {
 

@@ -31,7 +31,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotBlank;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
@@ -39,11 +41,11 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
 @Entity
 @Table(name = "mediany")
 @NamedQueries({
-   @NamedQuery(
-        name = "MedianyEntity.getByUczenId",
+    @NamedQuery(
+        name = "MedianyEntity.findByUczenId2",
         query
-        = "Select b.mediana from MedianyEntity b "
-        + " where b.uczen_id.id = :idUcznia"
+        = "Select b from MedianyEntity b "
+        + " where b.uczenId.id = :idUcznia"
    )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
@@ -58,17 +60,17 @@ public class MedianyEntity implements Serializable {
     
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "uczen_id", referencedColumnName = "id")
-    private UczenEntity uczen_id;
+    private UczenEntity uczenId;
     
     @Column(name = "mediana", nullable = false)
-    @NotBlank
-    private Double mediana;
+    //@NotBlank
+    private Integer mediana;
 
     protected MedianyEntity() {
     }
     
-    public MedianyEntity(UczenEntity uczen_id, Double mediana) {
-        this.uczen_id = uczen_id;
+    public MedianyEntity(UczenEntity uczen_id, Integer mediana) {
+        this.uczenId = uczen_id;
         this.mediana = mediana;
     }
     
@@ -81,18 +83,18 @@ public class MedianyEntity implements Serializable {
     }
 
     public UczenEntity getUczenId() {
-        return uczen_id;
+        return uczenId;
     }
 
     public void setUczenId(UczenEntity uczen_id) {
-        this.uczen_id = uczen_id;
+        this.uczenId = uczen_id;
     }
 
-    public double getMediana() {
+    public Integer getMediana() {
         return mediana;
     }
 
-    public void setMediana(double mediana) {
+    public void setMediana(Integer mediana) {
         this.mediana = mediana;
     }
     
