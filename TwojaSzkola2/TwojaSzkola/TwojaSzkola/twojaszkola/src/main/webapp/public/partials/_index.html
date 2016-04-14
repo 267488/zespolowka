@@ -1,0 +1,252 @@
+<div class="row">
+				
+    <div class="col-sm-12 col-lg-7 widget-container">
+
+        <h2 class="title">TWOJE ZAINTERESOWANIA</h2>
+
+        <div class="widget no-bg">
+            <div class="row graph-container">
+
+                <div class="col-xs-12 col-sm-6">
+                    <div class="graph chart">
+                        <div id="graph0" class="piechart" 
+                            data-amounts="5,8,21,29,36"
+                            data-fills="#1DE9B6,#ffb300,#ff3366,#00B0FF,#ba77ff,#ff99b2,#6563a4,#26A69A"
+                            data-size="200"
+                            style="width: 200px; height: 200px;"
+                            data-thickness="7">
+                            <div class="center-info">
+                                <span>36</span>
+                                <em>%</em>
+                                <div class="name">MATEMATYKA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <ul class="graph legend">
+                        <li>
+                            <!--<div style="background: #1DE9B6;" class="color"><div class="hole"></div></div>-->
+                            <span>5</span>
+                            <em>%</em>
+                            <div class="name">FIZYKA</div>
+                        </li>
+                        <li>
+                            <!--<div style="background: #ffb300;" class="color"><div class="hole"></div></div>-->
+                            <span>8</span>
+                            <em>%</em>
+                            <div class="name">ANGIELSKI</div>
+                        </li>
+                        <li>
+                            <!--<div style="background: #ff3366;" class="color"><div class="hole"></div></div>-->
+                            <span>21</span>
+                            <em>%</em>
+                            <div class="name">INFORMATYKA</div>
+                        </li>
+                        <li>
+                            <!--<div style="background: #00B0FF;" class="color"><div class="hole"></div></div>-->
+                            <span>29</span>
+                            <em>%</em>
+                            <div class="name">MATEMATYKA</div>
+                        </li>
+                        <li>
+                            <!--<div style="background: #00B0FF;" class="color"><div class="hole"></div></div>-->
+                            <span>36</span>
+                            <em>%</em>
+                            <div class="name">MATEMATYKA</div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 col-lg-5">
+        <div class="widget info-widget">
+
+            <h2 class="title">PROFIL</h2>
+
+            <div class="text">
+                UZUPEŁNIJ DANE W SWOIM PROFILU, ABYŚMY MOGLI ZAPROPONOWAĆ CI SZKOŁĘ, KTÓRA BĘDZIE LEPIEJ DO CIEBIE PASOWAĆ!
+            </div>
+
+            <div class="counter">
+                <div class="numbers">
+                    <span class="number">6</span>
+                    <em>/</em>
+                    <span class="total">8</span>
+                </div>
+                <div id="graph1" class="piechart" 
+                    data-amounts="75,25"
+                    data-fills="#6563a4,#e3e7f0"
+                    data-size="30"
+                    style="width: 30px; height: 30px;"
+                    data-thickness="5">
+                </div>
+            </div>
+
+            <div class="counter-title">WYPEŁNIONO</div>
+
+            <div class="button-container"> 
+                <a href="#" type="button" class="btn btn-primary btn-lg">UZUPEŁNIJ DANE</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12 col-lg-6 widget-container">
+
+        <h2 class="title">PROPONOWANE SZKOŁY</h2>
+
+        <div class="widget">
+
+            
+            <table class="table">
+                <tr ng-repeat="s in szkola | orderBy:['name', 'mail', 'adres','kodpocztowy']">
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.adres }}</td>
+                    <td>{{ s.kodpocztowy }}</td>
+                </tr>
+            </table>
+           
+<!--
+            <div class="list-container">
+
+                <div class="content position-1 level1">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-2 level1">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-1 level2">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-1 level3">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-1 level3">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-1 level4">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+
+            </div>
+-->
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-6 widget-container">
+
+        <h2 class="title">ULUBIONE SZKOŁY</h2>
+
+ <!--       <div class="widget"> -->
+
+            
+            <table class="table">
+                    <tr ng-repeat="s in ulubione_szkoly | orderBy:['szkolaId']">
+                            <td>{{ s.szkolaId.name }}</td>
+                            <td>{{ s.szkolaId.adres }}</td>
+                            <td>{{ s.szkolaId.kodpocztowy }}</td>
+                    </tr>
+            </table>
+            
+<!--
+            <div class="list-container">
+
+                <div class="content position-1 level1">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-2 level2">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+                <div class="content position-1 level3">
+
+                    <div class="img"></div>
+                    <span class="number">4</span>
+
+                    <div class="text-container">
+                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
+                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </div>
+-->
+    </div>
+
+</div>

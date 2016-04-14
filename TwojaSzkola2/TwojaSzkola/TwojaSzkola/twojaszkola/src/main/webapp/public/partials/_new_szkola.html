@@ -1,0 +1,70 @@
+<!--
+Copyright 2016 michael-simons.eu.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+    <h4 class="modal-title">Nowa szkola</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="theForm" role="form" data-ng-submit="submit();">
+	<div class="form-group" data-ng-show="badRequest">
+	    <div class="col-sm-offset-2 col-sm-10">
+		<label class="text-danger">
+		    {{badRequest}}
+		</label>
+	    </div>
+	</div>
+	<div class="form-group" data-ng-class="{'has-error': theForm.inputName.$invalid,'has-success': theForm.inputName.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Name</label>
+	    <div class="col-sm-10">
+		<input id="inputName" name="inputName" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.name" data-ng-required="true"/>
+	    </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputMail.$invalid,'has-success': theForm.inputMail.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Mail</label>
+	    <div class="col-sm-10">
+		<input id="inputMail" name="inputMail" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.mail" data-ng-required="true"/>
+            </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputPassword.$invalid,'has-success': theForm.inputPassword.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Password</label>
+	    <div class="col-sm-10">
+		<input id="inputPassword" name="inputPassword" type="password" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.password" data-ng-required="true"/>
+            </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputAdres.$invalid,'has-success': theForm.inputAdres.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Adres</label>
+	    <div class="col-sm-10">
+		<input id="inputAdres" name="inputAdres" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.adres" data-ng-required="true"/>
+            </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputKodpocztowy.$invalid,'has-success': theForm.inputKodpocztowy.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">Kodpocztowy</label>
+	    <div class="col-sm-10">
+		<input id="inputKodpocztowy" name="inputKodpocztowy" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.kodpocztowy" data-ng-required="true"/>
+            </div>
+	</div>
+        
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Save szkola</button>
+</div>

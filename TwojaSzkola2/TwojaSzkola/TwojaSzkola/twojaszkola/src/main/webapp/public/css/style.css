@@ -1,0 +1,557 @@
+body {
+    background-color: #f6f6f6;
+    font-family: 'Montserrat', Arial, Tahoma;
+    font-weight: 300;
+}
+.show-grid {
+    margin-bottom: 15px;
+}
+.show-grid [class^=col-] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    border: 1px solid #ddd;
+    border: 1px solid rgba(86,61,124,.2);
+}
+
+/* for ROW class with 1 element inside */
+.vertical-align { 
+    display: flex;
+    align-items: center;
+}
+
+.graph.legend > li > span.color1:before {
+    color: #1DE9B6;
+}
+.graph.legend > li > span.color2:before {
+    color: #ffb300;
+}
+.graph.legend > li > span.color3:before {
+    color: #ff3366;
+}
+.graph.legend > li > span.color4:before {
+    color: #00B0FF;
+}
+.graph.legend > li > span.color5:before {
+    color: #ba77ff;
+}
+.graph.legend > li > span.color6:before {
+    color: #ff99b2;
+}
+.graph.legend > li > span.color7:before {
+    color: #6563a4;
+}
+.graph.legend > li > span.color8:before {
+    color: #26A69A;
+}
+
+/* --------------------------------------------------------------------------------------- */
+
+nav.navbar {
+    background: #2c63a1;
+}
+
+nav.navbar .navbar-header > button.navbar-toggle > span {
+    background-color: #fff;
+}
+
+
+nav.navbar .navbar-header > .navbar-brand {
+    padding: 0px 15px;
+    color: #fff;
+}
+nav.navbar .navbar-header > .navbar-brand > img {	
+    margin-top: 9px;
+    float: left;
+}
+nav.navbar .navbar-header > .navbar-brand > .name {
+    height: 50px;
+    padding-left: 5px;
+    display: table-cell;
+    vertical-align: middle;
+
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 14px;
+}
+@media screen and (max-width: 480px) {
+    nav.navbar .navbar-header > .navbar-brand > .name {
+        max-width: 173px;
+    }
+}
+
+nav.navbar #navbar > ul > li > a {
+    color: #fff;
+}
+nav.navbar #navbar > ul > li.second > a {
+    color: rgba(255, 255, 255, 0.47);
+}
+
+
+/* ------------------------------------- Sidebar --------------------------------------- */
+.sidebar {
+    z-index: 100;
+    display: block;
+    padding: 0px 20px 26px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #2c63a1;
+    border-right: 1px solid #f5f5f5;
+}
+@media screen and (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+    }
+}
+@media screen and (max-width: 767px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+
+.sidebar .profile-container {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar .profile-container img {
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+}
+.sidebar .profile-container .name {
+    height: 54px;
+    padding-left: 40px;
+    display: table-cell;
+    vertical-align: middle;
+
+    font-size: 15px;
+    line-height: 14px;
+    font-weight: 300;
+    color: #fff;
+}
+
+
+
+.sidebar .nav-menu-container {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar .nav-menu-container.second {
+    border-bottom: none;
+}
+.sidebar .nav-menu > li > a {
+    font-size: 15px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sidebar .nav-menu.second > li > a {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.47);
+    border-radius: 5px;
+}
+.sidebar .nav-menu > li.active > a,
+.sidebar .nav-menu > li > a:hover,
+.sidebar .nav-menu > li > a:focus,
+#navbar .navbar-nav > li.active > a,
+#navbar .navbar-nav > li > a:hover,
+#navbar .navbar-nav > li > a:focus {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+.sidebar .logo-container {
+    position: absolute;
+    bottom: 27px;
+    left: 0px;
+}
+.sidebar .logo-container > p {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+}
+.sidebar .logo-container > p > a {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+.sidebar .logo-container > span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* --------------------------------------- Main --------------------------------------- */
+.main {
+    padding: 35px 35px 40px 35px;
+}
+.main .suggestion-list {
+    height: 100px;
+}
+@media screen and (max-width: 768px) {
+    .main {
+        margin-top: 51px;
+    }
+}
+
+.main .widget {
+    margin-bottom: 30px;
+    background: #fff;
+    box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.15);
+    border-radius: 3px;
+}
+.main .info-widget {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.main .no-bg {
+    background: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.main .widget-container > .title {
+    margin: 0px;
+    padding-bottom: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #8f8f8f;
+}
+.main .info-widget > .title {
+    margin: 0px;
+    padding-top: 20px;
+    padding-bottom: 27px;
+    font-size: 18px;
+    line-height: 15px;
+    font-weight: 500;
+    text-align: center;
+    color: #212121;
+}
+.main .info-widget > .text {
+    margin: 0px;
+    padding-bottom: 25px;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    color: #a7acb2;
+}
+.main .info-widget > .counter {
+    text-align: center;
+    padding-bottom: 5px;
+}
+.main .info-widget > .counter > .numbers {
+    margin: 0px;
+    padding-right: 8px;
+    font-family: 'Lato', Arial, Tahoma;
+    font-size: 38px;
+    line-height: 31px;
+    font-weight: 300;
+    font-style: normal;
+    word-spacing: -6px;
+    color: #304154;
+    display: inline-block;
+}
+.main .info-widget > .counter > .numbers > em {
+    font-style: normal;
+}
+.main .info-widget > .counter > .piechart {
+    display: inline-block;
+}
+.main .info-widget > .counter-title {
+    margin: 0px;
+    padding-bottom: 33px;
+    font-size: 15px;
+    line-height: 12px;
+    font-weight: 300;
+    text-align: center;
+    color: #acb0b6;
+}
+.main .info-widget > .button-container {
+    padding-bottom: 25px;
+    text-align: center;
+}
+.main .info-widget > .button-container > a {
+    padding: 17px 52px;
+    background: #6563a4;
+    border: none;
+    border-radius: 20px;
+    font-size: 11px;
+    line-height: 8px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+.main .info-widget > .button-container > a:hover {
+    background: #5c5a97;
+}
+
+
+/* ------------------------------------------------------------------------------------------ */
+
+.main .graph-container {
+    margin-top: 15px;
+}
+.main .graph.chart .piechart {
+    margin-left: auto;
+    margin-right: auto;
+}
+.main .graph.chart .center-info {
+    width: 200px;
+    position: absolute;
+    top: 68px;
+    left: 50%;
+    margin-left: -100px;
+    z-index: 100;
+    text-align: center;
+}
+.main .graph.chart .center-info > span,
+.main .graph.chart .center-info > em {
+    font-family: 'Lato', Arial, Tahoma;
+    font-size: 43px;
+    line-height: 43px;
+    font-weight: 400;
+    font-style: normal;
+    color: #304154;
+}
+.main .graph.chart .center-info > div.name {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #a6abb1;
+}
+
+.main .graph.legend {
+    max-width: 300px;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 13px;
+    list-style-type: none;
+    font-size: 13px;
+}
+.main .graph.legend li {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.main .graph.legend > li > span:before {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 50%;
+    content: "O";
+    font-weight: 900;
+}
+.main .graph.legend span,
+.main .graph.legend em {
+    font-family: 'Lato', Arial, Tahoma;
+    font-size: 25px;
+    line-height: 20px;
+    font-weight: 400;
+    font-style: normal;
+    color: #304154;
+}
+.main .graph.legend > li > div.name {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #a6abb1;
+}
+
+@media screen and (min-width: 768px) {
+    .main .graph.legend.two-rows li {
+        width: 50%;
+        margin-left: 0px;
+        float: left;
+    }
+}
+@media screen and (max-width: 767px) and (min-width: 480px) {
+    .main .graph.chart .piechart {
+        margin-bottom: 15px;
+    }
+    .main .graph.legend li {
+        width: 33%;
+        margin-left: 0px;
+        float: left;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 479px) {
+    .main .graph.chart .piechart {
+        margin-bottom: 15px;
+    }
+    .main .graph.legend li {
+        width: 50%;
+        margin-left: 0px;
+        float: left;
+        text-align: center;
+    }
+}
+
+
+/* ------------------------------------------------------------------------------------------------------ */
+.main .list-container {
+    background: #f6f6f6;
+    /*overflow-y: scroll;*/
+}
+
+.main .list-container .content {
+    min-height: 63px;
+    margin-bottom: 1px;
+    border-left: 3px solid #64dd17;
+    border-radius: 3px;
+    background: #fff;
+    position: relative;
+}
+.main .list-container .content > .img-container {
+    padding-right: 20px;
+    float: left;
+}
+.main .list-container .content > .img {
+    width: 37px;
+    height: 37px;
+
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -18px;
+	
+    background: #64dd17;
+    border-radius: 50%;
+}
+.main .list-container .content > .number {
+    width: 37px;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -9px;
+	
+    font-family: 'Roboto', Arial, Tahoma;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: #fff;
+}
+
+.main .list-container .content > .text-container {
+    height: 63px;
+    padding-left: 72px;
+    padding-right: 15px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.main .list-container .content > .text-container > .name {
+    padding-bottom: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    color: #1d1d26;
+    float: none;
+}
+.main .list-container .content > .text-container > .subject,
+.main .list-container .content > .text-container > .distance,
+.main .list-container .content > .text-container > .unit {
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 300;
+    font-style: normal;
+    color: #acacaf;
+    float: left;
+}
+.main .list-container .content > .text-container > .subject {
+    padding-right: 20px;
+}
+.main .list-container .content > .text-container > .distance {
+    padding-right: 4px;
+}
+
+
+
+
+
+.sign-up {
+    min-width: 570px;
+    padding: 60px 70px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+	
+    background: #fff;
+    box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.15);
+    border-radius: 3px;
+}
+.form-signup > .form-signin-heading {
+    margin-top: 0px;
+    margin-bottom: 45px;
+
+    font-size: 30px;
+    line-height: 15px;
+    font-weight: 500;
+    text-align: center;
+    color: #212121;
+}
+.form-signup > label {
+    margin-bottom: 10px;
+    margin-left: 18px;
+    margin-right: 5px;
+    font-size: 13px;
+    line-height: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #a3a1b6;
+}
+.form-signup > i {
+    color: #a3a1b6;
+}
+.form-signup > .input-group {
+    width: 100%;
+    margin-bottom: 20px;
+}/*
+.form-signup > .input-group.password {
+    width: 49%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+.form-signup > .input-group.password2 {
+    width: 49%;
+    margin-bottom: 20px;
+}*/
+.form-signup > .input-group > i {
+    padding-left: 21px;
+    padding-top: 14px;
+    position: absolute;
+    z-index: 3;
+    font-size: 16px;
+    color: #b9bed1;
+}
+.form-signup > .input-group > input {
+    padding-left: 50px;
+    padding-right: 17px;
+    background-color: #f1f2f7;
+    /*border: 1px solid #e4e7ee;*/
+    border-radius: 20px !important;
+}   
+
+
+.form-signup .checkbox {
+    font-weight: normal;
+}
+.form-signup .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signup .form-control:focus {
+  z-index: 2;
+}
