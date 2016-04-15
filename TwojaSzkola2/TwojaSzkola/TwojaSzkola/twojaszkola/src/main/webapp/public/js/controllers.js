@@ -32,7 +32,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', func
     });
     
     $http.get('/api/ProponowaneSzkoly?all=true').success(function(data) {
-	$scope.szkola = data;
+	$scope.proponowaneSzkoly = data;
     });
 //    $http.get('/api/summary').success(function(data) {
 //	$scope.summary = data;
@@ -495,10 +495,20 @@ biking2Controllers.controller('AddNewProfilCtrl', ['$scope', '$modalInstance', '
 	$scope.profile_nazwa = data;
     });
     
+    $http.get('/api/przedmioty?all=true').success(function(data) {
+	$scope.przedmioty = data;
+    });
+    
     $scope.profil = {
         id: null,
         profil_nazwaId: null,
         szkolaId: null
+    };
+    
+    $scope.rozszerzonePrzedmioty = {
+        id: null,
+        profilId: null,
+        przedmiotId: null
     };
 
     $scope.cancel = function() {
@@ -507,10 +517,12 @@ biking2Controllers.controller('AddNewProfilCtrl', ['$scope', '$modalInstance', '
 
     $scope.submit = function() {
         $scope.submitting = true;
+        console.log("PrzedmiotId" + $scope.rozszerzonePrzedmioty.przedmiotId);
+        console.log("Profil_nazwaId" + $scope.profil.profil_nazwaId);
 	$http({
 	    method: 'POST',
             url: '/api/profile/'+$scope.profil.profil_nazwaId,
-            data: $scope.profil
+            data: $scope.rozszerzonePrzedmioty
 	}).success(function(data) {
 	    $scope.submitting = false;
 	    $modalInstance.close(data);

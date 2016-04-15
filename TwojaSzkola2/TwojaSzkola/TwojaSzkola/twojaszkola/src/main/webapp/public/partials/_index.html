@@ -109,10 +109,11 @@
 
             
             <table class="table">
-                <tr ng-repeat="s in szkola | orderBy:['name', 'mail', 'adres','kodpocztowy']">
-                    <td>{{ s.name }}</td>
-                    <td>{{ s.adres }}</td>
-                    <td>{{ s.kodpocztowy }}</td>
+                <tr ng-repeat="s in proponowaneSzkoly | orderBy:['uczenId', 'profilId',]">
+                    <td>{{ s.profilId.szkola.name }}</td>
+                    <td>{{ s.profilId.profilNazwa.nazwa }}</td>
+                    <td>{{ s.profilId.szkola.adres }}</td>
+                    <td>{{ s.profilId.szkola.kodpocztowy }}</td>
                 </tr>
             </table>
            

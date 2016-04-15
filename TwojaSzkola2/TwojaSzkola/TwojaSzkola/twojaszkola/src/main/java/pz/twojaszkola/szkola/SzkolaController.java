@@ -83,10 +83,10 @@ public class SzkolaController {
         }
         
         @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
-        public List<SzkolaEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            Integer idUcznia = 5;
+        public List<proponowaneSzkolyEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            Integer idUcznia = 9;
             List<proponowaneSzkolyEntity> proponowane = new ArrayList<proponowaneSzkolyEntity>();
-            List<SzkolaEntity> rv = new ArrayList<SzkolaEntity>();
+            List<proponowaneSzkolyEntity> rv = new ArrayList<proponowaneSzkolyEntity>();
             List<przedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
             List<ProfilEntity> profile = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
             //List<zainteresowaniaEntity> zainteresowania = zainteresowaniaRepo.findByUczenId2(idUcznia);
@@ -97,9 +97,10 @@ public class SzkolaController {
                 for(przedmiotyEntity przed : przedmioty) {
                     Integer stZaint = 0;
                     Integer ocenaPrzed = 0;
-                    double mediana = 20.0;
-                    //MedianyEntity med = medianyRepository.findByUczenId2(idUcznia);
-                    //mediana = med.getMediana();
+                    Integer mediana = 0;
+                    if(medianyRepository.findByUczenId2(idUcznia)!=null){
+                        mediana = medianyRepository.findByUczenId2(idUcznia).getMediana();
+                    }
                     Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + uczen.getName() + " - mediana " + mediana);
                     if(zainteresowaniaRepo.getStopienZaintByUczenAndPrzedmiot(idUcznia, przed.getId())!=null){
                         stZaint = zainteresowaniaRepo.getStopienZaintByUczenAndPrzedmiot(idUcznia, przed.getId());
@@ -122,12 +123,14 @@ public class SzkolaController {
             for(proponowaneSzkolyEntity p : proponowane){
                Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG3: " + p.getUczenId().getName() + ", " + p.getProfilId().getProfil_nazwa().getNazwa() + ", " + p.getProfilId().getSzkola().getName() +"," + p.getPunktacja());
             }
-            for(int i=0; i<(proponowane.size()/2);i++){
-                rv.add(szkolaRepository.findById(proponowane.get(i).getProfilId().getSzkola().getId()));
+            int ilosc = 3;
+            if(proponowane.size()/2<3) ilosc=proponowane.size()/2;
+            for(int i=0; i<ilosc;i++){
+                rv.add(proponowane.get(i));
                 //rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
             }
-            for(SzkolaEntity s : rv){
-               Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getName());
+            for(proponowaneSzkolyEntity s : rv){
+               Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getProfilId().getSzkola().getName());
             }
             return rv;
         }

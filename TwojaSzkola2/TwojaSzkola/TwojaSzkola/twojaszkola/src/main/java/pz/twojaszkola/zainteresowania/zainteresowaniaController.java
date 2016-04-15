@@ -67,8 +67,6 @@ public class zainteresowaniaController {
     public List<zainteresowaniaEntity> getZainteresowania(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<zainteresowaniaEntity> rv;
         rv = zainteresowaniaRepo.findAll(new Sort(Sort.Direction.ASC, "uczenId", "przedmiotId", "stopienZainteresowania"));
-        //Integer id =1;
-        //rv=zainteresowaniaRepo.findByPrzedmiotId(id);
         return rv;
     }
         
@@ -82,8 +80,10 @@ public class zainteresowaniaController {
     
     //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
     
-    final UczenEntity uczen = uczenRepo.findById(2);
+    final UczenEntity uczen = uczenRepo.findById(9);
     Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
+     Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG1: " + newZainteresowania.getStopienZainteresowania());
+    
     final przedmiotyEntity przedmiot = przedmiotRepo.findByName(newZainteresowania.getPrzedmiotName());
     
     List<zainteresowaniaEntity> rv;
@@ -96,18 +96,27 @@ public class zainteresowaniaController {
         }
         
         if(dodawanie){
-            Integer a =20;
-            final zainteresowaniaEntity zainteresowania = new zainteresowaniaEntity(uczen, przedmiot,a);
-            //final zainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
+            final zainteresowaniaEntity zainteresowania = new zainteresowaniaEntity(uczen, przedmiot,newZainteresowania.getStopienZainteresowania());
+            final zainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
             
             List<Integer> lz;
             lz = zainteresowaniaRepo.findByUczenId(uczen.getId());
             Integer med = Integer.valueOf(MedianyController.med(lz));
-            Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + uczen.getName() + " - mediana : "+ med);
-           // final MedianyEntity mediana = new MedianyEntity(uczen, med);
-           // final MedianyEntity m = this.medianyRepo.save(mediana);
-
-            return this.zainteresowaniaRepo.save(zainteresowania);	
+            
+            if (medianyRepo.findByUczenId2(uczen.getId()) == null) {
+               //nie ma
+                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Nie ma " + med);
+          
+               MedianyEntity mediana = new MedianyEntity(uczen, med);
+               this.medianyRepo.save(mediana);
+           } else {
+              //jest
+              Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Jest" +  med);
+              MedianyEntity mediana = medianyRepo.findByUczenId2(uczen.getId());
+              mediana.setMediana(med);
+              this.medianyRepo.save(mediana);
+          }
+            return e;	
         }
         return null;
     }

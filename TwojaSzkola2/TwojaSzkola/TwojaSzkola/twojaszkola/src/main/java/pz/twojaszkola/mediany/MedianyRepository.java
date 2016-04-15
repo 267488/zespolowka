@@ -24,6 +24,5 @@ import pz.twojaszkola.uczen.UczenEntity;
 public interface MedianyRepository extends JpaRepository<MedianyEntity, Integer> {
     
     MedianyEntity findById(final Integer id);
-    UczenEntity findUczenById(final Integer Uczen_id);
     MedianyEntity findByUczenId2(final Integer idUcznia);
 }

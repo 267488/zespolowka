@@ -32,9 +32,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyCmd;
+import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
+import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
+import pz.twojaszkola.przedmioty.przedmiotyRepository;
 
 /**
  *
@@ -48,13 +53,20 @@ public class ProfileController {
         private final ProfilRepository profilRepository;
         private final Profil_nazwaRepository profil_nazwaRepository;
         private final SzkolaRepository szkolaRepository;
+        private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo;
+        private final przedmiotyRepository przedmiotyRepo;
+        
         @Autowired
         public ProfileController(final ProfilRepository profilRepository,
                                  final Profil_nazwaRepository profil_nazwaRepository,
-                                 final SzkolaRepository szkolaRepository) {            
+                                 final SzkolaRepository szkolaRepository,
+                                 final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo,
+                                 final przedmiotyRepository przedmiotyRepo) {            
             this.profilRepository = profilRepository;
             this.profil_nazwaRepository = profil_nazwaRepository;
             this.szkolaRepository = szkolaRepository;
+            this.rozszerzonePrzedmiotyRepo = rozszerzonePrzedmiotyRepo;
+            this.przedmiotyRepo = przedmiotyRepo;
         }
         
         @RequestMapping(value = "/profile", method = GET)
@@ -68,17 +80,19 @@ public class ProfileController {
         @RequestMapping(value = "/profile/{id:\\d+}", method = POST) 
         @PreAuthorize("isAuthenticated()")
         public ProfilEntity createProfil(final @PathVariable Integer id,
-                final @RequestBody @Valid ProfilCmd newProfil, 
+                final @RequestBody @Valid RozszerzonePrzedmiotyCmd newRozszerzone, 
                 final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
             final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
-            final SzkolaEntity szkola = szkolaRepository.findById(1);
-          
+            final SzkolaEntity szkola = szkolaRepository.findById(5);
+            
             List<ProfilEntity> rv;
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PROFIL_NAZWA : " + id);
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2 ID SZKOLY: " + szkola.getId());
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG4 ID przedmiotu: " + newRozszerzone.getPrzedmiotId());
+            final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
             rv=profilRepository.findByPrzedmiotNazwaIdAndSzkola(id, szkola.getId());
             boolean dodawanie=true;
             for(ProfilEntity prof : rv) {
@@ -89,10 +103,14 @@ public class ProfileController {
         
             if(dodawanie){
                 final ProfilEntity profil = new ProfilEntity(profil_nazwa, szkola);
+                final ProfilEntity e = this.profilRepository.save(profil);
+                
+                RozszerzonePrzedmiotyEntity rozsz = new RozszerzonePrzedmiotyEntity(profil, przedmiot);
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG5 name przedmiotu: " + przedmiot.getName());
             
-                return this.profilRepository.save(profil);	
+                this.rozszerzonePrzedmiotyRepo.save(rozsz);
+                return 	e;
             }
-            
             return null;
         }
         
