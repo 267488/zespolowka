@@ -1,17 +1,5 @@
 $( document ).ready(function() {
 
-	$(".graph.legend").each(function() {
-		var counter = 1;
-		$("li", this).each(function() {
-			$("span", this).addClass( "color"+counter );
-			counter++;
-		});
-		if( counter > 4 ) {
-			$(this).addClass("two-rows");
-		}	
-	}); 
-	
-	
 	function drawDonut(elem){
 	  var node = document.querySelector(elem);
 	  var width = height = node.getAttribute("data-size") || 204;
@@ -55,8 +43,8 @@ $( document ).ready(function() {
 		});
 	  }
 	}
-	
-	
+
 	drawDonut("#graph0");
 	drawDonut("#graph1");
+	
 });

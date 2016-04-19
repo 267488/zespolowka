@@ -10,6 +10,27 @@
 	<div class="row">
 	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12 main">
 		<p>Lista szkol</p>
+		<!--
+                <table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+                            <th>Nazwa</th>
+			    <th>Mail</th>
+			    <th>Haslo</th>
+                            <th>Adres</th>
+                            <th>Kod pocztowy</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="s in szkola | orderBy:['name', 'mail', 'password', 'adres','kodpocztowy']">
+			    <td>{{ s.name }}</td>
+                            <td>{{ s.mail }}</td>
+			    <td>{{ s.password }}</td>
+                            <td>{{ s.adres }}</td>
+                            <td>{{ s.kodpocztowy }}</td>
+                        </tr>
+		    </tbody>
+		</table> -->
                 
                 <div class="list-container" style="margin: 10px;">    
                     <div class="content" ng-repeat="s in szkola | orderBy:['name', 'adres','kodpocztowy']">
@@ -24,10 +45,8 @@
 
                     </div>
                 </div>
-            </div>
-            <button type="button" class="btn btn-default" data-ng-click="openNewSzkolaDlg();">Nowa szkola</button>
-            <button type="button" class="btn btn-default" data-ng-click="openEditSzkolaDlg();">Edytuj szkola</button>
-	   
+		<button type="button" class="btn btn-default" data-ng-click="openNewSzkolaDlg();">Nowa szkola</button>
+	    </div>
 	</div>
     </div>
 </div>

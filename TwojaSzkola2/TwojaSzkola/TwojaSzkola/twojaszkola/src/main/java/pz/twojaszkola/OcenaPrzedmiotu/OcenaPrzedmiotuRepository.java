@@ -29,4 +29,5 @@ public interface OcenaPrzedmiotuRepository extends JpaRepository<OcenaPrzedmiotu
     UczenEntity getUczenById(final Integer UczenId);
     OcenaPrzedmiotuEntity findById(final Integer id);
     Integer getOcenaByPrzedmiotAndProfil(final Integer idPrzedmiotu, final Integer idProfilu);
+   // OcenaPrzedmiotuEntity getOcenaPrzedmiotuByPrzedmiotAndProfil(final Integer idPrzedmiotu, final Integer idProfilu);
 }

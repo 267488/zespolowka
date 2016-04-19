@@ -75,6 +75,25 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
 		}
 	);
     };
+    
+    $scope.openEditUczenDlg = function() {
+	var modalInstance = $modal.open({
+	    templateUrl: '/partials/_edit_uczen.html',
+	    controller: 'EditUczenCtrl',
+	    scope: $scope
+	});
+
+        modalInstance.result.then(
+                function (newUczen) {
+                    $http.get('/api/uczen?all=true').success(function(data) {
+                    $scope.uczen = data;
+                    });
+                },
+                function () {
+                }
+        );
+    };
+    
 }]);
 
 ///////////////// ADD NEW UCZEN CONTROLLER /////////////////////
@@ -99,6 +118,36 @@ biking2Controllers.controller('AddNewUczenCtrl', ['$scope', '$modalInstance', '$
 	$http({
 	    method: 'POST',
 	    url: '/api/uczen',
+	    data: $scope.uczen
+	}).success(function(data) {
+	    $scope.submitting = false;
+	    $modalInstance.close(data);
+	}).error(function(data, status) {
+	    $scope.submitting = false;
+	    if (status === 400)
+		$scope.badRequest = data;
+            else if (status === 409)
+                $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
+	});
+    };
+}]);
+
+/////////////////// EDIT UCZEN CONTROLLER //////////////////////////
+
+biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modalInstance', '$http', function($scope, $modalInstance, $http) {
+    $http.get('/api/uczen/1').success(function(data) {
+	$scope.uczen = data;
+    });
+
+    $scope.cancel = function() {
+	$modalInstance.dismiss('cancel');
+    };
+
+    $scope.submit = function() {
+	$scope.submitting = true;
+	$http({
+	    method: 'PUT',
+	    url: '/api/uczen/1',
 	    data: $scope.uczen
 	}).success(function(data) {
 	    $scope.submitting = false;
@@ -328,6 +377,25 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
 		}
 	);
     };
+    
+    $scope.openEditSzkolaDlg = function() {
+	var modalInstance = $modal.open({
+	    templateUrl: '/partials/_edit_szkola.html',
+	    controller: 'EditSzkolaCtrl',
+	    scope: $scope
+	});
+
+	modalInstance.result.then(
+		function(newSzkola) {
+		    $http.get('/api/szkola?all=true').success(function(data) {
+                        $scope.szkola = data;
+                    });
+		},
+		function() {
+		}
+	);
+    };
+    
 }]);
 
 biking2Controllers.controller('AddNewUlubioneCtrl', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
@@ -376,6 +444,7 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
     $scope.szkola = {
 	id: null,
         name: null,
+        numer: null,
 	adres: null,
         mail: null,
         password: null,
@@ -388,9 +457,39 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
 
     $scope.submit = function() {
 	$scope.submitting = true;
+        console.log("NUMER SZKOLY" + $scope.szkola.numer);
 	$http({
 	    method: 'POST',
 	    url: '/api/szkola',
+	    data: $scope.szkola
+	}).success(function(data) {
+	    $scope.submitting = false;
+	    $modalInstance.close(data);
+	}).error(function(data, status) {
+	    $scope.submitting = false;
+	    if (status === 400)
+		$scope.badRequest = data;
+            else if (status === 409)
+                $scope.badRequest = 'Szkola o takiej nazwie juz istnieje';
+	});
+    };
+}]);
+
+//////////EDIT SZKOLA///////////////
+biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$modalInstance', '$http', function($scope, $modalInstance, $http) {
+    $http.get('/api/szkola/1').success(function(data) {
+	$scope.szkola = data;
+    });
+
+    $scope.cancel = function() {
+	$modalInstance.dismiss('cancel');
+    };
+
+    $scope.submit = function() {
+	$scope.submitting = true;
+	$http({
+	    method: 'PUT',
+	    url: '/api/szkola/1',
 	    data: $scope.szkola
 	}).success(function(data) {
 	    $scope.submitting = false;

@@ -91,7 +91,7 @@
             <div class="counter-title">WYPEŁNIONO</div>
 
             <div class="button-container"> 
-                <a href="#" type="button" class="btn btn-primary btn-lg">UZUPEŁNIJ DANE</a>
+                <a href="#" type="button" class="btn button-curve">UZUPEŁNIJ DANE</a>
             </div>
 
         </div>
@@ -107,88 +107,27 @@
 
         <div class="widget">
 
+            <div class="list-container list1" data-mcs-theme="minimal-dark">
+							
+                <div class="content level1" ng-repeat="s in proponowaneSzkoly | orderBy:['uczenId', 'profilId',]">
+
+                        <a href="#" title="{{ s.profilId.szkola.name }}">
+                                <div class="img"></div>
+                                <span class="number">4</span>
+                        </a>
+
+                        <div class="text-container">
+                                <a href="#" title="{{ s.profilId.szkola.name }}"><div class="name">{{ s.profilId.szkola.name }}</div></a>
+                                <div class="subject">{{ s.profilId.profilNazwa.nazwa }}</div><div class="distance">{{ s.profilId.szkola.adres }}</div><em class="unit">{{ s.profilId.szkola.kodpocztowy }}</em>
+                        </div>
+
+                        <span class="glyphicon glyphicon-star-empty"></span>
+
+                </div>
             
-            <table class="table">
-                <tr ng-repeat="s in proponowaneSzkoly | orderBy:['uczenId', 'profilId',]">
-                    <td>{{ s.profilId.szkola.name }}</td>
-                    <td>{{ s.profilId.profilNazwa.nazwa }}</td>
-                    <td>{{ s.profilId.szkola.adres }}</td>
-                    <td>{{ s.profilId.szkola.kodpocztowy }}</td>
-                </tr>
-            </table>
-           
-<!--
-            <div class="list-container">
-
-                <div class="content position-1 level1">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-2 level1">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-1 level2">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-1 level3">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-1 level3">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-1 level4">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-
-            </div>
--->
+            </div>          
+            
+            
         </div>
     </div>
 
@@ -196,58 +135,31 @@
 
         <h2 class="title">ULUBIONE SZKOŁY</h2>
 
- <!--       <div class="widget"> -->
+        <div class="widget">
+    
+            <div class="list-container list2">
+                <div class="content level1" ng-repeat="s in ulubione_szkoly | orderBy:['szkolaId']">
 
-            
-            <table class="table">
-                    <tr ng-repeat="s in ulubione_szkoly | orderBy:['szkolaId']">
-                            <td>{{ s.szkolaId.name }}</td>
-                            <td>{{ s.szkolaId.adres }}</td>
-                            <td>{{ s.szkolaId.kodpocztowy }}</td>
-                    </tr>
-            </table>
-            
-<!--
-            <div class="list-container">
+                        <a href="#" title="{{ s.szkolaId.name }}">
+                                <div class="img"></div>
+                                <span class="number">4</span>
+                        </a>
 
-                <div class="content position-1 level1">
+                        <div class="text-container">
+                                <a href="#" title="{{ s.szkolaId.name }}"><div class="name">{{ s.szkolaId.name }}</div></a>
+                                <div class="subject">{{ s.szkolaId.adres }}</div><div class="distance">{{ s.szkolaId.kodpocztowy }}</div>
+                        </div>
 
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
+                        <span class="glyphicon glyphicon-star"></span>
 
                 </div>
-                <div class="content position-2 level2">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-                <div class="content position-1 level3">
-
-                    <div class="img"></div>
-                    <span class="number">4</span>
-
-                    <div class="text-container">
-                        <div class="name">Liceum Ogólnokształcące nr IV w Toruniu</div>
-                        <div class="subject">Matematyka</div><div class="distance">12</div><em class="unit">km</em>
-                    </div>
-
-                </div>
-
             </div>
             
         </div>
--->
+
     </div>
 
 </div>
+<script src="js/piechart.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/home.js"></script>

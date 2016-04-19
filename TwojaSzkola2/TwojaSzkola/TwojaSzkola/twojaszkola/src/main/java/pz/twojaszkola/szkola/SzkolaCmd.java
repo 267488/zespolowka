@@ -35,6 +35,9 @@ public class SzkolaCmd {
     @Size(max = 255)
     private String name;
 
+    //@NotBlank
+    private Integer numer;
+    
     @NotBlank
     @Size(max = 255)
     private String mail;
@@ -61,6 +64,14 @@ public class SzkolaCmd {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumer() {
+        return numer;
+    }
+
+    public void setNumer(Integer numer) {
+        this.numer = numer;
     }
 
     public String getMail() {

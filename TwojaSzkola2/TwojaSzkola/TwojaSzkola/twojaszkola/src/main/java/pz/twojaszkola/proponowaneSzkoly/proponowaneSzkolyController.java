@@ -55,8 +55,6 @@ public class proponowaneSzkolyController {
     public List<proponowaneSzkolyEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<proponowaneSzkolyEntity> rv;
         rv = proponowaneSzkolyRepo.findAll(new Sort(Sort.Direction.ASC, "uczenId", "profilId", "punktacja"));
-        //Integer id =1;
-        //rv=zainteresowaniaRepo.findByPrzedmiotId(id);
         return rv;
     }
         
@@ -66,11 +64,6 @@ public class proponowaneSzkolyController {
     if(bindingResult.hasErrors()) {
         throw new IllegalArgumentException("Jakis blad z argumentami.");
     }
-    
-    //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
-    //final UczenEntity uczen = zainteresowaniaRepo.getUczenById(id);
-    //final UczenEntity bike = UczenRepository.findById(idU);
-    //final przedmiotyEntity bike = przedmiotyRepository.findById(idP);
    
     final proponowaneSzkolyEntity propozycje = new proponowaneSzkolyEntity(newProponowaneSzkoly.getUczenId(), newProponowaneSzkoly.getProfilId(), newProponowaneSzkoly.getPunktacja());
             return this.proponowaneSzkolyRepo.save(propozycje);	

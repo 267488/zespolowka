@@ -82,6 +82,14 @@ public class SzkolaController {
             return rv;
         }
         
+        @RequestMapping(value = "/szkola/{id}", method = GET)
+        public SzkolaEntity getSzkolaById(@PathVariable Integer id , final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            
+            final SzkolaEntity szkola = szkolaRepository.findById(id);
+            
+            return szkola;
+        }
+        
         @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
         public List<proponowaneSzkolyEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             Integer idUcznia = 9;
@@ -121,16 +129,20 @@ public class SzkolaController {
             
             Collections.sort(proponowane, new proponowaneSzkolyEntity());
             for(proponowaneSzkolyEntity p : proponowane){
-               Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG3: " + p.getUczenId().getName() + ", " + p.getProfilId().getProfil_nazwa().getNazwa() + ", " + p.getProfilId().getSzkola().getName() +"," + p.getPunktacja());
+            //   Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG3: " + p.getUczenId().getName() + ", " + p.getProfilId().getProfil_nazwa().getNazwa() + ", " + p.getProfilId().getSzkola().getName() +"," + p.getPunktacja());
             }
             int ilosc = 3;
-            if(proponowane.size()/2<3) ilosc=proponowane.size()/2;
+            if(proponowane.size()<3) ilosc=proponowane.size();
+            //Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + proponowane.size());
+            
             for(int i=0; i<ilosc;i++){
-                rv.add(proponowane.get(i));
+                if(proponowane.get(i).getPunktacja()!=0){
+                    rv.add(proponowane.get(i));
+                }
                 //rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
             }
             for(proponowaneSzkolyEntity s : rv){
-               Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getProfilId().getSzkola().getName());
+               Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG5: " + s.getProfilId().getSzkola().getName());
             }
             return rv;
         }
@@ -141,13 +153,12 @@ public class SzkolaController {
            // if(bindingResult.hasErrors()) {
            //     throw new IllegalArgumentException("Invalid arguments.");
            // }
-	
-            
-            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getMail(), newSzkola.getPassword(), newSzkola.getAdres(),newSzkola.getKodpocztowy());
+            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOGG: " + newSzkola.getNumer());
+            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getNumer(), newSzkola.getMail(), newSzkola.getPassword(), newSzkola.getAdres(),newSzkola.getKodpocztowy());
             return this.szkolaRepository.save(szkola);	
         }
         
-        @RequestMapping(value = "/szkola/{id:\\d+}", method = PUT)
+        @RequestMapping(value = "/szkola/{id}", method = PUT)
         @PreAuthorize("isAuthenticated()")
         @Transactional
         public SzkolaEntity updateSzkola(final @PathVariable Integer id, final @RequestBody @Valid SzkolaCmd updatedSzkola, final BindingResult bindingResult) {
@@ -155,13 +166,14 @@ public class SzkolaController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final SzkolaEntity szkola = szkolaRepository.findOne(id);
+            final SzkolaEntity szkola = new SzkolaEntity(updatedSzkola.getName(), updatedSzkola.getNumer(), updatedSzkola.getMail(), updatedSzkola.getPassword(), updatedSzkola.getAdres(),updatedSzkola.getKodpocztowy());
+            szkola.setId(id);
 		
             if(szkola == null) {
                 throw new ResourceNotFoundException();
             } 
             
-            return szkola;
+            return this.szkolaRepository.save(szkola);	
         }
 }
 

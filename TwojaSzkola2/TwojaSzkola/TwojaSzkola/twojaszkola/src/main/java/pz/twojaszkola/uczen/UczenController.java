@@ -54,6 +54,14 @@ public class UczenController {
             return rv;
         }
         
+        @RequestMapping(value = "/uczen/{id}", method = GET)
+        public UczenEntity getUczenById(@PathVariable Integer id , final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            
+            final UczenEntity uczen = uczenRepository.findById(id);
+            
+            return uczen;
+        }
+        
         @RequestMapping(value = "/uczen", method = POST) 
         @PreAuthorize("isAuthenticated()")
         public UczenEntity createUczen(final @RequestBody @Valid UczenCmd newUczen, final BindingResult bindingResult) {
@@ -65,7 +73,7 @@ public class UczenController {
             return this.uczenRepository.save(uczen);	
         }
         
-        @RequestMapping(value = "/uczen/{id:\\d+}", method = PUT)
+        @RequestMapping(value = "/uczen/{id}", method = PUT)
         @PreAuthorize("isAuthenticated()")
         @Transactional
         public UczenEntity updateUczen(final @PathVariable Integer id, final @RequestBody @Valid UczenCmd updatedUczen, final BindingResult bindingResult) {
@@ -73,12 +81,13 @@ public class UczenController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final UczenEntity uczen = uczenRepository.findOne(id);
-		
+            final UczenEntity uczen = new UczenEntity(updatedUczen.getPesel(), updatedUczen.getName(), updatedUczen.getLastname(), updatedUczen.getMail(), updatedUczen.getPassword(), updatedUczen.getKodpocztowy());
+            uczen.setId(id);
+            
             if(uczen == null) {
                 throw new ResourceNotFoundException();
             } 
             
-            return uczen;
+            return this.uczenRepository.save(uczen);
         }
 }

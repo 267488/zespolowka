@@ -47,6 +47,10 @@ public class SzkolaEntity implements Serializable {
     @NotBlank
     private String name;
 
+    @Column(name = "numer",nullable = false)
+    //@NotBlank
+    private Integer numer;
+    
     @Column(name = "mail", nullable = false)
     @Size(max = 255)
     @NotBlank
@@ -72,8 +76,9 @@ public class SzkolaEntity implements Serializable {
         
     }
     
-    public SzkolaEntity(String name, String mail, String password, String adres, String kodpocztowy) {
+    public SzkolaEntity(String name, Integer numer, String mail, String password, String adres, String kodpocztowy) {
         this.name = name;
+        this.numer = numer;
         this.mail = mail;
         this.password = password;
         this.adres = adres;
@@ -86,6 +91,14 @@ public class SzkolaEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumer() {
+        return numer;
+    }
+
+    public void setNumer(Integer numer) {
+        this.numer = numer;
     }
 
     public String getMail() {

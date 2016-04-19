@@ -45,6 +45,13 @@ import pz.twojaszkola.przedmioty.przedmiotyEntity;
         + " where b.profilId.id = :idProfilu"
         + " and b.przedmiotId.id = :idPrzedmiotu"
    )
+//   @NamedQuery(
+//        name = "OcenaPrzedmiotuEntity.getOcenaPrzedmiotuByPrzedmiotAndProfil",
+//        query
+//        = "Select b OcenaPrzedmiotuEntity b "
+//        + " where b.profilId.id = :idProfilu"
+//        + " and b.przedmiotId.id = :idPrzedmiotu"
+//   )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class OcenaPrzedmiotuEntity implements Serializable {
@@ -70,10 +77,10 @@ public class OcenaPrzedmiotuEntity implements Serializable {
     protected OcenaPrzedmiotuEntity() {
     }
 
-    public OcenaPrzedmiotuEntity(ProfilEntity profil_id, przedmiotyEntity przedmiot_id, Integer stopien_zainteresowania) {
+    public OcenaPrzedmiotuEntity(ProfilEntity profil_id, przedmiotyEntity przedmiot_id, Integer ocena) {
         this.profilId = profil_id;
         this.przedmiotId = przedmiot_id;
-        this.ocena = stopien_zainteresowania;
+        this.ocena = ocena;
     }
     
     public Integer getId() {

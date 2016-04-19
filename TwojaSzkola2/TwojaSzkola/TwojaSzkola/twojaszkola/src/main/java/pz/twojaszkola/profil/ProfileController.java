@@ -32,6 +32,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuEntity;
+import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
 import pz.twojaszkola.przedmioty.przedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyCmd;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
@@ -55,18 +57,21 @@ public class ProfileController {
         private final SzkolaRepository szkolaRepository;
         private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo;
         private final przedmiotyRepository przedmiotyRepo;
+        private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
         
         @Autowired
         public ProfileController(final ProfilRepository profilRepository,
                                  final Profil_nazwaRepository profil_nazwaRepository,
                                  final SzkolaRepository szkolaRepository,
                                  final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo,
-                                 final przedmiotyRepository przedmiotyRepo) {            
+                                 final przedmiotyRepository przedmiotyRepo,
+                                 final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {            
             this.profilRepository = profilRepository;
             this.profil_nazwaRepository = profil_nazwaRepository;
             this.szkolaRepository = szkolaRepository;
             this.rozszerzonePrzedmiotyRepo = rozszerzonePrzedmiotyRepo;
             this.przedmiotyRepo = przedmiotyRepo;
+            this.ocenaPrzedmiotuRepo = ocenaPrzedmiotuRepo;
         }
         
         @RequestMapping(value = "/profile", method = GET)
@@ -109,8 +114,14 @@ public class ProfileController {
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG5 name przedmiotu: " + przedmiot.getName());
             
                 this.rozszerzonePrzedmiotyRepo.save(rozsz);
+                if(ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil(przedmiot.getId(), profil.getId())==null){
+                   OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil,przedmiot,5);
+                   this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
+                }
+                
                 return 	e;
             }
+            
             return null;
         }
         
