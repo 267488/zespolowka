@@ -42,6 +42,13 @@ import pz.twojaszkola.uczen.UczenEntity;
 	    query
 	    = "Select b from UlubionaSzkolaEntity2 b "
 	    + " where b.uczenId.id = :idUcznia"
+   ),
+    @NamedQuery(
+	    name = "UlubionaSzkolaEntity2.findBySzkolaIdAndUczenId",
+	    query
+	    = "Select b from UlubionaSzkolaEntity2 b "
+	    + " where b.szkolaId.id = :idSzkoly"
+            + " and b.uczenId.id = :idUcznia"
    )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)

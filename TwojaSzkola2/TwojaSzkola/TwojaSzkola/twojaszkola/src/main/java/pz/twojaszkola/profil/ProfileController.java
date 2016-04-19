@@ -39,9 +39,9 @@ import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyCmd;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
-import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.przedmioty.przedmiotyRepository;
+import pz.twojaszkola.szkola.SzkolaEntity;
 
 /**
  *

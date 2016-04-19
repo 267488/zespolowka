@@ -17,7 +17,6 @@ package pz.twojaszkola.ulubione;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-//import pz.twojaszkola.uczen.UczenEntity;
 
 /**
  *
@@ -26,5 +25,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UlubionaSzkolaRepository extends JpaRepository<UlubionaSzkolaEntity2, Integer>{
     
     List<UlubionaSzkolaEntity2> findByUczenId(final Integer idUcznia);
+    UlubionaSzkolaEntity2 findBySzkolaIdAndUczenId(final Integer idSzkoly, final Integer idUcznia);
     UlubionaSzkolaEntity2 findById(final Integer id);
 }

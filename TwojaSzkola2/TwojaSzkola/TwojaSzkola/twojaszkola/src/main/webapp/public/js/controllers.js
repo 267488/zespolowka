@@ -371,13 +371,13 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
     });
     
     $scope.szukane = null;
-    
+
     $scope.Szukaj = function(){
         $scope.szukane = document.getElementById("SzukajSzkoly").value;
         console.log("SZUKANE " + $scope.szukane);
         $http({
 	    method: 'GET',
-	    url: '/api/szukaneSzkoly/' + $scope.szukane,
+	    url: '/api/szukaneSzkoly/' + $scope.szukane
 	}).success(function(data) {
                 $scope.szkola = data;
 	}).error(function(data, status) {
@@ -392,12 +392,10 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
         $http.delete('/api/ulubionaSzkolaDelete/' + $scope.id)
         .success(function (data) {
            if(data){
-              $scope.dodawanie = false; 
+              $scope.dodawanie = false;
            }
-           //console.log('dodawanie' + $scope.dodawanie);
         })
         .error(function (data) {
-            //console.log('dodawanie2 ' + $scope.dodawanie);
         });
         if($scope.dodawanie){
 	$http({
@@ -407,12 +405,18 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
 	}).success(function(data) {
 	    $scope.submitting = false;
 	   //$modalInstance.close(data);
-                    if(!data){
-                        alert('Usunięto z ulubionych szkołę o id = ' + $scope.id);
-                    }
-                    else{
-                        alert('Dodano do ulubionych szkołę o id = ' + $scope.id);
-                    }
+                if(!data){
+                    alert('Usunięto z ulubionych szkołę o id = ' + $scope.id);
+                     $http.get('/api/szkola?all=true').success(function(data) {
+                        $scope.szkola = data;
+                    });
+                }
+                else{
+                    alert('Dodano do ulubionych szkołę o id = ' + $scope.id);
+                     $http.get('/api/szkola?all=true').success(function(data) {
+                        $scope.szkola = data;
+                    });
+                }
 	}).error(function(data, status) {
 	    $scope.submitting = false;
 	    if (status === 400)

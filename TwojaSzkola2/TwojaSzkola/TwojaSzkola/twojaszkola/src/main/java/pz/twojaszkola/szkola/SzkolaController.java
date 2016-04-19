@@ -36,7 +36,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
-import pz.twojaszkola.mediany.MedianyEntity;
 import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
@@ -46,6 +45,8 @@ import pz.twojaszkola.przedmioty.przedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
+import pz.twojaszkola.ulubione.UlubionaSzkolaEntity2;
+import pz.twojaszkola.ulubione.UlubionaSzkolaRepository;
 import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
 
 /**
@@ -63,9 +64,10 @@ public class SzkolaController {
         private final UczenRepository uczenRepository;
         private final zainteresowaniaRepository zainteresowaniaRepo;
         private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
+        private final UlubionaSzkolaRepository ulubionaSzkolaRepo;
 
         @Autowired
-        public SzkolaController(final SzkolaRepository szkolaRepository, final MedianyRepository medianyRepository, final ProfilRepository profilRepository, final przedmiotyRepository przedmiotyRepo, final UczenRepository uczenRepository, final zainteresowaniaRepository zainteresowaniaRepo, final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {
+        public SzkolaController(final SzkolaRepository szkolaRepository, final MedianyRepository medianyRepository, final ProfilRepository profilRepository, final przedmiotyRepository przedmiotyRepo, final UczenRepository uczenRepository, final zainteresowaniaRepository zainteresowaniaRepo, final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo, final UlubionaSzkolaRepository ulubionaSzkolaRepo) {
             this.szkolaRepository = szkolaRepository;
             this.medianyRepository = medianyRepository;
             this.profilRepository = profilRepository;
@@ -73,14 +75,39 @@ public class SzkolaController {
             this.uczenRepository =uczenRepository;
             this.zainteresowaniaRepo = zainteresowaniaRepo;
             this.ocenaPrzedmiotuRepo = ocenaPrzedmiotuRepo;
+            this.ulubionaSzkolaRepo = ulubionaSzkolaRepo;
         }
         
         @RequestMapping(value = "/szkola", method = GET)
         public List<SzkolaEntity> getSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             List<SzkolaEntity> rv;
-            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
+            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy", "rodzajGwiazdki"));
             return rv;
         }
+        
+//        @RequestMapping(value = "/szkolaZGwiazdkami", method = GET)
+//        public List<SzkolaEntity> getSzkolaZGwiazdkami(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+//            List<SzkolaEntity> tmp;
+//            List<SzkolaZGwiazdkami> rv = new ArrayList<SzkolaZGwiazdkami>();
+//            //List<UlubionaSzkolaEntity2> tmp2;
+//            tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
+//            
+//            for(SzkolaEntity s : tmp){
+//                SzkolaZGwiazdkami gw;
+//                ////////////////////////////////////ID UCZNIA //////////////////////////////
+//                if(ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(),2)!=null){
+//                    gw = new SzkolaZGwiazdkami(s.getId(),s.getName(),s.getNumer(),s.getMail(),s.getPassword(),s.getAdres(),s.getKodpocztowy(),"glyphicon-star");
+//                }else{
+//                    gw = new SzkolaZGwiazdkami(s.getId(),s.getName(),s.getNumer(),s.getMail(),s.getPassword(),s.getAdres(),s.getKodpocztowy(),"glyphicon-star-empty");
+//                }
+//                rv.add(gw);
+//            }
+//            
+//            for(SzkolaZGwiazdkami g : rv){
+//                Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG Szkola Z Gwiazdkami " + g.getName() + ", " + g.getRodzajGwiazdki()); 
+//            }
+//            return rv;
+//        }
         
         @RequestMapping(value = "/szkola/{id}", method = GET)
         public SzkolaEntity getSzkolaById(@PathVariable Integer id , final @RequestParam(required = false, defaultValue = "false") boolean all) {

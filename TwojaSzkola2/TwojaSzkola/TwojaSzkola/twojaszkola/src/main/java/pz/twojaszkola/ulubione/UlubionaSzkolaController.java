@@ -61,7 +61,6 @@ public class UlubionaSzkolaController {
     @RequestMapping(value = "/ulubioneSzkoly", method = GET)
     public List<UlubionaSzkolaEntity2> getUlubionaSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<UlubionaSzkolaEntity2> rv;
-        //rv = ulubionaSzkolaRepository.findAll(new Sort(Sort.Direction.ASC, "uczenId", "szkolaId"));
         rv = ulubionaSzkolaRepository.findByUczenId(2);
         return rv;
     }
@@ -81,8 +80,10 @@ public class UlubionaSzkolaController {
             }
         }
         if(dodawanie){
-            final UlubionaSzkolaEntity2 ulubione = new UlubionaSzkolaEntity2(uczen, szkola);
-            return this.ulubionaSzkolaRepository.save(ulubione);	
+            final UlubionaSzkolaEntity2 ulubione = new UlubionaSzkolaEntity2(uczen, szkola);	
+            szkola.setRodzajGwiazdki("glyphicon-star");
+            this.szkolaRepository.save(szkola);
+            return this.ulubionaSzkolaRepository.save(ulubione);
         }
         return null;
     }
@@ -103,6 +104,9 @@ public class UlubionaSzkolaController {
             }
         }
         if(usuwanie){
+            final SzkolaEntity szkola = szkolaRepository.findById(id);
+            szkola.setRodzajGwiazdki("glyphicon-star-empty");
+            this.szkolaRepository.save(szkola);
             ulubionaSzkolaRepository.delete(szkolaDoUsuniecia);	
             return szkolaDoUsuniecia;
         }

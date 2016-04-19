@@ -31,7 +31,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.support.ResourceNotFoundException;
-import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
 
 /**

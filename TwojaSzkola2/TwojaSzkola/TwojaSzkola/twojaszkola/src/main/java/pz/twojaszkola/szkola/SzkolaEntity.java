@@ -71,6 +71,10 @@ public class SzkolaEntity implements Serializable {
     @NotBlank
     private String kodpocztowy;
     
+    @Column(name = "rodzajGwiazdki", nullable = false)
+    @NotBlank
+    private String rodzajGwiazdki;
+    
     protected SzkolaEntity()
     {
         
@@ -83,6 +87,7 @@ public class SzkolaEntity implements Serializable {
         this.password = password;
         this.adres = adres;
         this.kodpocztowy = kodpocztowy;
+        this.rodzajGwiazdki = "glyphicon-star-empty";
     }
     
     public String getName() {
@@ -133,7 +138,14 @@ public class SzkolaEntity implements Serializable {
         this.kodpocztowy = kodpocztowy;
     }
 
-    
+    public String getRodzajGwiazdki() {
+        return rodzajGwiazdki;
+    }
+
+    public void setRodzajGwiazdki(String rodzajGwiazdki) {
+        this.rodzajGwiazdki = rodzajGwiazdki;
+    }
+
 
     public Integer getId() {
         return id;

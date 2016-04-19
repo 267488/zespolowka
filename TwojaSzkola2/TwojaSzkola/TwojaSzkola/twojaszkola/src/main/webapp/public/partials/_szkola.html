@@ -65,7 +65,7 @@
                 <!--        <div>
                             <button type="button" class="btn btn-default star" name="{{ s.id }}" id="{{ s.id }}" data-ng-click="Ulubione($event);">Ulubione</button>
                         </div> -->
-                        <span class="glyphicon glyphicon-star-empty" id="{{ s.id }}" ng-click="Ulubione($event)"></span>
+                        <span class="glyphicon {{s.rodzajGwiazdki}}" id="{{ s.id }}" ng-click="Ulubione($event)"></span>
                         <div class="info">
                             <a href="#"><div class="name">{{ s.name }}</div></a>
                             <div class="city">Szkoła Podstawowa</div> 
