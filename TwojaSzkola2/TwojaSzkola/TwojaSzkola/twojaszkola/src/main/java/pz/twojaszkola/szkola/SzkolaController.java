@@ -90,6 +90,21 @@ public class SzkolaController {
             return szkola;
         }
         
+        @RequestMapping(value = "/szukaneSzkoly/{nazwa}", method = GET)
+        public List<SzkolaEntity> getSzukaneSzkoly(@PathVariable String nazwa , final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            List<SzkolaEntity> tmp;
+            List<SzkolaEntity> rv = new ArrayList<SzkolaEntity>();
+            tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
+            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG SzUKAJ: " + nazwa.toLowerCase()); 
+            for(SzkolaEntity s : tmp){
+                Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, s.getName().toLowerCase() + " SzukaJ NR: " + s.getName().indexOf(nazwa));
+               if ((s.getName().toLowerCase()).indexOf(nazwa.toLowerCase()) >= 0){
+                   rv.add(s);
+               }
+            }
+            return rv;
+        }
+        
         @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
         public List<proponowaneSzkolyEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             Integer idUcznia = 9;

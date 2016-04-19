@@ -91,7 +91,10 @@ public class ProfileController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
             final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
-            final SzkolaEntity szkola = szkolaRepository.findById(5);
+            
+            Integer idSzkoly=1; //////////////////////////////ID SZKOLY////////////////////////////////////////
+            
+            final SzkolaEntity szkola = szkolaRepository.findById(idSzkoly);
             
             List<ProfilEntity> rv;
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PROFIL_NAZWA : " + id);

@@ -13,21 +13,6 @@
 	</div>
         <div class="col-xs-12">
 		<p>Lista Przedmiotow</p>
-	<!--	<table class="table table-condensed table-bordered table-striped">
-		    <thead>
-			<tr>
-			    <th>Przedmiot</th>
-                            <th>Id</th>
-			</tr>
-		    </thead>
-		    <tbody>
-			<tr ng-repeat="s in przedmioty | orderBy:['id', 'name', 'kategoria']">
-			    <td>{{ s.name }}</td>
-                            <td>{{ s.id }}</td>
-                        </tr>
-		    </tbody>
-		</table>
-        -->
                 <select id="WybranyPrzedmiot" ng-model="myselect" ng-options="o.id as o.name for o in przedmioty"></select>
         <div class="form-group" data-ng-class="{'has-error': theForm.inputstopienZainteresowania.$invalid,'has-success': theForm.inputstopienZainteresowania.$valid}">
 	    <label for="inputName" class="col-sm-4 control-label">Stopien Zainteresowania</label>

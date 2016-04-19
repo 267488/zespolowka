@@ -57,6 +57,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    "/bikes",
             "/uczen",
             "/szkola",
+            "/nowaSzkola",
             "/profile",
             "/ocenaPrzedmiotu",
             "/rozszerzonePrzedmioty",

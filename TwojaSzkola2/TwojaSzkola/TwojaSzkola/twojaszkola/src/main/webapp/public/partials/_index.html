@@ -113,7 +113,7 @@
 
                         <a href="#" title="{{ s.profilId.szkola.name }}">
                                 <div class="img"></div>
-                                <span class="number">4</span>
+                                <span class="number">{{ s.profilId.szkola.numer }}</span>
                         </a>
 
                         <div class="text-container">
@@ -121,7 +121,7 @@
                                 <div class="subject">{{ s.profilId.profilNazwa.nazwa }}</div><div class="distance">{{ s.profilId.szkola.adres }}</div><em class="unit">{{ s.profilId.szkola.kodpocztowy }}</em>
                         </div>
 
-                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty" id="{{ s.profilId.szkola.id }}" ng-click="Ulubione($event)"></span>
 
                 </div>
             
@@ -142,7 +142,7 @@
 
                         <a href="#" title="{{ s.szkolaId.name }}">
                                 <div class="img"></div>
-                                <span class="number">4</span>
+                                <span class="number">{{ s.szkolaId.numer }}</span>
                         </a>
 
                         <div class="text-container">
@@ -150,7 +150,7 @@
                                 <div class="subject">{{ s.szkolaId.adres }}</div><div class="distance">{{ s.szkolaId.kodpocztowy }}</div>
                         </div>
 
-                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star" id="{{ s.szkolaId.id }}" ng-click="Ulubione($event)"></span>
 
                 </div>
             </div>

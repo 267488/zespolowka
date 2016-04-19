@@ -37,6 +37,48 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', func
 //    $http.get('/api/summary').success(function(data) {
 //	$scope.summary = data;
 //    });
+
+    $scope.Ulubione = function(event) {
+        $scope.id=event.target.id;
+        $scope.dodawanie = true;
+        $scope.submitting = true;
+        $http.delete('/api/ulubionaSzkolaDelete/' + $scope.id)
+        .success(function (data) {
+           if(data){
+              $scope.dodawanie = false; 
+           }
+           //console.log('dodawanie' + $scope.dodawanie);
+        })
+        .error(function (data) {
+            //console.log('dodawanie2 ' + $scope.dodawanie);
+        });
+        if($scope.dodawanie){
+	$http({
+	    method: 'POST',
+	    url: '/api/ulubionaSzkola/' + $scope.id
+	   // data: $scope.id
+	}).success(function(data) {
+	    $scope.submitting = false;
+	   //$modalInstance.close(data);
+                    if(!data){
+                        alert('Usunięto z ulubionych szkołę o id = ' + $scope.id);
+                    }
+                    else{
+                        alert('Dodano do ulubionych szkołę o id = ' + $scope.id);
+                    }
+	}).error(function(data, status) {
+	    $scope.submitting = false;
+	    if (status === 400)
+		$scope.badRequest = data;
+            else if (status === 409)
+                $scope.badRequest = 'Ulubiona Szkola o takiej nazwie juz istnieje';
+	});
+        }
+        $http.get('/api/ulubioneSzkoly?all=true').success(function(data) {
+            $scope.ulubione_szkoly = data;
+        });
+    };
+    
     $scope.currentBikingPicture = '/img/p1.jpg';
 
     $http.get('/api/bikingPictures').success(function(data) {
@@ -319,10 +361,29 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
 	$scope.szkola = data;
     });
     
+    $http.get('/api/przedmioty?all=true').success(function(data) {
+	$scope.przedmioty = data;
+    });
+    
     $http.get('/api/ulubioneSzkoly?all=true').success(function(data) {
 	$scope.ulubione_szkoly = data;
         console.log('ulubione_szkoly' + $scope.ulubione_szkoly );
     });
+    
+    $scope.szukane = null;
+    
+    $scope.Szukaj = function(){
+        $scope.szukane = document.getElementById("SzukajSzkoly").value;
+        console.log("SZUKANE " + $scope.szukane);
+        $http({
+	    method: 'GET',
+	    url: '/api/szukaneSzkoly/' + $scope.szukane,
+	}).success(function(data) {
+                $scope.szkola = data;
+	}).error(function(data, status) {
+	    
+	});
+    };
     
     $scope.Ulubione = function(event) {
         $scope.id=event.target.id;

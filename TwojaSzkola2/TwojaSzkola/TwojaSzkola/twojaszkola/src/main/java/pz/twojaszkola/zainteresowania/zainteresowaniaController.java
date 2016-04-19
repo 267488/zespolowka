@@ -80,7 +80,8 @@ public class zainteresowaniaController {
     
     //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
     
-    final UczenEntity uczen = uczenRepo.findById(9);
+    Integer idUcznia = 9; ////////////////////////////////ID UCZNIA/////////////////////////////////////////////////////
+    final UczenEntity uczen = uczenRepo.findById(idUcznia);
     Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
      Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG1: " + newZainteresowania.getStopienZainteresowania());
     
