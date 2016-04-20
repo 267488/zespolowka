@@ -19,83 +19,14 @@
                 </select>
             </div>
 	</div>
-        <div class="form-group" data-ng-class="{'has-error': theForm.inputRozszerzonyPrzedmiot.$invalid,'has-success': theForm.inputRozszerzonyPrzedmiot.$valid}">
-	    <label for="inputRozszerzonyPrzedmiot" class="col-sm-4 control-label">Rozszerzony Przedmiot</label>
-	    <div class="col-sm-8">
-        	<select id="inputRozszerzonyPrzedmiot" name="inputRozszerzonyPrzedmiot" class="form-control" data-ng-model="rozszerzonePrzedmioty.przedmiotId" data-ng-required="true">
-		    <option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
-                </select>
-            </div>
-	</div>
         <div class="form-group checkbox-container">
             <div class="label-container"><label for="contain">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="right" title="Przedmioty rozszerzone, które mają znaleźć się w profilu szkoły."></i></div>
-            <div data-ng-repeat="przedmiot in przedmioty" class="checkbox">
+            <div data-ng-repeat="przedmiot in przedmioty" class="przedmiot" id="{{przedmiot.id}}">
                     <label>
-                            <input id="{{przedmiot.id}}" type="checkbox">
-                            <span>{{przedmiot.name}}</span>
+                            <input type="checkbox" ng-change="sync(bool, przedmiot)" ng-model="bool" ng-checked="isChecked(przedmiot.id)">
+                            <span>{{przedmiot.name}} Selected: {{bool}} </span>
                     </label>
             </div>
-    <!--    <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Matematyka</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Angielski</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Historia</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Fizyka</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Chemia</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Biologia</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Geografia</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Informatyka</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>Sztuka</span>
-                    </label>
-            </div>
-            <div class="checkbox">
-                    <label>
-                            <input type="checkbox">
-                            <span>WF</span>
-                    </label>
-            </div>
-    -->
         </div>
     </form>
 </div>

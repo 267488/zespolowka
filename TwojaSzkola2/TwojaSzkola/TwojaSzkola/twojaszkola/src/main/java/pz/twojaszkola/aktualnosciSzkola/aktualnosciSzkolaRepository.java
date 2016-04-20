@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.profil;
+package pz.twojaszkola.aktualnosciSzkola;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
- * @author radon
+ * @author KR
  */
-public interface ProfilRepository extends JpaRepository<ProfilEntity, Integer> {
-    ProfilEntity findById(final int id);
-    List<ProfilEntity> findByPrzedmiotNazwaIdAndSzkola(final Integer idPrzedmiotu, final Integer idSzkoly);
-    List<ProfilEntity> findByTypSzkoly(final String typSzkoly);
-    List<ProfilEntity> findSzkolySrednie(final String s1, final String s2, final String s3);
+public interface aktualnosciSzkolaRepository extends JpaRepository<aktualnosciSzkolaEntity, Integer> {
+    aktualnosciSzkolaEntity findById(final int id);
+    
 }

@@ -69,7 +69,27 @@ public class zainteresowaniaController {
         rv = zainteresowaniaRepo.findAll(new Sort(Sort.Direction.ASC, "uczenId", "przedmiotId", "stopienZainteresowania"));
         return rv;
     }
-        
+    
+    @RequestMapping(value = "/sumaZainteresowanUcznia", method = GET)
+    public Integer getSuma(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<zainteresowaniaEntity> rv;
+        Integer suma = 0;
+        Integer idUcznia = 1; //////////////////ID UCZNIA//////////////////////////////////////
+        rv = zainteresowaniaRepo.findByUczenId2(idUcznia);
+        for(zainteresowaniaEntity z : rv){
+            suma = suma + z.getStopienZainteresowania();
+        }
+        return suma;
+    }
+    
+    @RequestMapping(value = "/zainteresowaniaUcznia", method = GET)
+    public List<zainteresowaniaEntity> getZainteresowaniaUcznia(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<zainteresowaniaEntity> rv;
+        Integer idUcznia = 1; //////////////////ID UCZNIA//////////////////////////////////////
+        rv = zainteresowaniaRepo.findByUczenId2(idUcznia);
+        return rv;
+    }
+    
     @RequestMapping(value = "/zainteresowania", method = POST) 
     @PreAuthorize("isAuthenticated()")
     public zainteresowaniaEntity createZainteresowania(final @RequestBody @Valid zainteresowaniaCmd newZainteresowania, final BindingResult bindingResult) {
@@ -80,7 +100,7 @@ public class zainteresowaniaController {
     
     //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
     
-    Integer idUcznia = 9; ////////////////////////////////ID UCZNIA/////////////////////////////////////////////////////
+    Integer idUcznia = 1; ////////////////////////////////ID UCZNIA/////////////////////////////////////////////////////
     final UczenEntity uczen = uczenRepo.findById(idUcznia);
     Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
      Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG1: " + newZainteresowania.getStopienZainteresowania());

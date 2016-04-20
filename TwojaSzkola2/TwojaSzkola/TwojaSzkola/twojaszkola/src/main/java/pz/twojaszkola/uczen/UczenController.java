@@ -50,7 +50,7 @@ public class UczenController {
         @RequestMapping(value = "/uczen", method = GET)
         public List<UczenEntity> getUczen(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             List<UczenEntity> rv;
-            rv = uczenRepository.findAll(new Sort(Sort.Direction.ASC, "pesel", "name", "lastname", "mail", "password", "kodpocztowy"));
+            rv = uczenRepository.findAll(new Sort(Sort.Direction.ASC, "pesel", "name", "lastname", "mail", "czegoSzukam", "kodpocztowy"));
             return rv;
         }
         
@@ -69,7 +69,7 @@ public class UczenController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final UczenEntity uczen = new UczenEntity(newUczen.getPesel(), newUczen.getName(), newUczen.getLastname(), newUczen.getMail(), newUczen.getPassword(), newUczen.getKodpocztowy());
+            final UczenEntity uczen = new UczenEntity(newUczen.getPesel(), newUczen.getName(), newUczen.getLastname(), newUczen.getMail(), newUczen.getCzegoSzukam(), newUczen.getKodpocztowy());
             return this.uczenRepository.save(uczen);	
         }
         
@@ -81,7 +81,7 @@ public class UczenController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final UczenEntity uczen = new UczenEntity(updatedUczen.getPesel(), updatedUczen.getName(), updatedUczen.getLastname(), updatedUczen.getMail(), updatedUczen.getPassword(), updatedUczen.getKodpocztowy());
+            final UczenEntity uczen = new UczenEntity(updatedUczen.getPesel(), updatedUczen.getName(), updatedUczen.getLastname(), updatedUczen.getMail(), updatedUczen.getCzegoSzukam(), updatedUczen.getKodpocztowy());
             uczen.setId(id);
             
             if(uczen == null) {

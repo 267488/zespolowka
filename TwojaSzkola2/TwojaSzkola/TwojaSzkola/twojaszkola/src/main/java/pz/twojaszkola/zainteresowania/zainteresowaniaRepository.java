@@ -30,7 +30,6 @@ public interface zainteresowaniaRepository extends JpaRepository<zainteresowania
     List<zainteresowaniaEntity> findByPrzedmiotId(final Integer idPrzedmiotu);
     List<Integer> findByUczenId(final Integer idUcznia);
     List<zainteresowaniaEntity> findByUczenId2(final Integer idUcznia);
-   // przedmiotyEntity getPrzedmiotById(final String name);
     UczenEntity getUczenById(final Integer UczenId);
     Integer getStopienZaintByUczenAndPrzedmiot(final Integer idUcznia, final Integer idPrzedmiotu);
     zainteresowaniaEntity findById(final Integer id);

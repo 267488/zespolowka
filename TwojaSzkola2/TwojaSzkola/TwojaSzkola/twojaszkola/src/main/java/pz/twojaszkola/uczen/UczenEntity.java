@@ -63,10 +63,10 @@ public class UczenEntity implements Serializable {
     @Size(max = 255)
     private String mail;
     
-    @Column(name = "password", length = 255, nullable = false)
+    @Column(name = "czegoSzukam", length = 255, nullable = false)
     @NotBlank
     @Size(min=6, max = 255)
-    private String password;
+    private String czegoSzukam;
     
     @Column(name = "kodpocztowy", length = 255, nullable = false)
     @NotBlank
@@ -76,12 +76,12 @@ public class UczenEntity implements Serializable {
     protected UczenEntity() {
     }
     
-    public UczenEntity(String pesel, String name, String lastname, String  mail, String password, String kodpocztowy) {
+    public UczenEntity(String pesel, String name, String lastname, String  mail, String czegoSzukam, String kodpocztowy) {
         this.pesel=pesel;
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
-        this.password = password;
+        this.czegoSzukam = czegoSzukam;
         this.kodpocztowy = kodpocztowy;
     }
     
@@ -125,12 +125,12 @@ public class UczenEntity implements Serializable {
         this.mail = mail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCzegoSzukam() {
+        return czegoSzukam;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCzegoSzukam(String czegoSzukam) {
+        this.czegoSzukam = czegoSzukam;
     }
 
     public String getKodpocztowy() {

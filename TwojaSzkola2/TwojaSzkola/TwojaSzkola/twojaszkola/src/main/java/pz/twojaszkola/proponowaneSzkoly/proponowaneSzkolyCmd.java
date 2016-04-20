@@ -16,10 +16,8 @@
 package pz.twojaszkola.proponowaneSzkoly;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import pz.twojaszkola.profil.ProfilEntity;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
 import pz.twojaszkola.uczen.UczenEntity;
 
 /**

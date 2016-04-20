@@ -44,7 +44,7 @@ public class UczenCmd {
     
     @NotBlank
     @Size(min=6, max = 255)
-    private String password;
+    private String czegoSzukam;
     
     @NotBlank
     @Size(min=6, max = 6)
@@ -82,12 +82,12 @@ public class UczenCmd {
         this.mail = mail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCzegoSzukam() {
+        return czegoSzukam;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCzegoSzukam(String czegoSzukam) {
+        this.czegoSzukam = czegoSzukam;
     }
 
     public String getKodpocztowy() {

@@ -38,15 +38,20 @@
 	    </div>
 	</div>
         
-        <div class="form-group" data-ng-class="{'has-error': theForm.inputPassword.$invalid,'has-success': theForm.inputPassword.$valid}">
-	    <label for="inputName" class="col-sm-2 control-label">Password</label>
-	    <div class="col-sm-10">
-		<input id="inputPassword" name="inputPassword" type="password" pattern=".{6,}$" title="Six or more characters" class="form-control" data-ng-model="uczen.password" data-ng-required="true"/>
-	    </div>
-	</div>
+        <div class="form-group">
+            <label for="searchEducationLevel">CZEGO SZUKASZ</label>
+            <select class="form-control" ng-model="uczen.czegoSzukam" id="searchEducationLevel">
+                <option>Szkoła Podstawowa</option>
+                <option>Gimnazjum</option>
+                <option>Technikum</option>
+                <option>Szkoła Zawodowa</option>
+                <option>Liceum</option>
+                <option>Szkoła Średnia dowolnego typu</option>
+            </select>
+        </div>
         
         <div class="form-group" data-ng-class="{'has-error': theForm.inputKodpocztowy.$invalid,'has-success': theForm.inputKodpocztowy.$valid}">
-	    <label for="inputName" class="col-sm-2 control-label">Kodpocztowy</label>
+	    <label for="inputName" class="col-sm-2 control-label">Kod pocztowy</label>
 	    <div class="col-sm-10">
 		<input id="inputKodpocztowy" name="inputKodpocztowy" type="kodpocztowy" pattern="[0-9]{2,2}+-[0-9]{2,2}" class="form-control" data-ng-model="uczen.kodpocztowy" data-ng-required="true"/>
 	    </div>

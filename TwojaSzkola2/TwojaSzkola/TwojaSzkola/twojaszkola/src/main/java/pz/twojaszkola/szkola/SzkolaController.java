@@ -1,5 +1,5 @@
 /*
-* Copyright 2016 Agata Kostrzewa
+* Copyright 2016 radon & agata
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
 
 /**
  *
- * @author Agata
+ * @authors radon, agata
  */
 @RestController
 @RequestMapping("/api")
@@ -81,39 +81,13 @@ public class SzkolaController {
         @RequestMapping(value = "/szkola", method = GET)
         public List<SzkolaEntity> getSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
             List<SzkolaEntity> rv;
-            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy", "rodzajGwiazdki"));
+            rv = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "miasto", "adres", "kodpocztowy", "typSzkoly", "rodzajGwiazdki"));
             return rv;
         }
         
-//        @RequestMapping(value = "/szkolaZGwiazdkami", method = GET)
-//        public List<SzkolaEntity> getSzkolaZGwiazdkami(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-//            List<SzkolaEntity> tmp;
-//            List<SzkolaZGwiazdkami> rv = new ArrayList<SzkolaZGwiazdkami>();
-//            //List<UlubionaSzkolaEntity2> tmp2;
-//            tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
-//            
-//            for(SzkolaEntity s : tmp){
-//                SzkolaZGwiazdkami gw;
-//                ////////////////////////////////////ID UCZNIA //////////////////////////////
-//                if(ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(),2)!=null){
-//                    gw = new SzkolaZGwiazdkami(s.getId(),s.getName(),s.getNumer(),s.getMail(),s.getPassword(),s.getAdres(),s.getKodpocztowy(),"glyphicon-star");
-//                }else{
-//                    gw = new SzkolaZGwiazdkami(s.getId(),s.getName(),s.getNumer(),s.getMail(),s.getPassword(),s.getAdres(),s.getKodpocztowy(),"glyphicon-star-empty");
-//                }
-//                rv.add(gw);
-//            }
-//            
-//            for(SzkolaZGwiazdkami g : rv){
-//                Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG Szkola Z Gwiazdkami " + g.getName() + ", " + g.getRodzajGwiazdki()); 
-//            }
-//            return rv;
-//        }
-        
         @RequestMapping(value = "/szkola/{id}", method = GET)
         public SzkolaEntity getSzkolaById(@PathVariable Integer id , final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            
             final SzkolaEntity szkola = szkolaRepository.findById(id);
-            
             return szkola;
         }
         
@@ -121,8 +95,8 @@ public class SzkolaController {
         public List<SzkolaEntity> getSzukaneSzkoly(@PathVariable String nazwa , final @RequestParam(required = false, defaultValue = "false") boolean all) {
             List<SzkolaEntity> tmp;
             List<SzkolaEntity> rv = new ArrayList<SzkolaEntity>();
-            tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "password", "adres", "kodpocztowy"));
-            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG SzUKAJ: " + nazwa.toLowerCase()); 
+            tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "mail", "miasto", "adres", "kodpocztowy", "typSzkoly", "rodzajGwiazdki"));
+            //Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG SzUKAJ: " + nazwa.toLowerCase()); 
             for(SzkolaEntity s : tmp){
                 Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, s.getName().toLowerCase() + " SzukaJ NR: " + s.getName().indexOf(nazwa));
                if ((s.getName().toLowerCase()).indexOf(nazwa.toLowerCase()) >= 0){
@@ -134,14 +108,21 @@ public class SzkolaController {
         
         @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
         public List<proponowaneSzkolyEntity> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            Integer idUcznia = 9;
+            Integer idUcznia = 1;   /////////////////////////////ID UCZNIA///////////////////////////
             List<proponowaneSzkolyEntity> proponowane = new ArrayList<proponowaneSzkolyEntity>();
             List<proponowaneSzkolyEntity> rv = new ArrayList<proponowaneSzkolyEntity>();
             List<przedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
-            List<ProfilEntity> profile = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
-            //List<zainteresowaniaEntity> zainteresowania = zainteresowaniaRepo.findByUczenId2(idUcznia);
             final UczenEntity uczen = uczenRepository.findById(idUcznia);
-           
+            final String typ = uczen.getCzegoSzukam();
+            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG TYP: " + typ);
+            List<ProfilEntity> profile;
+            if("Szkoła Średnia dowolnego typu".equals(typ)){
+                //profile = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
+                profile = profilRepository.findSzkolySrednie("Liceum", "Technikum", "Szkoła Zawodowa");
+            }else{
+                profile = profilRepository.findByTypSzkoly(typ);
+            }
+            
             for(ProfilEntity prof : profile) {
                 Integer punktacja = 0;
                 for(przedmiotyEntity przed : przedmioty) {
@@ -196,7 +177,7 @@ public class SzkolaController {
            //     throw new IllegalArgumentException("Invalid arguments.");
            // }
             Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOGG: " + newSzkola.getNumer());
-            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getNumer(), newSzkola.getMail(), newSzkola.getPassword(), newSzkola.getAdres(),newSzkola.getKodpocztowy());
+            final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getNumer(), newSzkola.getMail(), newSzkola.getMiasto(), newSzkola.getAdres(),newSzkola.getKodpocztowy(), newSzkola.getTypSzkoly(), newSzkola.getRodzajSzkoly(), "glyphicon-star-empty");
             return this.szkolaRepository.save(szkola);	
         }
         
@@ -208,7 +189,7 @@ public class SzkolaController {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final SzkolaEntity szkola = new SzkolaEntity(updatedSzkola.getName(), updatedSzkola.getNumer(), updatedSzkola.getMail(), updatedSzkola.getPassword(), updatedSzkola.getAdres(),updatedSzkola.getKodpocztowy());
+            final SzkolaEntity szkola = new SzkolaEntity(updatedSzkola.getName(), updatedSzkola.getNumer(), updatedSzkola.getMail(), updatedSzkola.getMiasto(), updatedSzkola.getAdres(),updatedSzkola.getKodpocztowy(), updatedSzkola.getTypSzkoly(), updatedSzkola.getRodzajSzkoly(), updatedSzkola.getRodzajGwiazdki());
             szkola.setId(id);
 		
             if(szkola == null) {

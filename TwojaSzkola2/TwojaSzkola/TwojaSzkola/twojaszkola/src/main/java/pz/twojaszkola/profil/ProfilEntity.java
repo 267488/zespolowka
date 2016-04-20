@@ -41,6 +41,20 @@ import pz.twojaszkola.szkola.SzkolaEntity;
 	    = "Select b from ProfilEntity b "
 	    + " where b.profilNazwa.id = :idPrzedmiotu"
             + " and b.szkola.id = :idSzkoly"
+    ),
+    @NamedQuery(
+	    name = "ProfilEntity.findByTypSzkoly",
+	    query
+	    = "Select b from ProfilEntity b "
+	    + " where b.szkola.typSzkoly = :typSzkoly"
+    ),
+    @NamedQuery(
+	    name = "ProfilEntity.findSzkolySrednie",
+	    query
+	    = "Select b from ProfilEntity b "
+	    + " where b.szkola.typSzkoly = :s1 "
+            + " or b.szkola.typSzkoly = :s2 "
+            + " or b.szkola.typSzkoly = :s3 "
     )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)

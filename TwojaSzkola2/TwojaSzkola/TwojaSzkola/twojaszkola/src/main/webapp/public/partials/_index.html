@@ -1,5 +1,5 @@
 <div class="row">
-				
+
     <div class="col-sm-12 col-lg-7 widget-container">
 
         <h2 class="title">TWOJE ZAINTERESOWANIA</h2>
@@ -10,11 +10,11 @@
                 <div class="col-xs-12 col-sm-6">
                     <div class="graph chart">
                         <div id="graph0" class="piechart" 
-                            data-amounts="5,8,21,29,36"
-                            data-fills="#1DE9B6,#ffb300,#ff3366,#00B0FF,#ba77ff,#ff99b2,#6563a4,#26A69A"
-                            data-size="200"
-                            style="width: 200px; height: 200px;"
-                            data-thickness="7">
+                             data-amounts="5,8,21,29,36"
+                             data-fills="#1DE9B6,#ffb300,#ff3366,#00B0FF,#ba77ff,#ff99b2,#6563a4,#26A69A"
+                             data-size="200"
+                             style="width: 200px; height: 200px;"
+                             data-thickness="7">
                             <div class="center-info">
                                 <span>36</span>
                                 <em>%</em>
@@ -26,35 +26,11 @@
 
                 <div class="col-xs-12 col-sm-6">
                     <ul class="graph legend">
-                        <li>
+                        <li data-ng-repeat="z in zainteresowania">
                             <!--<div style="background: #1DE9B6;" class="color"><div class="hole"></div></div>-->
-                            <span>5</span>
-                            <em>%</em>
-                            <div class="name">FIZYKA</div>
-                        </li>
-                        <li>
-                            <!--<div style="background: #ffb300;" class="color"><div class="hole"></div></div>-->
-                            <span>8</span>
-                            <em>%</em>
-                            <div class="name">ANGIELSKI</div>
-                        </li>
-                        <li>
-                            <!--<div style="background: #ff3366;" class="color"><div class="hole"></div></div>-->
-                            <span>21</span>
-                            <em>%</em>
-                            <div class="name">INFORMATYKA</div>
-                        </li>
-                        <li>
-                            <!--<div style="background: #00B0FF;" class="color"><div class="hole"></div></div>-->
-                            <span>29</span>
-                            <em>%</em>
-                            <div class="name">MATEMATYKA</div>
-                        </li>
-                        <li>
-                            <!--<div style="background: #00B0FF;" class="color"><div class="hole"></div></div>-->
-                            <span>36</span>
-                            <em>%</em>
-                            <div class="name">MATEMATYKA</div>
+                            <span>{{z.stopienZainteresowania}}</span>
+                            <em>%</em> 
+                            <div class="name">{{z.przedmiotId.name}}</div>
                         </li>
                     </ul>
                 </div>
@@ -80,11 +56,11 @@
                     <span class="total">8</span>
                 </div>
                 <div id="graph1" class="piechart" 
-                    data-amounts="75,25"
-                    data-fills="#6563a4,#e3e7f0"
-                    data-size="30"
-                    style="width: 30px; height: 30px;"
-                    data-thickness="5">
+                     data-amounts="75,25"
+                     data-fills="#6563a4,#e3e7f0"
+                     data-size="30"
+                     style="width: 30px; height: 30px;"
+                     data-thickness="5">
                 </div>
             </div>
 
@@ -108,26 +84,26 @@
         <div class="widget">
 
             <div class="list-container list1" data-mcs-theme="minimal-dark">
-							
-                <div class="content level1" ng-repeat="s in proponowaneSzkoly | orderBy:['uczenId', 'profilId',]">
 
-                        <a href="#" title="{{ s.profilId.szkola.name }}">
-                                <div class="img"></div>
-                                <span class="number">{{ s.profilId.szkola.numer }}</span>
-                        </a>
+                <div class="content level1" ng-repeat="s in proponowaneSzkoly| orderBy:['uczenId', 'profilId', ]">
 
-                        <div class="text-container">
-                                <a href="#" title="{{ s.profilId.szkola.name }}"><div class="name">{{ s.profilId.szkola.name }}</div></a>
-                                <div class="subject">{{ s.profilId.profilNazwa.nazwa }}</div><div class="distance">{{ s.profilId.szkola.adres }}</div><em class="unit">{{ s.profilId.szkola.kodpocztowy }}</em>
-                        </div>
+                    <a href="#" title="{{ s.profilId.szkola.name}}">
+                        <div class="img"></div>
+                        <span class="number">{{ s.profilId.szkola.numer}}</span>
+                    </a>
 
-                        <span class="glyphicon glyphicon-star-empty" id="{{ s.profilId.szkola.id }}" ng-click="Ulubione($event)"></span>
+                    <div class="text-container">
+                        <a href="#" title="{{ s.profilId.szkola.name}}"><div class="name">{{ s.profilId.szkola.name}}</div></a>
+                        <div class="subject">{{ s.profilId.profilNazwa.nazwa}}</div><div class="distance">{{ s.profilId.szkola.adres}}</div><em class="unit">{{ s.profilId.szkola.kodpocztowy}}</em>
+                    </div>
+
+                    <span class="glyphicon {{ s.profilId.szkola.rodzajGwiazdki}}" id="{{ s.profilId.szkola.id}}" ng-click="Ulubione($event)"></span>
 
                 </div>
-            
+
             </div>          
-            
-            
+
+
         </div>
     </div>
 
@@ -136,25 +112,25 @@
         <h2 class="title">ULUBIONE SZKOŁY</h2>
 
         <div class="widget">
-    
+
             <div class="list-container list2">
-                <div class="content level1" ng-repeat="s in ulubione_szkoly | orderBy:['szkolaId']">
+                <div class="content level1" ng-repeat="s in ulubione_szkoly| orderBy:['szkolaId']">
 
-                        <a href="#" title="{{ s.szkolaId.name }}">
-                                <div class="img"></div>
-                                <span class="number">{{ s.szkolaId.numer }}</span>
-                        </a>
+                    <a href="#" title="{{ s.szkolaId.name}}">
+                        <div class="img"></div>
+                        <span class="number">{{ s.szkolaId.numer}}</span>
+                    </a>
 
-                        <div class="text-container">
-                                <a href="#" title="{{ s.szkolaId.name }}"><div class="name">{{ s.szkolaId.name }}</div></a>
-                                <div class="subject">{{ s.szkolaId.adres }}</div><div class="distance">{{ s.szkolaId.kodpocztowy }}</div>
-                        </div>
+                    <div class="text-container">
+                        <a href="#" title="{{ s.szkolaId.name}}"><div class="name">{{ s.szkolaId.name}}</div></a>
+                        <div class="subject">{{ s.szkolaId.adres}}</div><div class="distance">{{ s.szkolaId.kodpocztowy}}</div>
+                    </div>
 
-                        <span class="glyphicon glyphicon-star" id="{{ s.szkolaId.id }}" ng-click="Ulubione($event)"></span>
+                    <span class="glyphicon glyphicon-star" id="{{ s.szkolaId.id}}" ng-click="Ulubione($event)"></span>
 
                 </div>
             </div>
-            
+
         </div>
 
     </div>

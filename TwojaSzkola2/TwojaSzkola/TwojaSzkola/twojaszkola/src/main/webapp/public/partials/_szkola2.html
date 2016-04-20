@@ -10,27 +10,6 @@
 	<div class="row">
 	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12 main">
 		<p>Lista szkol</p>
-		<!--
-                <table class="table table-condensed table-bordered table-striped">
-		    <thead>
-			<tr>
-                            <th>Nazwa</th>
-			    <th>Mail</th>
-			    <th>Haslo</th>
-                            <th>Adres</th>
-                            <th>Kod pocztowy</th>
-			</tr>
-		    </thead>
-		    <tbody>
-			<tr ng-repeat="s in szkola | orderBy:['name', 'mail', 'password', 'adres','kodpocztowy']">
-			    <td>{{ s.name }}</td>
-                            <td>{{ s.mail }}</td>
-			    <td>{{ s.password }}</td>
-                            <td>{{ s.adres }}</td>
-                            <td>{{ s.kodpocztowy }}</td>
-                        </tr>
-		    </tbody>
-		</table> -->
                 
                 <div class="list-container" style="margin: 10px;">    
                     <div class="content" ng-repeat="s in szkola | orderBy:['name', 'adres','kodpocztowy']">
@@ -39,7 +18,7 @@
 
                         <div class="text-container">
                             <div class="name">{{ s.name }}</div>
-                            <div class="subject">{{ s.adres }}</div><div class="distance">{{ s.kodpocztowy }}</div>
+                            <div class="subject">{{s.miasto}}, ul. {{ s.adres }}</div><div class="distance">{{ s.kodpocztowy }}</div>
                             <button type="button" class="btn btn-default star" name="{{ s.id }}" id="{{ s.id }}" data-ng-click="Ulubione($event);">{{ s.id }}</button>
                         </div>
 

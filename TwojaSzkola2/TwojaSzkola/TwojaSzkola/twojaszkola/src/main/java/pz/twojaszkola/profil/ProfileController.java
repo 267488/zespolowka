@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 michael-simons.eu.
+ * Copyright 2016 Agata Kostrzewa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package pz.twojaszkola.profil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,101 +48,108 @@ import pz.twojaszkola.szkola.SzkolaEntity;
  *
  * @author radon
  */
-
 @RestController
 @RequestMapping("/api")
 public class ProfileController {
- 
-        private final ProfilRepository profilRepository;
-        private final Profil_nazwaRepository profil_nazwaRepository;
-        private final SzkolaRepository szkolaRepository;
-        private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo;
-        private final przedmiotyRepository przedmiotyRepo;
-        private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
-        
-        @Autowired
-        public ProfileController(final ProfilRepository profilRepository,
-                                 final Profil_nazwaRepository profil_nazwaRepository,
-                                 final SzkolaRepository szkolaRepository,
-                                 final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo,
-                                 final przedmiotyRepository przedmiotyRepo,
-                                 final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {            
-            this.profilRepository = profilRepository;
-            this.profil_nazwaRepository = profil_nazwaRepository;
-            this.szkolaRepository = szkolaRepository;
-            this.rozszerzonePrzedmiotyRepo = rozszerzonePrzedmiotyRepo;
-            this.przedmiotyRepo = przedmiotyRepo;
-            this.ocenaPrzedmiotuRepo = ocenaPrzedmiotuRepo;
+
+    private final ProfilRepository profilRepository;
+    private final Profil_nazwaRepository profil_nazwaRepository;
+    private final SzkolaRepository szkolaRepository;
+    private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo;
+    private final przedmiotyRepository przedmiotyRepo;
+    private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
+
+    @Autowired
+    public ProfileController(final ProfilRepository profilRepository,
+            final Profil_nazwaRepository profil_nazwaRepository,
+            final SzkolaRepository szkolaRepository,
+            final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo,
+            final przedmiotyRepository przedmiotyRepo,
+            final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {
+        this.profilRepository = profilRepository;
+        this.profil_nazwaRepository = profil_nazwaRepository;
+        this.szkolaRepository = szkolaRepository;
+        this.rozszerzonePrzedmiotyRepo = rozszerzonePrzedmiotyRepo;
+        this.przedmiotyRepo = przedmiotyRepo;
+        this.ocenaPrzedmiotuRepo = ocenaPrzedmiotuRepo;
+    }
+
+    @RequestMapping(value = "/profile", method = GET)
+    public List<ProfilEntity> getProfil(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<ProfilEntity> rv;
+        rv = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
+        return rv;
+    }
+
+    @RequestMapping(value = "/profile/{id:\\d+}", method = POST)
+    @PreAuthorize("isAuthenticated()")
+    public ProfilEntity createProfil(final @PathVariable Integer id,
+            final @RequestBody @Valid RozszerzonePrzedmiotyCmd[] newRozszerzone,
+            final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new IllegalArgumentException("Invalid arguments.");
         }
-        
-        @RequestMapping(value = "/profile", method = GET)
-        public List<ProfilEntity> getProfil(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            List<ProfilEntity> rv;
-            rv = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
-            //System.out.println("\n\nProfileController: metoda GET\n\n");
-            return rv;
+        final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
+
+        Integer idSzkoly = 4; //////////////////////////////ID SZKOLY////////////////////////////////////////
+
+        final SzkolaEntity szkola = szkolaRepository.findById(idSzkoly);
+
+        List<ProfilEntity> rv;
+        Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PROFIL_NAZWA : " + id);
+        //final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
+
+        List<przedmiotyEntity> przedmioty = new ArrayList<przedmiotyEntity>();
+        for (int i = 0; i < newRozszerzone.length; i++) {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG4 ID " + i + "  przedmiot: " + newRozszerzone[i].getPrzedmiotId());
+            if (newRozszerzone[i].getPrzedmiotId() != null) {
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG4 ID " + i + "  przedmiot: " + przedmiotyRepo.findById(idSzkoly).getName());
+                przedmioty.add(przedmiotyRepo.findById(newRozszerzone[i].getPrzedmiotId()));
+            }
         }
-        
-        @RequestMapping(value = "/profile/{id:\\d+}", method = POST) 
-        @PreAuthorize("isAuthenticated()")
-        public ProfilEntity createProfil(final @PathVariable Integer id,
-                final @RequestBody @Valid RozszerzonePrzedmiotyCmd newRozszerzone, 
-                final BindingResult bindingResult) {
-            if(bindingResult.hasErrors()) {
-                throw new IllegalArgumentException("Invalid arguments.");
+
+        rv = profilRepository.findByPrzedmiotNazwaIdAndSzkola(id, szkola.getId());
+        boolean dodawanie = true;
+        for (ProfilEntity prof : rv) {
+            if (prof.getProfil_nazwa().getId() == id) {
+                dodawanie = false;
             }
-            final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
-            
-            Integer idSzkoly=1; //////////////////////////////ID SZKOLY////////////////////////////////////////
-            
-            final SzkolaEntity szkola = szkolaRepository.findById(idSzkoly);
-            
-            List<ProfilEntity> rv;
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1 ID PROFIL_NAZWA : " + id);
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2 ID SZKOLY: " + szkola.getId());
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG4 ID przedmiotu: " + newRozszerzone.getPrzedmiotId());
-            final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
-            rv=profilRepository.findByPrzedmiotNazwaIdAndSzkola(id, szkola.getId());
-            boolean dodawanie=true;
-            for(ProfilEntity prof : rv) {
-                if(prof.getProfil_nazwa().getId() == id){
-                    dodawanie=false;
-                }
-            }
-        
-            if(dodawanie){
-                final ProfilEntity profil = new ProfilEntity(profil_nazwa, szkola);
-                final ProfilEntity e = this.profilRepository.save(profil);
-                
+        }
+
+        if (dodawanie) {
+            final ProfilEntity profil = new ProfilEntity(profil_nazwa, szkola);
+            final ProfilEntity e = this.profilRepository.save(profil);
+            for (przedmiotyEntity przedmiot : przedmioty) {
                 RozszerzonePrzedmiotyEntity rozsz = new RozszerzonePrzedmiotyEntity(profil, przedmiot);
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG5 name przedmiotu: " + przedmiot.getName());
-            
+
                 this.rozszerzonePrzedmiotyRepo.save(rozsz);
-                if(ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil(przedmiot.getId(), profil.getId())==null){
-                   OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil,przedmiot,5);
-                   this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
+                if (ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil(przedmiot.getId(), profil.getId()) == null) {
+                    OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil, przedmiot, 5);
+                    this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
                 }
-                
-                return 	e;
             }
-            
-            return null;
+
+            return e;
         }
-        
-        @RequestMapping(value = "/profile{id:\\d+}", method = PUT)
-        @PreAuthorize("isAuthenticated()")
-        @Transactional
-        public ProfilEntity updateProfil(final @PathVariable Integer id, final @RequestBody @Valid ProfilCmd updatedprofil, final BindingResult bindingResult) {
-            if(bindingResult.hasErrors()) {
-                throw new IllegalArgumentException("Invalid arguments.");
-            }
-	
-            final ProfilEntity profil = profilRepository.findOne(id);
-		
-            if(profil == null) {
-                throw new ResourceNotFoundException();
-            } 
-            
-            return profil;
+
+        return null;
+    }
+
+    @RequestMapping(value = "/profile{id:\\d+}", method = PUT)
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public ProfilEntity updateProfil(final @PathVariable Integer id, final @RequestBody @Valid ProfilCmd updatedprofil, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new IllegalArgumentException("Invalid arguments.");
         }
+
+        final ProfilEntity profil = profilRepository.findOne(id);
+
+        if (profil == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        return profil;
+    }
 }

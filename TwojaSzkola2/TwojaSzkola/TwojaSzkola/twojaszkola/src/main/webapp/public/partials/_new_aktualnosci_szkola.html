@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+    <h4 class="modal-title">Nowy wpis</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="theForm" role="form" data-ng-submit="submit();">
+	<div class="form-group" data-ng-show="badRequest">
+	    <div class="col-sm-offset-2 col-sm-10">
+		<label class="text-danger">
+		    {{badRequest}}
+		</label>
+	    </div>
+	</div> 
+        
+        <!--<div class="form-group" data-ng-class="{'has-error': theForm.inputSzkolaId.$invalid,'has-success': theForm.inputSzkolaId.$valid}">
+	    <label for="inputSzkolaId" class="col-sm-2 control-label">SzkolaId</label>
+	    <div class="col-sm-10">
+		<input id="inputSzkolaId" name="inputSzkolaId" type="number" class="form-control" data-ng-model="aktualnosciSzkola.szkolaId" data-ng-required="true"/>
+            </div>
+	</div>-->
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputTytul.$invalid,'has-success': theForm.inputTytul.$valid}">
+	    <label for="inputTytul" class="col-sm-2 control-label">Tytuł</label>
+	    <div class="col-sm-10">
+		<input id="inputTytul" name="inputTytul" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="aktualnosciSzkola.tytul" data-ng-required="true"/>
+	    </div>
+	</div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputTekst.$invalid,'has-success': theForm.inputTekst.$valid}">
+	    <label for="inputTekst" class="col-sm-2 control-label">Treść</label>
+	    <div class="col-sm-10">
+                <textarea style="resize:none" id="inputTekst" name="inputTekst" pattern="[a-zA-Z]" rows="6" class="form-control" data-ng-model="aktualnosciSzkola.tekst" data-ng-required="true"></textarea>
+		<!--<input id="inputTekst" name="inputTekst" type="text" size="100" pattern="[a-zA-Z]" class="form-control" data-ng-model="aktualnosciSzkola.tekst" data-ng-required="true"/>-->
+	    </div>
+	</div> 
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputAutor.$invalid,'has-success': theForm.inputAutor.$valid}">
+	    <label for="inputAutor" class="col-sm-2 control-label">Autor</label>
+	    <div class="col-sm-10">
+		<input id="inputAutor" name="inputAutor" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="aktualnosciSzkola.autor" data-ng-required="true"/>
+	    </div>
+	</div> 
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Przerwij</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Zapisz</button>
+</div>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 michael-simons.eu.
+ * Copyright 2016 radon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class SzkolaCmd {
 
     @NotBlank 
     @Size(max = 255)
-    private String password;
+    private String miasto;
 
     @NotBlank
     @Size(max = 255)
@@ -53,6 +53,15 @@ public class SzkolaCmd {
     @NotBlank 
     @Size(max = 6)
     private String kodpocztowy;
+    
+    @NotBlank
+    private String typSzkoly;
+    
+    @NotBlank
+    private String rodzajSzkoly;
+    
+    @NotBlank
+    private String rodzajGwiazdki;
 
     public Integer getId() {
         return id;
@@ -82,12 +91,12 @@ public class SzkolaCmd {
         this.mail = mail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getMiasto() {
+        return miasto;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMiasto(String miasto) {
+        this.miasto = miasto;
     }
 
     public String getAdres() {
@@ -96,6 +105,30 @@ public class SzkolaCmd {
 
     public void setAdres(String adres) {
         this.adres = adres;
+    }
+
+    public String getTypSzkoly() {
+        return typSzkoly;
+    }
+
+    public void setTypSzkoly(String typSzkoly) {
+        this.typSzkoly = typSzkoly;
+    }
+
+    public String getRodzajSzkoly() {
+        return rodzajSzkoly;
+    }
+
+    public void setRodzajSzkoly(String rodzajSzkoly) {
+        this.rodzajSzkoly = rodzajSzkoly;
+    }
+
+    public String getRodzajGwiazdki() {
+        return rodzajGwiazdki;
+    }
+
+    public void setRodzajGwiazdki(String rodzajGwiazdki) {
+        this.rodzajGwiazdki = rodzajGwiazdki;
     }
 
     public String getKodpocztowy() {
