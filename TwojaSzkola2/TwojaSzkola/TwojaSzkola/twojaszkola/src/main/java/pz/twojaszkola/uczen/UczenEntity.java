@@ -23,9 +23,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import pz.twojaszkola.user.User;
 
 /**
  *
@@ -44,45 +47,34 @@ public class UczenEntity implements Serializable {
     private Integer id;
     
     @Column(name = "pesel", unique = true, nullable = false)
-    @NotBlank
     @Size(min=11, max=11)
     private String pesel;
     
-    @Column(name = "name", length = 255, nullable = false)
-    @NotBlank
+    @Column(name = "name", length = 255, nullable = false)    
     @Size(max = 255)
     private String name;
     
-    @Column(name = "lastname", length = 255, nullable = false)
-    @NotBlank
+    @Column(name = "lastname", length = 255, nullable = false)   
     @Size(max = 255)
-    private String lastname;
-
-    @Column(name = "mail", length = 255, nullable = false)
-    @NotBlank
-    @Size(max = 255)
-    private String mail;
+    private String lastname;       
     
-    @Column(name = "czegoSzukam", length = 255, nullable = false)
-    @NotBlank
-    @Size(min=6, max = 255)
-    private String czegoSzukam;
-    
-    @Column(name = "kodpocztowy", length = 255, nullable = false)
-    @NotBlank
+    @Column(name = "kodpocztowy", length = 255, nullable = false)  
     @Size(min=6, max = 6)
     private String kodpocztowy;
+    
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
     
     protected UczenEntity() {
     }
     
-    public UczenEntity(String pesel, String name, String lastname, String  mail, String czegoSzukam, String kodpocztowy) {
+    public UczenEntity(String pesel, String name, String lastname, String kodpocztowy,User user) {
         this.pesel=pesel;
         this.name = name;
-        this.lastname = lastname;
-        this.mail = mail;
-        this.czegoSzukam = czegoSzukam;
+        this.lastname = lastname;       
         this.kodpocztowy = kodpocztowy;
+        
     }
     
     public Integer getId() {
@@ -115,23 +107,7 @@ public class UczenEntity implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getCzegoSzukam() {
-        return czegoSzukam;
-    }
-
-    public void setCzegoSzukam(String czegoSzukam) {
-        this.czegoSzukam = czegoSzukam;
-    }
+    }     
 
     public String getKodpocztowy() {
         return kodpocztowy;

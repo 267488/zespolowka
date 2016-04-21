@@ -13,48 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.uczen;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
+package pz.twojaszkola.user;
 
 /**
  *
- * @author Agata
+ * @author radon
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UczenCmd {
+public class SuperUser {
     
-    @NotBlank
-    @Size(min=11,max = 11)
-    private String pesel;
-    
-    @NotBlank
-    @Size(max = 255)
     private String name;
-    
-    @NotBlank
-    @Size(max = 255)
     private String lastname;
-
-    @NotBlank
-    @Size(max = 255)
     private String mail;
-    
-    @NotBlank
-    @Size(min=6, max = 255)
-    private String password;
-    
-    @NotBlank
-    @Size(min=6, max = 6)
+    private String login;
+    private int uczen_id;
+    private int user_id;
     private String kodpocztowy;
-    
-    public String getPesel() {
-        return pesel;
-    }
+    private String pesel;
 
-    public void setPesel(String pesel) {
+    public SuperUser(String name, String lastname, String mail, String login, int uczen_id, int user_id, String kodpocztowy, String pesel) {
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.login = login;
+        this.uczen_id = uczen_id;
+        this.user_id = user_id;
+        this.kodpocztowy = kodpocztowy;
         this.pesel = pesel;
     }
 
@@ -65,7 +48,7 @@ public class UczenCmd {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getLastname() {
         return lastname;
     }
@@ -82,12 +65,28 @@ public class UczenCmd {
         this.mail = mail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLogin() {
+        return login;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public int getUczen_id() {
+        return uczen_id;
+    }
+
+    public void setUczen_id(int uczen_id) {
+        this.uczen_id = uczen_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getKodpocztowy() {
@@ -97,5 +96,15 @@ public class UczenCmd {
     public void setKodpocztowy(String kodpocztowy) {
         this.kodpocztowy = kodpocztowy;
     }
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
+    
+    
     
 }

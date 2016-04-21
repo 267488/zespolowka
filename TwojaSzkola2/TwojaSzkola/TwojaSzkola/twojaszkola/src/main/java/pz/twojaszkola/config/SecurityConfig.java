@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Agata Kostrzewa
+ * Copyright 2014 Michael J. Simons.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,24 @@
  */
 package pz.twojaszkola.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import pz.twojaszkola.user.CustomFailureHandler;
+import pz.twojaszkola.user.CustomSuccessHandler;
+
 
 /**
  * @author Michael J. Simons, 2014-02-19
@@ -34,18 +42,98 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Profile({"default", "prod"})
 public class SecurityConfig {
 
+    
     /**
      * When using Spring Boot Dev Tools,
      * {@code SecurityProperties.BASIC_AUTH_ORDER - 20} will already be used for
      * the h2 web console if that hasn't been explicitly disabled.
      */
+    
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER - 20)
     @ConditionalOnBean(SecurityConfig.class)
     protected static class ApplicationWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+        
+        @Autowired
+        @Qualifier("customUserDetailsService")
+        private UserDetailsService userDetailsService;
+        
+        @Autowired
+        private CustomSuccessHandler customSuccessHandler;
+        
+        @Autowired
+        private CustomFailureHandler customFailureHandler;
+        
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {	  
-	    http
+	    /*http
+		.httpBasic()
+		    .and()
+		.authorizeRequests()	
+		    .antMatchers("/").permitAll()
+                    .antMatchers("/szkola.html").hasAuthority("SZKOLA")
+                    .antMatchers("/admin.html").hasAuthority("ADMIN")
+                    .anyRequest().fullyAuthenticated()
+		    .and()
+		.sessionManagement()
+		    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+		    .and()
+		.csrf()
+		    .disable()
+		.headers()
+		    .frameOptions() // OEmbedController#embedTrack uses an iframe
+		    .disable()
+                    .and()
+                    .formLogin().loginPage("/").usernameParameter("inputLogin")
+                    .passwordParameter("inputPassword").permitAll()
+                    .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                    .deleteCookies("remember-me")
+                    .logoutSuccessUrl("/")
+                    .permitAll();*/
+            http
+                    .httpBasic()
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/","sign-up.html").permitAll()
+                    .antMatchers("/szkola.html","/szkola.html/*").hasAuthority("SZKOLA")
+                    .antMatchers("/admin.html","/admin.html/*").hasAuthority("ADMIN")
+                    .antMatchers("/index.html","/index.html/*").hasAuthority("UCZEN")
+                    .and()
+                    .formLogin()
+                    .loginPage("/").successHandler(customSuccessHandler).failureHandler(customFailureHandler)
+                    .usernameParameter("login")
+                    .passwordParameter("password")
+                    .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll()
+                    .and()
+                    .csrf()
+                    .disable()
+                    
+                    
+                    ;
+            
+	}
+        @Override
+        public void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth    
+                    .userDetailsService(userDetailsService)
+                    ;
+                
+                
+    }
+                
+}                  
+    
+}
+
+
+/*
+http
 		.httpBasic()
 		    .and()
 		.authorizeRequests()	
@@ -64,7 +152,10 @@ public class SecurityConfig {
 		.headers()
 		    .frameOptions() // OEmbedController#embedTrack uses an iframe
 		    .disable()
+                    .and()
+                    .formLogin().loginPage("/login")
 		;  
-	}
-    }
-}
+
+
+
+*/

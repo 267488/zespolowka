@@ -65,7 +65,7 @@ public class UlubionaSzkolaController {
         return rv;
     }
         
-    @RequestMapping(value = "/ulubionaSzkola/{id:\\d+}", method = POST) 
+    /*@RequestMapping(value = "/ulubionaSzkola/{id:\\d+}", method = POST) 
     @PreAuthorize("isAuthenticated()")
     public UlubionaSzkolaEntity2 createUlubionaSzkola(@PathVariable Integer id) {
         List<UlubionaSzkolaEntity2> rv;
@@ -86,8 +86,10 @@ public class UlubionaSzkolaController {
             return this.ulubionaSzkolaRepository.save(ulubione);
         }
         return null;
-    }
+    }*/
     
+    
+    /*
     @RequestMapping(value = "/ulubionaSzkolaDelete/{id:\\d+}", method = DELETE) 
     @PreAuthorize("isAuthenticated()")
     public UlubionaSzkolaEntity2 deleteUlubionaSzkola(@PathVariable Integer id) {
@@ -111,7 +113,7 @@ public class UlubionaSzkolaController {
             return szkolaDoUsuniecia;
         }
         return null;
-    }
+    }*/
     
         @RequestMapping(value = "/ulubioneSzkoly/{id:\\d+}", method = PUT)
         @PreAuthorize("isAuthenticated()")
