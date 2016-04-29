@@ -1,0 +1,86 @@
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="widget searching">
+            <div class="input-group" id="adv-search">
+                <input ng-model="szukane" id="SzukajSzkoly" type="text" class="form-control" placeholder="Szukaj szkoły..." autofocus/>
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-ng-model="szukane" data-ng-required="true"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="searchEducationLevel">TYP SZKOŁY</label>
+                                        <select class="form-control" id="searchEducationLevel">
+                                            <option>Szkoła Podstawowa</option>
+                                            <option>Gimnazjum</option>
+                                            <option>Technikum</option>
+                                            <option>Szkoła Zawodowa</option>
+                                            <option>Liceum</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="searchSchoolType">RODZAJ SZKOŁY</label>
+                                        <select class="form-control" id="searchSchoolType">
+                                            <option>Publiczna</option>
+                                            <option>Prywatna</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group checkbox-container">
+                                        <div class="label-container"><label for="contain">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="right" title="Przedmioty rozszerzone, które mają znaleźć się w profilu szkoły."></i></div>
+                                        <div data-ng-repeat="przedmiot in przedmioty" class="checkbox">
+                                            <label>
+                                                <input id="{{przedmiot.id}}" type="checkbox">
+                                                <span>{{przedmiot.name}}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button data-ng-click="Szukaj();" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="widget searching-result">
+            <h2 class="title">WYNIKI WYSZUKIWANIA</h2>
+            <hr>
+            <div class="row">
+
+                <div class="col-md-12">			
+                    <div class=" school" data-ng-repeat="s in szkola">
+                        <div class="image">
+                            <a href="#"><img src="/api/gallerySchool/{{s.galleryId.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
+                        </div>
+                        <!--        <div>
+                                    <button type="button" class="btn btn-default star" name="{{ s.id }}" id="{{ s.id }}" data-ng-click="Ulubione($event);">Ulubione</button>
+                                </div> -->
+                        <span class="glyphicon {{s.rodzajGwiazdki}}" id="{{ s.id}}" ng-click="Ulubione($event)"></span>
+                        <div class="info">
+                            <a href="#"><div class="name">{{ s.name}}</div></a>
+                            <div class="city">{{s.typSzkoly}},   szkoła {{s.rodzajSzkoly}}</div>
+                        </div>
+                        <div class="tags">
+                            <div class="subject"><span>{{s.kodpocztowy}}</span></div>
+                            <div class="subject"><span>{{s.miasto}}</span><span> ul. {{s.adres}}</span></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

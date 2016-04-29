@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Szkola</h2>
+	<p>Obrazek Szkola:</p>
+	<p>
+	    <img src="/img/p1.jpg" alt="Szkola" class="img-thumbnail img-responsive" />
+	</p>
+	<p class="text-muted"><small>(Warto napisać coś o prawach autorskich)</small></p>
+	<div class="row">
+	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12 main">
+		<p>Lista szkol</p>
+                
+                <div class="list-container" style="margin: 10px;">    
+                    <div class="content" ng-repeat="s in szkola | orderBy:['name', 'adres','kodpocztowy']">
+        
+                        <div class="img"></div>
+
+                        <div class="text-container">
+                            <div class="name">{{ s.name }}</div>
+                            <div class="subject">{{s.miasto}}, ul. {{ s.adres }}</div><div class="distance">{{ s.kodpocztowy }}</div>
+                            <button type="button" class="btn btn-default star" name="{{ s.id }}" id="{{ s.id }}" data-ng-click="Ulubione($event);">{{ s.id }}</button>
+                        </div>
+
+                    </div>
+                </div>
+		<button type="button" class="btn btn-default" data-ng-click="openNewSzkolaDlg();">Nowa szkola</button>
+                <button type="button" class="btn btn-default" data-ng-click="openEditSzkolaDlg();">Edytuj szkola</button>
+            </div>
+	</div>
+    </div>
+</div>

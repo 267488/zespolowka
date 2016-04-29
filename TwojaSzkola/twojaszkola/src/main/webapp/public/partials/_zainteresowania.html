@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Zainteresowania</h2>
+	<p>Jakis tam Obrazek:</p>
+	<p>
+	    <img src="/img/uczen.png" alt="Uczen" class="img-thumbnail img-responsive" />
+	</p>
+	<p class="text-muted"><small>(Warto napisać coś o prawach autorskich)</small></p>
+	<div class="row">
+	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12">
+		<p>Lista Zainteresowan</p>
+		<table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+                            <th>Uczen</th>
+			    <th>Przedmiot</th>
+			    <th>Stopien zainteresowania</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="s in zainteresowania | orderBy:['uczenId', 'przedmiotId', 'stopienZainteresowania']">
+			    <td>{{ s.uczenId.name }}</td>
+                            <td>{{ s.przedmiotId.name }}</td>
+			    <td>{{ s.stopienZainteresowania }}</td>
+                        </tr>
+		    </tbody>
+		</table>
+	    </div>
+            <button type="button" class="btn btn-default" data-ng-click="openNewZainteresowaniaDlg();">Nowe zainteresowania</button>
+	</div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+	<h2>Lokalizacja</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+	<p>Ta mapa może przedstawiać lokalizację szkoły.</p>
+	<p data-ng-show="locations.length > 0">Last update was on: {{locations[locations.length-1].createdAt | date: 'HH:mm:ss'}}.</p>
+    </div>
+    <div class="col-md-9">
+	<div id="location-map" class="map-wrapper">
+	    <div data-ng-track-map="map" data-locations="locations"></div>
+	</div>
+    </div>
+</div>

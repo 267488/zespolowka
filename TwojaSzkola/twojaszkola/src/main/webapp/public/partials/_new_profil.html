@@ -1,0 +1,96 @@
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="articleTitle" class="control-label">NAZWA</label>
+            <input type="text" class="form-control" id="articleTitle" placeholder="Podaj nazwę nowego profilu">
+        </div>
+        <div class="form half-width-1">
+            <label for="articleTitle" class="control-label">PUNKTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Minimalna ilość punktów"></i>
+            <input type="number" class="form-control" id="articleTitle" placeholder="0">
+        </div>
+        <div class="form half-width-2">
+            <label for="articleTitle" class="control-label">MIEJSCA</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Maksymalna ilość uczniów w klasie"></i>
+            <input type="number" class="form-control" id="articleTitle" placeholder="0">
+        </div>
+        <div class="form-group checkbox-container">
+            <div class="label-container"><label for="contain">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Przedmioty rozszerzone, które wchodzą w skład nowego profilu."></i></div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Polski</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Matematyka</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Angielski</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Historia</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>WOS</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Fizyka</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Chemia</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Biologia</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Geografia</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Informatyka</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>Sztuka</span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    <span>WF</span>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Save profil</button>
+</div>
