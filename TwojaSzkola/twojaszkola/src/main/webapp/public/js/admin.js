@@ -17,25 +17,6 @@
 
 var app1 = angular.module('admin',[]);
 
-app1.controller('szkolaCtrl',function ($scope,$http,$location,$window)    
-{    
-    $scope.tmp2 = "hej";
-    $http.get('/currentSchool').success(function(data) {
-        console.log("get method");
-        console.log(data);
-	$scope.currentSchool = data;
-        
-    });
-    
-    $http.get('/currentProfile').success(function(data) {
-        console.log("get method");
-        console.log(data);
-	$scope.currentProfile = data;
-        
-    });
-    
-    
-});
 
 app1.controller('userCtrl',function ($scope,$http,$location,$window)    
 {       
