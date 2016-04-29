@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>Twoja Szkoła | Twój Profil</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	
+	<!-- Image Hover Effects -->
+	<link rel="stylesheet" href="css/imagehover.min.css">
+	
+	<!-- Custom Scrollbar CSS -->
+	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css" />
+
+    <!-- Fonts for this template -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	
+	<!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+	<nav class="navbar navbar-fixed-top navbar-default no-margin visible-xs">
+    <!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header fixed-brand">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
+				<!--<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>-->
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">
+				<img src="images/logo-simple.png" class="img-responsive" alt="Twoja Szkoła Logo">
+			</a>
+		</div><!-- navbar-header-->
+
+    </nav>
+	
+    <div id="wrapper" class="toggled-2">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+			
+			<div class="content">
+			
+				<div class="profile-container">
+					<img src="images/profile-img.jpg" class="img-circle img-responsive" alt="Zdjęcie profilowe">
+					<h5 class="name">Witaj <span>Michał</span><small>Uczeń</small></h5>
+				</div>
+			
+				<ul class="sidebar-nav nav-stacked" id="menu">
+                                        <li><a href="index.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x "></i></span>Home</a></li>
+					<li><a href="profil-uczen.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Profil</a></li>
+					<li><a href="ustawienia-uczen.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cog fa-stack-1x "></i></span>Ustawienia</a></li>					
+					<li>
+						<a href="szkoly.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-university fa-stack-1x "></i></span>Szkoły</a>
+					</li>
+					<li class="second">
+						<a href="logout"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-in fa-stack-1x "></i></span>Wyloguj się</a>
+					</li>
+				</ul>
+				
+				<div class="logo-container hidden-xs">
+					<span>MADE BY</span>
+					<img src="images/logo-simple.png" class="" alt="Twoja Szkoła Logo">
+				</div>
+			
+			</div>
+			
+        </div><!-- /#sidebar-wrapper -->
+		
+		<!-- Page Content -->
+        <div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+				
+					<div class="col-xs-12 main">
+								
+						<div class="row">
+						
+							<div class="col-sm-12 col-lg-6">
+							
+								<div class="widget profile-edition">
+								
+									<h2 class="title">TWÓJ PROFIL</h2>
+									
+									<hr>
+									
+									<div class="main-info">
+										<div class="left">
+											<img src="images/profile-img.jpg" class="img-circle img-responsive" width="80" height="80" alt="Zdjęcie profilowe" >
+										</div>
+										<div class="right">
+											<h3 class="name">Michał Kaproń</h3>
+											<a class="button-curve grey transparent btn btn-block" type="button">ZMIEŃ ZDJĘCIE</a>
+											<a class="button-curve orange transparent btn btn-block" type="button">USUŃ ZDJĘCIE</a>
+										</div>
+									</div>
+									
+									<hr>
+								
+									<div class="forms-container">
+										<form class="forms">
+
+											<div class="form">
+												<label for="inputEmail">E-MAIL</label>
+												<div class="input-group email">
+												  <i class="fa fa-envelope fa-1"></i>
+												  <input type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" value="michal.kapron@gmail.com">
+												</div>
+											</div>
+											
+											<div class="form half-width-1">
+												<label for="inputPassword">NOWE HASŁO</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Hasło musi posiadać minimum 8 znaków."></i>
+												<div class="input-group password">
+													<i class="fa fa-lock fa-1"></i>
+													<input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło">
+												</div>
+											</div>
+											
+											<div class="form half-width-2">
+												<label for="inputPassword2">POTWIERDŹ HASŁO</label>
+												<div class="input-group password2">
+													<i class="fa fa-lock fa-1"></i>
+													<input type="password" id="inputPassword2" class="form-control have-icon" placeholder="Wpisz ponownie hasło">
+												</div>
+											</div>
+											
+											<hr>
+											
+											<div class="form half-width-1">
+												<label for="inputName">IMIĘ</label>
+												<div class="input-group">
+												  <input type="text" id="inputName"  class="form-control" placeholder="Wpisz swoje imię" value="Michał">
+												</div>
+											</div>
+											
+											<div class="form half-width-2">
+												<label for="inputEmail">NAZWISKO</label>
+												<div class="input-group">
+												  <input type="text" id="inputSurname"  class="form-control" placeholder="Wpisz swoje nazwisko" value="Kaproń">
+												</div>
+											</div>
+											
+											<div class="form half-width-1">
+												<label for="inputCity">MIASTO</label>
+												<div class="input-group">
+												  <input type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" value="Toruń">
+												</div>
+											</div>
+											
+											<div class="form half-width-2">
+												<label for="inputZipcode">KOD POCZTOWY</label>
+												<div class="input-group">
+												  <input type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" value="87-100">
+												</div>
+											</div>
+											
+											<div class="form">
+												<label for="inputZipcode">ADRES ZAMIESZKANIA</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Jeśli podasz swój adres, algorytm będzie liczył Twoją odległość od szkoły."></i>
+												<div class="input-group">
+												  <input type="text" id="inputZipcode"  class="form-control" placeholder="Podaj nazwę ulicy i nr bloku/domu" value="ul. Warszawska 13/48">
+												</div>
+											</div>
+											
+											<div class="form last">
+												<label for="inputSearchingSchool">CZEGO SZUKAM</label><i class="fa fa-info-circle" id="list2-tooltip" data-toggle="tooltip" data-placement="top" title="Jakiego typu szkoły poszukujesz?"></i>
+												<div class="input-group">
+													<select class="form-control" id="inputSearchingSchool">
+														<option>Szkoły Podstawowej</option>
+														<option>Gimnazjum</option>
+														<option>Technikum</option>
+														<option>Szkoła Zawodowa</option>
+														<option selected>Liceum</option>
+														<option>Szkoły Średniej</option>
+													</select>
+												</div>
+											</div>
+											
+											<button class="button-curve btn btn-lg btn-primary btn-block" type="submit">ZAPISZ</button>
+										</form>	
+									</div>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+    </div> <!-- /container -->
+
+	<script src="js/jquery-2.2.2.min.js"></script> 
+	<script src="js/d3.min.js"></script>
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<script src="js/menu.js"></script>
+	<script>
+		$( document ).ready(function() {
+			$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+			});
+		});
+	</script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+ <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

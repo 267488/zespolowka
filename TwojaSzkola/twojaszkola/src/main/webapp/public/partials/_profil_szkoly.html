@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Strona profilowa Szkoly</h2>
+	<p class="nazwaszkoly"></p>
+	<p class="miasto"></p>
+        <p class="kodpocztowy"></p>
+        <p class="adres"></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-container" style="margin: 10px;">    
+            <!--<div class="content" ng-repeat="s in szkola| orderBy:['name', 'adres', 'kodpocztowy']">
+                {{ s.name}}
+                {{ s.miasto}}
+                {{ s.adres}}
+			Zakomentowane, możliwość zobaczenia jakie są dodane szkoły
+            </div>-->
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <script type="text/javascript">
+            
+                    var dane = [];
+                    var nazwy = [];
+                     $(document).ready(function () {
+                        
+                        var url = window.location.pathname;
+                        var id = url.substring(url.lastIndexOf('/') + 1);
+                        
+                        console.log(id);
+        
+                        $.getJSON('http://localhost:8090/api/szkola/' + 1, function (data) {
+                        
+                            var nazwa = data.name;
+                            var miasto = data.miasto;
+                            var adres = data.adres;
+                            var kodpocztowy = data.kodpocztowy;
+                            
+                            dane[0] = data.adres + " " + data.miasto;
+                            nazwy[0] = data.name;
+                            
+                            $(".nazwaszkoly").append(nazwa);
+                            $(".miasto").append(miasto);
+                            $(".adres").append(adres);
+                            $(".kodpocztowy").append(kodpocztowy);
+                            
+        
+                            codeAddress(dane,nazwy);
+                        });
+                        var geocoder;
+                        var map;
+                        function initialize() {
+                            geocoder = new google.maps.Geocoder();
+                            var lokalizacja = new google.maps.LatLng(52.069167, 19.480556);
+                            var mapOptions = {
+                              zoom: 6,
+                              center: lokalizacja,
+                              disableDoubleClickZoom: true
+                            }
+                            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                         }
+                        function codeAddress(dane,nazwy) {
+                            console.log("Jestem w codeAddress: " + nazwy[0]); 
+                            for(var i=0; i<dane.length; i++){
+                                console.log("Nazwa2:" + nazwy[i]);
+                                var contentString = nazwy[i];
+                                console.log("Nazwa3:" + contentString);
+                                geocoder.geocode( { 'address': dane[i], 'region': nazwy[i]}, function(results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    console.log("pokaz1: " + contentString);
+                                    var marker = new google.maps.Marker({
+                                    //title: contentString, 
+                                    map: map,
+                                    position: results[0].geometry.location
+                                    });
+                                    //---- nadal nic ------
+                                    var infowindow = new google.maps.InfoWindow;
+                                    bindInfoW(marker, contentString, infowindow);
+                                    function bindInfoW(marker, contentString, infowindow)
+                                    {
+                                        console.log("pokaz: " + contentString);
+                                        google.maps.event.addListener(marker, 'click', function() {
+                                            infowindow.setContent(contentString);
+											//Problem z wczytaniem opisu danego punktu, pokazuje wszystkim nazwę dodanej ostatniej szkoły
+                                            infowindow.open(map, marker);
+                                        });
+                                        google.maps.event.addListener(marker, 'dblclick', function() {
+                                            map.setZoom(12);
+                                            map.setCenter(marker.getPosition());
+                                        });
+                                    }
+                                    //---- nadal nic ------
+                                    /*marker.addListener('click', function() {
+                                    infowindow.open(map, marker);
+                                    infowindow.setContent(contentString);
+                                    });*/
+                                    console.log("Wynik: " + results[0].geometry.location);
+                                } else {
+                                        alert("Geolokacja się nie udała: " + status);
+                                    }
+                                });
+                            }
+                        }
+                        initialize(); 
+                    });
+         </script>   
+        <div id="map" style="width: 500px; height: 500px; border: 1px solid black; background: white;">    
+        </div>   
+    </div>
+</div>

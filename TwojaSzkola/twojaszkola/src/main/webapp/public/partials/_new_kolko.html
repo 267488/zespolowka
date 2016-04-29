@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+    <h4 class="modal-title">Nowe kółko Zainteresowań</h4>
+</div>
+<div class="modal-body new-profile">
+    <form class="form-horizontal" name="theForm" role="form" data-ng-submit="submit();">
+	<div class="form-group" data-ng-show="badRequest">
+	    <div class="col-sm-offset-2 col-sm-10">
+		<label class="text-danger">
+		    {{badRequest}}
+		</label>
+	    </div>
+	</div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputPrzedmiot.$invalid,'has-success': theForm.inputPrzedmiot.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">PRZEDMIOT</label>
+	    <div class="col-sm-10">
+        	<select id="inputPrzedmiot" name="inputPrzedmiot" class="form-control" data-ng-model="kolko.przedmiot" data-ng-required="true">
+		    <option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
+                </select>
+            </div>
+	</div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputNazwa.$invalid,'has-success': theForm.inputNazwa.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">NAZWA</label>
+            <div class="col-sm-10">
+                <input id="inputName" name="inputNazwa" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="kolko.nazwa" data-ng-required="true"/>
+            </div>
+        </div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputTermin.$invalid,'has-success': theForm.inputTermin.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">TERMIN</label>
+            <div class="col-sm-10">
+                <input id="inputName" name="inputTermin" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="kolko.termin" data-ng-required="true"/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Save kolko</button>
+</div>

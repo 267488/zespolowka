@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <h2>Aktualności</h2>
+        <div class="row">
+            <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12">
+                <!--<p>Lista aktualnosci</p>-->
+                <button type="button" class="btn btn-default" data-ng-click="openNewAktualnosciSzkolaDlg();">Nowy wpis</button>
+                <table class="table table-condensed table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Szkoła </th>
+                            <th>Nr</th>
+                            <th>dataW</th>
+                            <th>dataE</th>
+                            <th>Tytuł</th>
+                            <th>Treść</th>
+                            <th>Autor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="a in aktualnosciSzkola| orderBy:['szkolaID', 'id']">
+                            <td>{{ a.szkolaId.name}}</td>
+                            <td>{{ a.id}}</td>
+                            <td>{{ a.dataPost | date:'dd-MM-yyyy HH:mm:ss' }}</td>
+                            <td>{{ a.dataEdycja | date:'dd-MM-yyyy HH:mm:ss' }} </td>
+                            <td>{{ a.tytul}}</td>
+                            <td>{{ a.tekst}}</td>
+                            <td>{{ a.autor}}</td>
+                            <td>
+                                <div>
+                                    <br />
+                                    <button type="button" class="btn btn-default" data-ng-click="openNewPictureDlg();">Add picture</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <carousel interval="imageInterval">
+                                        <slide data-ng-repeat="slide in slides" active="slide.active">
+                                            <img ng-src="{{slide.image}}" width="400px" height="300px" />
+                                            <div class="carousel-caption">
+                                                <h4>{{ slide.takenOn | date: 'dd.MM.yyyy' }}</h4>
+                                                <p>{{slide.text}}</p>
+                                            </div>
+                                        </slide>
+                                    </carousel>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
