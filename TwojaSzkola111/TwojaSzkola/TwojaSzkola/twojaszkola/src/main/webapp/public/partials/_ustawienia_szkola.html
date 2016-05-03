@@ -77,7 +77,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn close-btn button-curve" data-dismiss="modal">NIE</button>
-                <button type="button" id="" class="btn approve-btn button-curve" data-dismiss="modal">TAK</button>
+                <button type="button" class="btn approve-btn button-curve" data-dismiss="modal">TAK</button>
             </div>
         </div>
     </div>
@@ -229,11 +229,11 @@
                         <div role="tabpanel" id="settings-profiles" class="settings-item-container tab-pane active" data-mcs-theme="minimal-dark">
 
 
-                            <div class="settings-item" ng-repeat="p in profile| orderBy:['profilNazwa', 'szkola']">
+                            <div class="settings-item" ng-repeat="p in profile">
 
                                 <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile2" aria-expanded="false" aria-controls="article2"><span class="glyphicon glyphicon-menu-down"></span></button>-->
 
-                                <div class="title">{{p.nazwa}}</div>
+                                <div class="title">{{p.profilId.nazwa}}</div>
 
                                 <div class="" id="profile2"> <!-- class="collapse" -->
 
@@ -247,8 +247,8 @@
                                                     <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">28</span>
                                                 </div>
                                     -->
-                                    <div class="tags" ng-repeat="r in {{p.rozszerzonePrzedmioty}}">
-                                        <div class="subject">r.przedmiotId.name</div>
+                                    <div class="tags" ng-repeat="r in p.rozszerzonePrzedmioty">
+                                        <div class="subject">{{r.przedmiotId.name}}</div>
                                     </div>
 
                                 </div>

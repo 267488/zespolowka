@@ -98,14 +98,20 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/profileCurrentSchool", method = GET)
-    public List<ProfilEntity> getProfilCurrentSchool(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<ProfilEntity> rv;
+    public List<profil> getProfilCurrentSchool(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<ProfilEntity> tmp;
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         SzkolaEntity szkola = szkolaRepository.findByUserId(idUsera);
-        rv = profilRepository.findBySzkolaId(szkola.getId());
+        tmp = profilRepository.findBySzkolaId(szkola.getId());
+        List<profil> rv = new ArrayList<profil>();
+        for(ProfilEntity p : tmp){
+            List<RozszerzonePrzedmiotyEntity> roz = rozszerzonePrzedmiotyRepo.findByProfilId(p.getId());
+            profil prof = new profil(p,roz);
+            rv.add(prof);
+        }
         return rv;
     }
 

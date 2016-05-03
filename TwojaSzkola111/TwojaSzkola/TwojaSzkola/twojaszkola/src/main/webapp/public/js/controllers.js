@@ -229,7 +229,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 fileFormDataName: 'imageData',
                 withCredentials: true
             }).success(function (data) {
-                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                $http.get('/api/aktualnosciCurrentSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
 

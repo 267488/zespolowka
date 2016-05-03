@@ -27,6 +27,6 @@ import pz.twojaszkola.uczen.UczenEntity;
  */
 public interface RozszerzonePrzedmiotyRepository extends JpaRepository<RozszerzonePrzedmiotyEntity, Integer>{
     
-    UczenEntity getUczenById(final Integer UczenId);
     RozszerzonePrzedmiotyEntity findById(final Integer id);
+    List<RozszerzonePrzedmiotyEntity> findByProfilId(final Integer idProfilu);
 }
