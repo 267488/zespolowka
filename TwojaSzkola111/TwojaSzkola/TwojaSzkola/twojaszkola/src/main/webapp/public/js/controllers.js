@@ -175,6 +175,9 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
         $http.get('/api/aktualnosciCurrentSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
+        $http.get('/api//CurrentUser/postcount?all=true').success(function (data) {
+            $scope.ilosc = data;
+        });
         $scope.NewAktualnosc = {
             userId: null,
             tytul: null,
@@ -192,6 +195,9 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 $scope.submitting = false;
                 $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
+                });
+                $http.get('/api//CurrentUser/postcount?all=true').success(function (data) {
+                    $scope.ilosc = data;
                 });
                 $scope.NewAktualnosc = {
                     userId: null,
@@ -251,7 +257,7 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
         $http.get('/api//StopnieZainteresowanUcznia?all=true').success(function (data) {
             $scope.stopnie = data;
         });
-        $http.get('/api/CurrentUczen/zainteresowaniamax?all=true').success(function (data){
+        $http.get('/api/CurrentUczen/zainteresowaniamax?all=true').success(function (data) {
             $scope.max = data;
         });
         $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {

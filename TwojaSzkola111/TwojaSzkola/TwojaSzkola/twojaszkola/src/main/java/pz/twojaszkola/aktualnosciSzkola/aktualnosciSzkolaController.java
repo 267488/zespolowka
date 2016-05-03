@@ -129,10 +129,10 @@ public class aktualnosciSzkolaController {
         for (aktualnosciSzkolaEntity a : rv) {
             List<GalleryPictureEntity> gallery = galleryRepository.findByAktualnosciId(a.getId());
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG0: " + gallery.size());
-            
-                SzkolaEntity s = szkolaRepository.findByUserId(a.getUserId().getId());
-                String podpis = s.getTypSzkoly() + " nr " + s.getNumer();
-                aktualnosci aktualne;
+
+            SzkolaEntity s = szkolaRepository.findByUserId(a.getUserId().getId());
+            String podpis = s.getTypSzkoly() + " nr " + s.getNumer();
+            aktualnosci aktualne;
             if (!gallery.isEmpty()) {
                 aktualne = new aktualnosci(a, gallery, podpis);
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1: " + aktualne.getAktualnosc().getTytul());
@@ -150,7 +150,7 @@ public class aktualnosciSzkolaController {
         }
         return aktual;
     }
-    
+
     @RequestMapping(value = "/aktualnosciCurrentUczen", method = GET)
     public List<aktualnosci> getCurrentUczenAktualnosci(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<aktualnosci> aktual = new ArrayList<aktualnosci>();
@@ -163,7 +163,6 @@ public class aktualnosciSzkolaController {
         for (aktualnosciSzkolaEntity a : rv) {
             List<GalleryPictureEntity> gallery = galleryRepository.findByAktualnosciId(a.getId());
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG0: " + gallery.size());
-            
 
             UczenEntity u = uczenRepository.findByUserId(a.getUserId().getId());
             String podpis = u.getName() + " " + u.getLastname();
@@ -187,6 +186,18 @@ public class aktualnosciSzkolaController {
 
         }
         return aktual;
+    }
+
+    @RequestMapping(value = "/CurrentUser/postcount", method = GET)
+    public int getCurrentSizeAktualnosci(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+        final User user = userRepository.findById(idUsera);
+        List<aktualnosciSzkolaEntity> aktualnosciSzkola = user.getAktualnosciSzkola();
+
+        return aktualnosciSzkola.size();
     }
 
     @RequestMapping(value = "/aktualnosciSzkola", method = POST)
