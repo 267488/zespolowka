@@ -15,10 +15,32 @@
  */
 package pz.twojaszkola.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.RememberMeServices;
+
 /**
  *
  * @author radon
  */
-public class CustomRememberMe {
+public class CustomRememberMe implements RememberMeServices {
+
+    @Override
+    public Authentication autoLogin(HttpServletRequest request, HttpServletResponse response) {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                return auth;
+    }
+
+    @Override
+    public void loginFail(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void loginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication successfulAuthentication) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
