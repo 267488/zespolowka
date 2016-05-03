@@ -172,6 +172,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
         });
         $http.get('/api/osiagnieciaCurrentSchool?all=true').success(function (data) {
             $scope.osiagnienia = data;
+            alert("Wyswietlam osiagniecia");
         });
         $http.get('/api/aktualnosciCurrentSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;

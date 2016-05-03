@@ -91,9 +91,13 @@ public class OsiagnieciaController {
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         rv = osiagnieciaRepository.findByUserId(idUsera);
+        for (OsiagnieciaEntity o: rv ) {
+            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "osiagniecia " +  o.getNazwakonkursu());
+        }
+        Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "osiagniecia brak");
         return rv;
     }
-    
+
     @RequestMapping(value = "/osiagniecia/{id:\\d+}", method = POST)
     @PreAuthorize("isAuthenticated()")
     public OsiagnieciaEntity createOsiagniecia(final @PathVariable Integer id,
@@ -106,7 +110,7 @@ public class OsiagnieciaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        
+
         final User user = userRepository.findById(idUsera);
 
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
@@ -120,7 +124,7 @@ public class OsiagnieciaController {
             Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "NAZWA KONKURSU " + newOsiagniecie.getNazwakonkursu());
             final OsiagnieciaEntity osiagniecie = new OsiagnieciaEntity(newOsiagniecie.getNazwakonkursu(), newOsiagniecie.getTermin(), przedmiot, newOsiagniecie.getSzczebel(), newOsiagniecie.getNagroda(), user);
             final OsiagnieciaEntity e = this.osiagnieciaRepository.save(osiagniecie);
-            if (user.getRole()=="SZKOLA") {
+            if (user.getRole() == "SZKOLA") {
                 Integer idSzkoly = 1;//szkolaRepository.findByUserId(idUsera).getId();
                 List<ProfilEntity> profile = profilRepository.findBySzkolaId(idSzkoly);
                 Integer pkt = 0;
