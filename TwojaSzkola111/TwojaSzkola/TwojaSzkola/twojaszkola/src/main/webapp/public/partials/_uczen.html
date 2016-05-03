@@ -141,11 +141,11 @@
 
                         <div class="form">
                             <label for="boardFeedback" class="">TWOJA WIADOMOŚĆ</label>
-                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="Co ostatnio robiłeś?"></textarea>
+                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="Co ostatnio robiłeś?" data-ng-model="NewAktualnosc.tekst"></textarea>
                         </div>
 
                         <div class="button-container">
-                            <button class="send button-curve btn btn-lg" type="submit">OPUBLIKUJ</button>
+                            <button class="send button-curve btn btn-lg" data-ng-click="submit()">OPUBLIKUJ</button>
                         </div>
 
                     </div>
@@ -162,16 +162,16 @@
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
 
 
-                            <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
+                  <!--          <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
 
-                                <!-- Wrapper for slides -->
+                                 Wrapper for slides 
                                 <div class="carousel-inner" role="listbox">
                                     <div class="item" ng-repeat="i in a.galleryId">
                                         <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">
                                     </div>
                                 </div>
 
-                                <!-- Controls -->
+                                 Controls 
                                 <a class="left carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id}}" role="button" data-slide="prev">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
@@ -181,8 +181,10 @@
                                     <span class="sr-only">Next</span>
                                 </a>
                             </div>
-
-
+                        -->
+                            <div class="image" ng-repeat="i in a.galleryId">
+                                <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
+                            </div>
                             <div class="text">{{ a.aktualnosc.tekst}}</div>
 
                             <div class="meta">
@@ -193,9 +195,18 @@
                                 </div>
 
                             </div>
-                            <div>
-                                <br />
-                                <button type="button" id="{{a.aktualnosc.id}}" class="btn btn-default" data-ng-click="ZaladujObrazek($event);">Dodaj Obrazek</button>
+                             <div>
+                                <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                                    <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <br />
+                                    <button type="button" id="{{a.aktualnosc.id}}" class="btn btn-default" data-ng-click="ZaladujObrazek($event);">Dodaj Obrazek</button>
+                                </div>
                             </div>
 
                         </div>

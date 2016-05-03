@@ -82,7 +82,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
-        
+
         $scope.ZaladujObrazek = function (event) {
             $scope.id = event.target.id;
             $upload.upload({
@@ -213,7 +213,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
-        
+
         $scope.ZaladujObrazek = function (event) {
             $scope.id = event.target.id;
             $upload.upload({
@@ -269,6 +269,65 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
                     function () {
                     }
             );
+        };
+        $scope.NewAktualnosc = {
+            userId: null,
+            tytul: null,
+            tekst: null,
+            id: null
+        };
+
+        $scope.submit = function () {
+            $scope.submitting = true;
+            $http({
+                method: 'POST',
+                url: '/api/aktualnosciSzkola',
+                data: $scope.NewAktualnosc
+            }).success(function (data) {
+                $scope.submitting = false;
+                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                    $scope.aktualnosci = data;
+                });
+                $scope.NewAktualnosc = {
+                    userId: null,
+                    tytul: null,
+                    tekst: null,
+                    id: null
+                };
+                $modal.close(data);
+            }).error(function (data, status) {
+                $scope.submitting = false;
+                if (status === 400)
+                    $scope.badRequest = data;
+                else if (status === 409)
+                    $scope.badRequest = 'Blad, prawdopodobnie ID_szkoly';
+            });
+        };
+
+        $scope.imageData = null;
+        $scope.onFileSelect = function ($files) {
+            $scope.imageData = $files[0];
+        };
+
+        $scope.ZaladujObrazek = function (event) {
+            $scope.id = event.target.id;
+            $upload.upload({
+                method: 'POST',
+                url: '/api/galleryPictures/' + $scope.id,
+                file: $scope.imageData,
+                fileFormDataName: 'imageData',
+                withCredentials: true
+            }).success(function (data) {
+                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                    $scope.aktualnosci = data;
+                });
+
+                console.log("SUCCESS");
+            }).error(function (data) {
+                $scope.submitting = false;
+                console.log("UNSUCCESS");
+                $scope.badRequest = 'There\'s something wrong with your input, please check!';
+            });
         };
     }]);
 ///////////////// ADD NEW UCZEN CONTROLLER /////////////////////
@@ -1248,11 +1307,11 @@ biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalIn
             $modalInstance.dismiss('cancel');
         };
         $scope.submit = function () {
-            console.log("DATA " + $data );
+            console.log("DATA " + $data);
             $scope.submitting = true;
             $upload.upload({
                 method: 'POST',
-                url: '/api/galleryPictures/'+ $data,
+                url: '/api/galleryPictures/' + $data,
                 file: $scope.imageData,
                 fileFormDataName: 'imageData',
                 withCredentials: true
