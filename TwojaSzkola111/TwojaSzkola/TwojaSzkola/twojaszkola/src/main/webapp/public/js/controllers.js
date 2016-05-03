@@ -891,6 +891,40 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
                     }
             );
         };
+        $scope.openNewOsiagniecieDlg = function () {
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/_new_osiagniecie.html',
+                controller: 'AddNewOsiagniecieCtrl',
+                scope: $scope
+            });
+            modalInstance.result.then(
+                    function (newOsiagniecie) {
+                        $http.get('/api/osiagniecia?all=true').success(function (data) {
+                            $scope.osiagniecia = data;
+                        });
+                        $scope.osiagniecia.push(newOsiagniecie);
+                    },
+                    function () {
+                    }
+            );
+        };
+        $scope.openNewKolkoDlg = function () {
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/_new_kolko.html',
+                controller: 'AddNewKolkoCtrl',
+                scope: $scope
+            });
+            modalInstance.result.then(
+                    function (newKolko) {
+                        $http.get('/api/kolkaZainteresowan?all=true').success(function (data) {
+                            $scope.kolka = data;
+                        });
+                        //$scope.kolkaZainteresowan.push(newKolko);
+                    },
+                    function () {
+                    }
+            );
+        };
     }]);
 //AKTUALNOSCI_SZKOLA CONTROLLER
 
