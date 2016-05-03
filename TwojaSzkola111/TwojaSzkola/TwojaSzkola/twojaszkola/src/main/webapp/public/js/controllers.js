@@ -53,6 +53,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
 
         $scope.submit = function () {
             $scope.submitting = true;
+            alert("dodaje aktualnosc");
             $http({
                 method: 'POST',
                 url: '/api/aktualnosciSzkola',
