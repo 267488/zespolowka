@@ -41,6 +41,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
         User user = currentUser.getUser();
         
+        
+        
         if(user.getRole().equals("ADMIN"))targetUrl="/admin.html";
         if(user.getRole().equals("UCZEN"))targetUrl="/index.html";
         if(user.getRole().equals("SZKOLA"))targetUrl="/index2.html";

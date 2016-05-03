@@ -354,7 +354,6 @@ public class UserController{
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
-
         User user = userRepository.findById(currentUser.getId());
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());

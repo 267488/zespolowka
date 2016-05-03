@@ -75,6 +75,8 @@ public class SecurityConfig {
                     .antMatchers("/admin.html","/admin.html/*").hasAuthority("ADMIN")
                     .antMatchers("/index","/osiagniecia", "/zainteresowania","/uczen", "/ustawieniaUcznia","/szkoly","partials/*").hasAuthority("UCZEN")
                     .and()
+                    .rememberMe().authenticationSuccessHandler(customSuccessHandler)
+                    .and()
                     .formLogin()
                     .loginPage("/").successHandler(customSuccessHandler).failureHandler(customFailureHandler)
                     .usernameParameter("login")
