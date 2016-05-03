@@ -71,7 +71,7 @@ public class SecurityConfig {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/","sign-up.html").permitAll()
-                    .antMatchers("/index2","/profile","/location","/ocenaPrzedmiotu","/ustawieniaSzkoly","/szkoly", "/profilSzkoly", "/kolkaZainteresowan", "/osiagniecia", "/aktualnosciSzkola").hasAuthority("SZKOLA")
+                    .antMatchers("/index2","/profile","/location","/ocenaPrzedmiotu","/ustawieniaSzkoly","/szkoly", "/profilSzkoly", "/kolkaZainteresowan", "/osiagniecia", "/aktualnosciSzkola","partials/*").hasAuthority("SZKOLA")
                     .antMatchers("/admin.html","/admin.html/*").hasAuthority("ADMIN")
                     .antMatchers("/index","/osiagniecia", "/zainteresowania","/uczen", "/ustawieniaUcznia","/szkoly").hasAuthority("UCZEN")
                     .and()
