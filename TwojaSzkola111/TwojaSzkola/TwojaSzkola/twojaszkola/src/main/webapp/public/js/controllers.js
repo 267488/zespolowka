@@ -170,7 +170,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
             $scope.kolka = data;
         });
         $http.get('/api/osiagnieciaCurrentUser?all=true').success(function (data) {
-            $scope.osiagnienia = data;
+            $scope.osiagniecia = data;
         });
         $http.get('/api/aktualnosciCurrentSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;
@@ -243,7 +243,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
     }]);
 //////////////////////// UCZEN CONTROLLER /////////////////
 
-biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
+biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal','$upload', function ($scope, $http, $modal, $upload) {
         $http.get('/api/CurrentUczen?all=true').success(function (data) {
             $scope.uczen = data;
             $scope.zdjecie = "img/brak.jpg";
@@ -318,7 +318,7 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
                 fileFormDataName: 'imageData',
                 withCredentials: true
             }).success(function (data) {
-                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
 
@@ -785,7 +785,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             $scope.kolka = data;
         });
         $http.get('/api/osiagnieciaCurrentUser?all=true').success(function (data) {
-            $scope.osiagnienia = data;
+            $scope.osiagniecia = data;
         });
 
         $scope.profil = {
