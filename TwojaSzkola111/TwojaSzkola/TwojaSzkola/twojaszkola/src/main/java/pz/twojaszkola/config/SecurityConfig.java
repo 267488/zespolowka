@@ -84,7 +84,7 @@ public class SecurityConfig {
                     .and()
                     .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/")
+                    .logoutSuccessUrl("/login.html")
                     .deleteCookies("remember-me-cookie")
                     .permitAll()
                     .and()

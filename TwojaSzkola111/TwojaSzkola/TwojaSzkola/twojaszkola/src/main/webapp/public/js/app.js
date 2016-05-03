@@ -67,7 +67,7 @@ var biking2 = angular
                         when('/', {
                             redirectTo: 'login.html'
                         }).
-                        when('/index.html/logout', {
+                        when('/logout', {
                             redirectTo: 'login.html'
                         }).
                         when('/index.html', {
@@ -78,51 +78,51 @@ var biking2 = angular
                             templateUrl: '/partials/_index2.html',
                             controller: 'Index2Ctrl'
                         }).
-                        when('/index.html/uczen', {
+                        when('/uczen', {
                             templateUrl: '/partials/_uczen.html',
                             controller: 'UczenCtrl'
                         }).
-                        when('/index.html/szkoly', {
+                        when('/szkoly', {
                             templateUrl: '/partials/_szkola.html',
                             controller: 'SzkolaCtrl'
                         }).
-                        when('/index.html/ustawieniaUcznia', {
+                        when('/ustawieniaUcznia', {
                             templateUrl: '/partials/_ustawienia_uczen.html',
                             controller: 'EditUczenCtrl'
                         }).
-                        when('/index.html/ustawieniaSzkoly', {
+                        when('/ustawieniaSzkoly', {
                             templateUrl: '/partials/_ustawienia_szkola.html',
                             controller: 'EditSzkolaCtrl'
                         }).
-                        when('/index.html/profilSzkoly', {
+                        when('/profilSzkoly', {
                             templateUrl: '/partials/_profil_szkoly.html',
                             controller: 'SzkolaCtrl'
                         }).
-                        when('/index.html/kolkaZainteresowan', {
+                        when('/kolkaZainteresowan', {
                             templateUrl: '/partials/_kolka.html',
                             controller: 'KolkaCtrl'
                         }).
-                        when('/index.html/osiagniecia', {
+                        when('/osiagniecia', {
                             templateUrl: '/partials/_osiagniecia.html',
                             controller: 'OsiagnieciaCtrl'
                         }).
-                        when('/index.html/aktualnosciSzkola', {
+                        when('/aktualnosciSzkola', {
                             templateUrl: '/partials/_aktualnosci_szkola.html',
                             controller: 'AktualnosciSzkolaCtrl'
                         }).
-                        when('/index.html/profile', {
+                        when('/profile', {
                             templateUrl: '/partials/_profile.html',
                             controller: 'ProfileCtrl'
                         }).
-                        when('/index.html/zainteresowania', {
+                        when('/zainteresowania', {
                             templateUrl: '/partials/_zainteresowania.html',
                             controller: 'ZainteresowaniaCtrl'
                         }).
-                        when('/index.html/ocenaPrzedmiotu', {
+                        when('/ocenaPrzedmiotu', {
                             templateUrl: '/partials/_ocena_przedmiotu.html',
                             controller: 'OcenaPrzedmiotuCtrl'
                         }).
-                        when('/index.html/location', {
+                        when('/location', {
                             templateUrl: '/partials/_location.html',
                             controller: 'LocationCtrl'
                         }).
