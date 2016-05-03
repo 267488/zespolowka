@@ -64,6 +64,9 @@ var biking2 = angular
                 $locationProvider.html5Mode(true);
 
                 $routeProvider.
+                        when('/', {
+                            templateUrl: 'login.html'
+                        }).
                         when('/logout', {
                             templateUrl: 'login.html'
                         }).
