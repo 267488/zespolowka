@@ -88,9 +88,13 @@ public class ProfileController {
 
     @RequestMapping(value = "/profile", method = GET)
     public List<ProfilEntity> getProfil(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<ProfilEntity> rv;
-        rv = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
-        return rv;
+        List<ProfilEntity> tmp;
+        List<profil> rv = new ArrayList<profil>();
+        tmp = profilRepository.findAll(new Sort(Sort.Direction.ASC, "profilNazwa", "szkola"));
+        for(ProfilEntity p : tmp){
+            //List<rozszerzonePrzedmiotyEntity> roz = rozszerzonePrzedmiotyRepo.
+        }
+        return tmp;
     }
 
     @RequestMapping(value = "/profileCurrentSchool", method = GET)

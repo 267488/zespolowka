@@ -39,7 +39,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
             }
         });
-        $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
+        $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
 
@@ -59,7 +59,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 data: $scope.NewAktualnosc
             }).success(function (data) {
                 $scope.submitting = false;
-                $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
+                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
                 $scope.NewAktualnosc = {
@@ -95,7 +95,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
-
+                
                 console.log("SUCCESS");
             }).error(function (data) {
                 $scope.submitting = false;
@@ -193,7 +193,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 data: $scope.NewAktualnosc
             }).success(function (data) {
                 $scope.submitting = false;
-                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                $http.get('/api/aktualnosciCurrentSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
                 $http.get('/api//CurrentUser/postcount?all=true').success(function (data) {
@@ -248,7 +248,7 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
             $scope.uczen = data;
             $scope.zdjecie = "img/brak.jpg";
             if (data.galleryId.id != null) {
-                $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
+                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             }
         });
         $http.get('/api/zainteresowaniaUcznia?all=true').success(function (data) {

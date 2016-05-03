@@ -17,6 +17,7 @@ package pz.twojaszkola.aktualnosciSzkola;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.validation.Valid;
 import java.util.Date;
@@ -83,6 +84,19 @@ public class aktualnosciSzkolaController {
         this.uczenRepository = uczenRepository;
     }
 
+    class aktualnosciComparator implements Comparator<aktualnosci> {
+
+        @Override
+        public int compare(aktualnosci s1, aktualnosci s2) {
+            if (s1.getAktualnosc().getDataPost().before(s2.getAktualnosc().getDataPost())) {
+                return 1;
+            } else if (s2.getAktualnosc().getDataPost().before(s1.getAktualnosc().getDataPost())) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     @RequestMapping(value = "/aktualnosciSzkola", method = GET)
     public List<aktualnosci> getAktualnosciSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<aktualnosci> aktual = new ArrayList<aktualnosci>();
@@ -113,6 +127,8 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
@@ -147,6 +163,8 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
@@ -184,16 +202,16 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
         }
-        
-        //Collections.sort(aktual, new aktualnosciSzkolaEntity());
-
         return aktual;
     }
-    
+
     @RequestMapping(value = "/CurrentUser/postcount", method = GET)
     public int getCurrentSizeAktualnosci(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;

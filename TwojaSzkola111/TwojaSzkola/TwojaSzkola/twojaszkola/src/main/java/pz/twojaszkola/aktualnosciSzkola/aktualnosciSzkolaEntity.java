@@ -124,16 +124,6 @@ public class aktualnosciSzkolaEntity implements Serializable{
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
-    
-     public int compare(aktualnosciSzkolaEntity s1, aktualnosciSzkolaEntity s2) {
-                if (s1.getDataPost().before(s2.getDataPost()) ){
-                return -1;
-        }
-                else if (s2.getDataPost().before(s1.getDataPost())) {
-               return 1;
-        }
-            return 0;
-    }
      
     @Override
     public boolean equals(Object object) {
