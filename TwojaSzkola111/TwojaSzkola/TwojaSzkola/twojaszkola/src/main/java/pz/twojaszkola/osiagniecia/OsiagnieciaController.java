@@ -92,9 +92,9 @@ public class OsiagnieciaController {
         Integer idUsera = currentUser.getId();
         rv = osiagnieciaRepository.findByUserId(idUsera);
         for (OsiagnieciaEntity o: rv ) {
-            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "osiagniecia " +  o.getNazwakonkursu());
+            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, " OSIAGNIECIA " +  o.getNazwakonkursu());
         }
-        Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "osiagniecia brak");
+        Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "OSIAGNIECIA BRAK");
         return rv;
     }
 
