@@ -68,7 +68,7 @@ var biking2 = angular
                             templateUrl: 'login.html'
                         }).
                         when('/logout', {
-                            templateUrl: 'login.html'
+                            redirectTo: 'login.html'
                         }).
                         when('/index.html', {
                             templateUrl: '/partials/_index.html',
