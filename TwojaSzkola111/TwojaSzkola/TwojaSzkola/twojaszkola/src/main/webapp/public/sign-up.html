@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="Michał Kaproń">
+        <link rel="icon" href="images/favicon.ico">
+
+        <title>Twoja Szkoła | Załóż konto</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Fonts for this template -->
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/fonts.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="sign-container">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <a href="/login.html" target="_self" class="button-login button-curve btn btn-lg">Zaloguj się</a>
+
+                <div class="col-md-7 col-sm-12 invitation-container">
+                    <div class="invitation">Nie wiesz jaką <span style="color: #1DE9B6;">szkołę wybrać?</span></div>
+                    <div class="invitation small">Z nami wybierzesz <span style="color: #1DE9B6;">najlepszą!</span></div>
+                </div>
+
+                <div class="col-md-5 col-sm-12 forms-container">
+                    <div class="sign">
+
+                        <form class="forms form-sign" ng-app="myApp" ng-controller="reg">
+                            <h2 class="form-sign-heading">Załóż konto</h2>
+
+                            <label for="inputEmail">E-MAIL</label><i class="fa fa-info-circle" id="mail-tooltip" data-toggle="tooltip" data-placement="right" title="E-mail."></i>
+                            <div class="input-group email">
+                                <i class="fa fa-envelope fa-1"></i>
+                                <input type="email" id="inputEmail" class="form-control have-icon" ng-model="userReg.email" min="8" placeholder="Wprowadź swój adres e-mail" required autofocus>
+                            </div>
+
+                            <label for="inputLogin">LOGIN</label><i class="fa fa-info-circle" id="mail-tooltip" data-toggle="tooltip" data-placement="right" title="Będziesz logować się przy pomocy loginu."></i>
+                            <div class="input-group email">
+                                <i class="fa fa-envelope fa-1"></i>
+                                <input type="text" id="inputLogin" class="form-control have-icon" ng-model="userReg.login" placeholder="Wprowadź swój login" required autofocus>
+                            </div>
+
+                            <label for="inputPassword">HASŁO</label><i class="fa fa-info-circle" id="password-tooltip" data-toggle="tooltip" data-placement="right" title="Hasło musi zawierać co najmniej 8 znaków."></i>
+                            <div class="input-group password">
+                                <i class="fa fa-lock fa-1"></i>
+                                <input type="password" id="inputPassword" class="form-control have-icon" ng-model="userReg.password" placeholder="Stwórz hasło" required>
+                            </div>
+
+                            <label for="inputPassword2">POTWIERDŹ HASŁO</label>
+                            <div class="input-group password2">
+                                <i class="fa fa-lock fa-1"></i>
+                                <input type="password" id="inputPassword2" class="form-control have-icon" ng-model="userReg.passwordConfirm" placeholder="Wprowadź hasło ponownie" required>
+                            </div>
+
+
+                            <button class="button-curve btn btn-lg btn-primary btn-block" type="submit" ng-click="signUp()" >Załóż konto</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script src="js/jquery-2.2.2.min.js"></script> 
+
+        <script>
+            $(document).ready(function () {
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
+            });
+        </script>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>

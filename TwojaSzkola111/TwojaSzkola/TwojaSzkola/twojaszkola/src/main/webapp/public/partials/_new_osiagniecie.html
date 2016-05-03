@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+    <h4 class="modal-title">Nowe Osiągnięcie</h4>
+</div>
+<div class="modal-body new-profile">
+    <form class="form-horizontal" name="theForm" role="form" data-ng-submit="submit();">
+	<div class="form-group" data-ng-show="badRequest">
+	    <div class="col-sm-offset-2 col-sm-10">
+		<label class="text-danger">
+		    {{badRequest}}
+		</label>
+	    </div>
+	</div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputPrzedmiot.$invalid,'has-success': theForm.inputPrzedmiot.$valid}">
+	    <label for="inputName" class="col-sm-2 control-label">PRZEDMIOT</label>
+	    <div class="col-sm-10">
+        	<select id="inputPrzedmiot" name="inputPrzedmiot" class="form-control" data-ng-model="osiagniecie.przedmiot" data-ng-required="true">
+		    <option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
+                </select>
+            </div>
+	</div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputNazwa.$invalid,'has-success': theForm.inputNazwa.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">NAZWA KONKURSU</label>
+            <div class="col-sm-10">
+                <input id="inputName" name="inputNazwa" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="osiagniecie.nazwakonkursu" data-ng-required="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="searchEducationLevel">ETAP KONKURSU</label>
+            <select class="form-control" ng-model="osiagniecie.szczebel" id="searchEducationLevel">
+                <option>Między Szkolny</option>
+                <option>Gminny</option>
+                <option>Powiatowy</option>
+                <option>Regionalny</option>
+                <option>Wojewódzki</option>
+                <option>Ogólnokrajowy</option>
+                <option>Międzynarodowy</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="searchEducationLevel">NAGRODA</label>
+            <select class="form-control" ng-model="osiagniecie.nagroda" id="searchEducationLevel">
+                <option>I miejsce</option>
+                <option>II miejsce</option>
+                <option>III miejsce</option>
+                <option>finalista</option>
+                <option>laureat</option>
+            </select>
+        </div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputTakenOn.$invalid,'has-success': theForm.inputTakenOn.$valid}">
+	    <label for="inputTakenOn" class="col-sm-2 control-label">Date</label>
+	    <div class="col-sm-10">
+		<div class="input-group datepicker-popup">
+		    <input id="inputTakenOn" name="inputTakenOn" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" data-ng-model="osiagniecie.termin" data-is-open="takenOnOptions.open" data-show-weeks="false" data-show-button-bar="false" data-min="takenOnOptions.minimum" data-ng-required="true" />
+		    <span class="input-group-btn">
+			<button class="btn btn-default" data-ng-click="openTakenOn($event);" type="button"><span class="glyphicon glyphicon-calendar"></span>&#xFEFF;</button>
+		    </span>
+		</div>
+	    </div>
+	</div>
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Save kolko</button>
+</div>

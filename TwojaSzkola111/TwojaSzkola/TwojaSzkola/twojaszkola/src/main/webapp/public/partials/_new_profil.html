@@ -1,0 +1,32 @@
+<!-- MODAL - ADDING NEW PROFILE -->
+<div class="modal fade" id="addNewProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">NOWY PROFIL</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="articleTitle" class="control-label">NAZWA</label>
+                        <input type="text" class="form-control" id="articleTitle" placeholder="Podaj nazwę nowego profilu" data-ng-model="profil.nazwa">
+                    </div>
+                    <div class="form-group checkbox-container">
+                        <div class="label-container"><label for="contain">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Przedmioty rozszerzone, które wchodzą w skład nowego profilu."></i></div>
+                        <div data-ng-repeat="przedmiot in przedmioty" class="przedmiot" id="{{przedmiot.id}}">
+                            <label>
+                                <input type="checkbox" ng-change="sync(bool, przedmiot)" ng-model="bool" ng-checked="isChecked(przedmiot.id)">
+                                <span>{{przedmiot.name}} Selected: {{bool}} </span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
+                <button type="button" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">DODAJ</button>
+            </div>
+        </div>
+    </div>
+</div>

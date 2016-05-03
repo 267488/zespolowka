@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>Rozszerzone Przedmioty</h2>
+	<p>Obrazek Uczen:</p>
+	<p>
+	    <img src="/img/uczen.png" alt="Uczen" class="img-thumbnail img-responsive" />
+	</p>
+	<p class="text-muted"><small>(Warto napisać coś o prawach autorskich)</small></p>
+	<div class="row">
+	    <div class="col-lg-8 col-md-9 col-xs-12 col-sm-12">
+		<p>Lista rozszerzonych przedmiotów</p>
+		<table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+                            <th>Szkola</th>
+                            <th>Profil</th>
+                            <th>Przedmiot</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="p in rozszerzonePrzedmioty | orderBy:['profilId', 'przedmiotId']">
+                            <td>{{p.profilId.szkola.name}}</td>
+                            <td>{{p.profilId.profilNazwa.nazwa}}</td>
+                            <td>{{p.przedmiotId.name}}</td>
+                        </tr>
+		    </tbody>
+		</table>
+		<button type="button" class="btn btn-default" data-ng-click="openNewRozszerzonyPrzedmiotDlg();">Nowy rozszerzony przedmiot</button>
+	    </div>
+	</div>
+    </div>
+</div>
