@@ -65,7 +65,7 @@ var biking2 = angular
 
                 $routeProvider.
                         when('/', {
-                            templateUrl: 'login.html'
+                            redirectTo: 'login.html'
                         }).
                         when('/logout', {
                             redirectTo: 'login.html'
