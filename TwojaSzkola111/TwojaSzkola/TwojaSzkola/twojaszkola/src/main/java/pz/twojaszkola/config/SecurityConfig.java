@@ -73,7 +73,7 @@ public class SecurityConfig {
                     .antMatchers("/","sign-up.html").permitAll()
                     .antMatchers("/index2","/profile","/location","/ocenaPrzedmiotu","/ustawieniaSzkoly","/szkoly", "/profilSzkoly", "/kolkaZainteresowan", "/osiagniecia", "/aktualnosciSzkola","partials/*").hasAuthority("SZKOLA")
                     .antMatchers("/admin.html","/admin.html/*").hasAuthority("ADMIN")
-                    .antMatchers("/index","/osiagniecia", "/zainteresowania","/uczen", "/ustawieniaUcznia","/szkoly").hasAuthority("UCZEN")
+                    .antMatchers("/index","/osiagniecia", "/zainteresowania","/uczen", "/ustawieniaUcznia","/szkoly","partials/*").hasAuthority("UCZEN")
                     .and()
                     .formLogin()
                     .loginPage("/").successHandler(customSuccessHandler).failureHandler(customFailureHandler)
