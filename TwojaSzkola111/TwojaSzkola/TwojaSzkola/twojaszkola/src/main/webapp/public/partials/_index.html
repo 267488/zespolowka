@@ -112,9 +112,14 @@
 
                     <div class="feedback">
 
-                        <div class="form">
+                        <div class="form-group">
+                            <label for="boardFeedback" class="">TYTUŁ</label>
+                            <input id="boardFeedback" class="form-control text" placeholder="Nazwij swój post" data-ng-model="NewAktualnosc.tytul"></textarea>
+                        </div>
+
+                        <div class="form-group">
                             <label for="boardFeedback" class="">TWOJA WIADOMOŚĆ</label>
-                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="Co ostatnio robiłeś?" data-ng-model="NewAktualnosc.tekst"></textarea>
+                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="O czym chcesz napisać?" data-ng-model="NewAktualnosc.tekst">></textarea>
                         </div>
 
                         <div class="button-container">

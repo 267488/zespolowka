@@ -39,7 +39,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
             }
         });
-        $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+        $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
 
@@ -59,7 +59,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 data: $scope.NewAktualnosc
             }).success(function (data) {
                 $scope.submitting = false;
-                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
                 $scope.NewAktualnosc = {
@@ -263,21 +263,10 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
         $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
+        $http.get('/api//CurrentUser/postcount?all=true').success(function (data) {
+            $scope.ilosc = data;
+        });
 
-        $scope.openNewUczenDlg = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/_new_uczen.html',
-                controller: 'AddNewUczenCtrl',
-                scope: $scope
-            });
-            modalInstance.result.then(
-                    function (newUczen) {
-                        $scope.uczen.push(newUczen);
-                    },
-                    function () {
-                    }
-            );
-        };
         $scope.NewAktualnosc = {
             userId: null,
             tytul: null,
@@ -293,8 +282,11 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
                 data: $scope.NewAktualnosc
             }).success(function (data) {
                 $scope.submitting = false;
-                $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
+                $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
                     $scope.aktualnosci = data;
+                });
+                $http.get('/api//CurrentUser/postcount?all=true').success(function (data) {
+                    $scope.ilosc = data;
                 });
                 $scope.NewAktualnosc = {
                     userId: null,
