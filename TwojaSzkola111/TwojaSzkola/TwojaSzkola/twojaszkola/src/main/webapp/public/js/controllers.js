@@ -785,7 +785,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
         $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
             $scope.kolka = data;
         });
-        $http.get('/api/osiagnieciaCurrentSchool?all=true').success(function (data) {
+        $http.get('/api/osiagnieciaCurrentUser?all=true').success(function (data) {
             $scope.osiagnienia = data;
         });
 
@@ -899,7 +899,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             });
             modalInstance.result.then(
                     function (newOsiagniecie) {
-                        $http.get('/api/osiagniecia?all=true').success(function (data) {
+                        $http.get('/api/osiagnieciaCurrentUser?all=true').success(function (data) {
                             $scope.osiagniecia = data;
                         });
                         $scope.osiagniecia.push(newOsiagniecie);
@@ -916,7 +916,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             });
             modalInstance.result.then(
                     function (newKolko) {
-                        $http.get('/api/kolkaZainteresowan?all=true').success(function (data) {
+                        $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
                             $scope.kolka = data;
                         });
                         //$scope.kolkaZainteresowan.push(newKolko);
