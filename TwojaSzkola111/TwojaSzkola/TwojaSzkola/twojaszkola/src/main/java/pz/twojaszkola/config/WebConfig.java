@@ -66,7 +66,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             "/index.html/kolkaZainteresowan",
 	    "/index.html/gallery",
 	    "/index.html/location",
-	    "/index.html/about"
+	    "/index.html/about",
+            "/uczen"
 	})
 	public String index() {
 	    return "forward:/login.html";
