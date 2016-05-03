@@ -39,7 +39,6 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         
         redirectStrategy.sendRedirect(request, response, "/");
-        System.out.println("CUSTOM FAILURE HANDLER");
     }
     
 }

@@ -93,7 +93,8 @@ public class User implements Serializable {
     @JsonIgnore private List<SzkolaEntity> szkola = new ArrayList<>();
     
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore private List<GalleryUserEntity> galleryUser = new ArrayList<>();
+    @JsonIgnore private List<GalleryUserEntity> gallerySchool = new ArrayList<>();
+    
     
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore private List<aktualnosciSzkolaEntity> aktualnosciSzkola = new ArrayList<>();
@@ -177,6 +178,16 @@ public class User implements Serializable {
     public void setGalleryId(GalleryUserEntity galleryId) {
         this.galleryId = galleryId;
     }
+
+    public List<GalleryUserEntity> getGallerySchool() {
+        return gallerySchool;
+    }
+
+    public void setGallerySchool(List<GalleryUserEntity> gallerySchool) {
+        this.gallerySchool = gallerySchool;
+    }
+    
+    
     
     public List<UczenEntity> getUczniowie() {
         return uczniowie;
@@ -194,13 +205,8 @@ public class User implements Serializable {
         this.szkola = szkola;
     }
     
-    public List<GalleryUserEntity> getGalleryUser() {
-        return galleryUser;
-    }
-
-    public void setGalleryUser(List<GalleryUserEntity> galleryUser) {
-        this.galleryUser = galleryUser;
-    }
+    
+    
     
     public List<aktualnosciSzkolaEntity> getAktualnosciSzkola() {
         return aktualnosciSzkola;

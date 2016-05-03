@@ -15,15 +15,29 @@
  */
 package pz.twojaszkola.user;
 
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 /**
  *
  * @author radon
  */
-public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByLogin(final String login);
-    User findById(final int id);
+public class NewPassword {
+    private int[] ids;
+    private String newPassword;
+
+    public int[] getIds() {
+        return ids;
+    }
+
+    public void setIds(int[] ids) {
+        this.ids = ids;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+    
     
 }

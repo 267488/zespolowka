@@ -18,7 +18,6 @@ package pz.twojaszkola.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import pz.twojaszkola.galleryUser.GalleryUserEntity;
 
 /**
  *
@@ -40,9 +39,7 @@ public class UserCmd {
     
     @NotBlank   
     private String state;
-    
-    private GalleryUserEntity galleryId;
-    
+
     public String getEmail() {
         return email;
     }
@@ -82,13 +79,6 @@ public class UserCmd {
     public void setState(String state) {
         this.state = state;
     }
-
-    public GalleryUserEntity getGalleryId() {
-        return galleryId;
-    }
-
-    public void setGalleryId(GalleryUserEntity galleryId) {
-        this.galleryId = galleryId;
-    }
+    
     
 }
