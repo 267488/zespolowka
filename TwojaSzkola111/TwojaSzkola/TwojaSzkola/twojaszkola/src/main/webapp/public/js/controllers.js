@@ -39,7 +39,6 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
             }
         });
-
         $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
@@ -252,7 +251,9 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', functio
         $http.get('/api//StopnieZainteresowanUcznia?all=true').success(function (data) {
             $scope.stopnie = data;
         });
-
+        $http.get('/api/CurrentUczen/zainteresowaniamax?all=true').success(function (data){
+            $scope.max = data;
+        });
         $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });

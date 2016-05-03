@@ -15,6 +15,8 @@
  */
 package pz.twojaszkola.uczen;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,8 +56,8 @@ public class UczenController {
     private final UserRepository userRepository;
 
     @Autowired
-    public UczenController(final UczenRepository uczenRepository, 
-                           final UserRepository userRepository) {
+    public UczenController(final UczenRepository uczenRepository,
+            final UserRepository userRepository) {
         this.uczenRepository = uczenRepository;
         this.userRepository = userRepository;
     }
@@ -86,8 +88,29 @@ public class UczenController {
         Integer idUsera = currentUser.getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
-        
+
         return uczen.getZainteresowania();
+    }
+
+    class zainteresowaniaStopienComparator implements Comparator<zainteresowaniaEntity> {
+
+        public int compare(zainteresowaniaEntity z1, zainteresowaniaEntity z2) {
+            return z1.getStopienZainteresowania() - z2.getStopienZainteresowania();
+        }
+    }
+
+    @RequestMapping(value = "/CurrentUczen/zainteresowaniamax", method = GET)
+    public zainteresowaniaEntity getMaxZainteresowaniaUczniaById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
+        List<zainteresowaniaEntity> lz = uczen.getZainteresowania();
+        Collections.sort(lz, new zainteresowaniaStopienComparator());
+
+        return lz.get(0);
     }
 
     @RequestMapping(value = "/uczen", method = POST)
@@ -101,7 +124,7 @@ public class UczenController {
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-       
+
         User user = userRepository.findById(idUsera);
         final UczenEntity uczen = new UczenEntity(newUczen.getName(), newUczen.getLastname(), newUczen.getCzegoSzukam(), newUczen.getKodpocztowy(), newUczen.getMiasto(), newUczen.getAdres(), user);
 //        if (galleryStudentRepo.findOne(2) != null) {
@@ -112,7 +135,7 @@ public class UczenController {
 //        }
         return this.uczenRepository.save(uczen);
     }
-    
+
     @RequestMapping(value = "/uczen/{id}", method = DELETE)
     @PreAuthorize("isAuthenticated()")
     @Transactional
