@@ -16,6 +16,7 @@
 package pz.twojaszkola.aktualnosciSzkola;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.validation.Valid;
 import java.util.Date;
@@ -41,9 +42,11 @@ import pz.twojaszkola.galleryPictures.GalleryPictureEntity;
 import pz.twojaszkola.galleryPictures.GalleryPictureRepository;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.profil.ProfileController;
+import pz.twojaszkola.proponowaneSzkoly.proponowaneSzkolyEntity;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
+import pz.twojaszkola.uczen.UczenController;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
@@ -185,9 +188,12 @@ public class aktualnosciSzkolaController {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
         }
+        
+        //Collections.sort(aktual, new aktualnosciSzkolaEntity());
+
         return aktual;
     }
-
+    
     @RequestMapping(value = "/CurrentUser/postcount", method = GET)
     public int getCurrentSizeAktualnosci(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;

@@ -862,6 +862,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
         $scope.UsunProfil = function (event) {
             $scope.id = event.target.id;
             console.log("Profil ID");
+            alert(" USUN PROFIL " + $scope.id);
             $http.delete('/api/profilDelete/' + $scope.id)
                     .success(function (data) {
                         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
@@ -872,6 +873,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
 
                     });
         };
+        
         $scope.AddNewProfil = function () {
             var modalInstance = $modal.open({
                 templateUrl: '/partials/_new_profil.html',
@@ -1538,3 +1540,42 @@ biking2Controllers.controller('AboutCtrl', ['$scope', '$q', '$http', '$filter', 
         });
         $scope.refresh();
     }]);
+
+biking2Controllers.controller('myCtrl',function($rootScope,$scope, $http,$location,$window) {
+            $scope.user = {
+              login: '',
+              password: ''
+            };
+            
+            
+            $scope.login = function(){
+                
+                console.log("login function");
+                $http({
+                method : 'POST',
+                url : '/test',
+                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                data: {login:$scope.user.login,password:$scope.user.password}
+                }).then(function mySucces(response) {
+                    console.log(response.data);
+                                                   
+                    $scope.id=response.data.id; 
+                    $window.sessionStorage.setItem('myItem',$scope.id); 
+                    
+                       
+                            switch(response.data.role.toString())
+                            {
+                                case 'SZKOLA': $window.location.href='/szkola.html';console.log("przechodze przez SZKOLA");break;
+                                case 'ADMIN': $window.open('/admin.html','_self');alert("przechodze przez ADMIN");break;
+                                case 'UCZEN': $window.location.href='/index.html';console.log("przechodze przez UCZEN");break;
+                                default: $window.location.href='/error.html';break;    
+                            }; 
+                                       
+                               
+                }, function myError(response) {
+                    $scope.myWelcome = response.statusText;
+                    console.log("error");
+                });
+            };
+        
+            }); 

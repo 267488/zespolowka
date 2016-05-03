@@ -88,6 +88,10 @@ public class aktualnosciSzkolaEntity implements Serializable{
         this.tekst = tekst;
         this.dataPost = Calendar.getInstance();
     }
+
+    public Calendar getDataPost() {
+        return dataPost;
+    }
     
     public Integer getId() {
         return id;
@@ -121,6 +125,16 @@ public class aktualnosciSzkolaEntity implements Serializable{
         this.tekst = tekst;
     }
     
+     public int compare(aktualnosciSzkolaEntity s1, aktualnosciSzkolaEntity s2) {
+                if (s1.getDataPost().before(s2.getDataPost()) ){
+                return -1;
+        }
+                else if (s2.getDataPost().before(s1.getDataPost())) {
+               return 1;
+        }
+            return 0;
+    }
+     
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
