@@ -44,6 +44,14 @@ public class aktualnosci {
         this.podpis = podpis;
         this.zdjecie = zdjecie;
     }
+
+    public String getZdjecie() {
+        return zdjecie;
+    }
+
+    public void setZdjecie(String zdjecie) {
+        this.zdjecie = zdjecie;
+    }
     
     public aktualnosciSzkolaEntity getAktualnosc() {
         return aktualnosc;

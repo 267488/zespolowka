@@ -76,16 +76,16 @@
                 <div class="list-container" data-mcs-theme="minimal-dark">
                     <div class="content level1" ng-repeat="s in ulubione_szkoly| orderBy:['szkolaId']">
 
-                        <a href="#" title="{{ s.szkolaId.name}}">
+                        <a href="#" title="{{ s.ulubiona.szkolaId.name}}">
                             <img class="img" src="{{s.zdjecie}}" >
                         </a>
 
                         <div class="text-container">
-                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.szkolaId.typSzkoly}}</span><span> nr </span><span class="number">{{ s.szkolaId.numer}}</span></h5></a>
-                            <div class="city">{{ s.szkolaId.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.szkolaId.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
+                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.ulubiona.szkolaId.typSzkoly}}</span><span> nr </span><span class="number">{{ s.ulubiona.szkolaId.numer}}</span></h5></a>
+                            <div class="city">{{ s.ulubiona.szkolaId.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.ulubiona.szkolaId.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
                         </div>
 
-                        <span class="glyphicon glyphicon-star" id="{{ s.szkolaId.id}}" ng-click="Ulubione($event)"></span>
+                        <span class="glyphicon glyphicon-star" id="{{ s.ulubiona.szkolaId.id}}" ng-click="Ulubione($event)"></span>
 
                     </div>
                 </div>
@@ -132,34 +132,11 @@
                         <div class="post" ng-repeat="a in aktualnosci">
 
                             <div class="profile-info">
-                                <img src="/api/galleryUser/{{a.aktalnosc.userId.galleryId.id }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
+                                <img src="{{a.zdjecie}}" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
                                 <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
                             </div>
 
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
-
-
-                            <!--     <div id="carousel-post-gallery-{{ a.aktualnosc.id }}" class="carousel slide" data-ride="carousel">
-     
-                                      Wrapper for slides 
-                                     <div class="carousel-inner" role="listbox">
-                                         <div class="item" ng-repeat="i in a.galleryId">
-                                             <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">
-                                         </div>
-                                     </div>
-     
-                                      Controls 
-                                     <a class="left carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id }}" role="button" data-slide="prev">
-                                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                         <span class="sr-only">Previous</span>
-                                     </a>
-                                     <a class="right carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id }}" role="button" data-slide="next">
-                                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                         <span class="sr-only">Next</span>
-                                     </a>
-                                 </div>
-                                     
-                            -->
                             <div class="image" ng-repeat="i in a.galleryId">
                                 <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
                             </div>

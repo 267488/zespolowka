@@ -279,6 +279,11 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
             id: null
         };
 
+        $scope.imageData = null;
+        $scope.onFileSelect = function ($files) {
+            $scope.imageData = $files[0];
+        };
+
         $scope.submit = function () {
             $scope.submitting = true;
             $http({
@@ -286,6 +291,24 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
                 url: '/api/aktualnosciSzkola',
                 data: $scope.NewAktualnosc
             }).success(function (data) {
+                $scope.aktual = data;
+                $upload.upload({
+                    method: 'POST',
+                    url: '/api/galleryPictures/' + $scope.aktual.id,
+                    file: $scope.imageData,
+                    fileFormDataName: 'imageData',
+                    withCredentials: true
+                }).success(function (data) {
+                    $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
+                        $scope.aktualnosci = data;
+                    });
+
+                    console.log("SUCCESS");
+                }).error(function (data) {
+                    $scope.submitting = false;
+                    console.log("UNSUCCESS");
+                    $scope.badRequest = 'There\'s something wrong with your input, please check!';
+                });
                 $scope.submitting = false;
                 $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
                     $scope.aktualnosci = data;
@@ -309,16 +332,10 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
             });
         };
 
-        $scope.imageData = null;
-        $scope.onFileSelect = function ($files) {
-            $scope.imageData = $files[0];
-        };
-
-        $scope.ZaladujObrazek = function (event) {
-            $scope.id = event.target.id;
+        $scope.ZaladujObrazek = function (id) {
             $upload.upload({
                 method: 'POST',
-                url: '/api/galleryPictures/' + $scope.id,
+                url: '/api/galleryPictures/' + id,
                 file: $scope.imageData,
                 fileFormDataName: 'imageData',
                 withCredentials: true

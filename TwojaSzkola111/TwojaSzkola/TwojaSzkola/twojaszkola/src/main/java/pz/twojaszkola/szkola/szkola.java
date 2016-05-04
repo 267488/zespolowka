@@ -39,6 +39,14 @@ public class szkola {
         this.zdjecie = zdjecie;
     }
 
+    public String getZdjecie() {
+        return zdjecie;
+    }
+
+    public void setZdjecie(String zdjecie) {
+        this.zdjecie = zdjecie;
+    }
+
     public SzkolaEntity getSzkola() {
         return szkola;
     }

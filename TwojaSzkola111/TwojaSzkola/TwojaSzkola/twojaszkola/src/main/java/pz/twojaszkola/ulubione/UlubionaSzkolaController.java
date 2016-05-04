@@ -15,6 +15,7 @@
  */
 package pz.twojaszkola.ulubione;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
@@ -50,20 +52,26 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaController;
 @RequestMapping("/api")
 public class UlubionaSzkolaController {
 
-     private final UlubionaSzkolaRepository ulubionaSzkolaRepository;
-     private final UczenRepository uczenRepository;
-     private final SzkolaRepository szkolaRepository;
-     
+    private final UlubionaSzkolaRepository ulubionaSzkolaRepository;
+    private final UczenRepository uczenRepository;
+    private final SzkolaRepository szkolaRepository;
+    private final GalleryUserRepository galleryRepo;
+
     @Autowired
-    public UlubionaSzkolaController(final UlubionaSzkolaRepository ulubionaSzkolaRepository, UczenRepository uczenRepository, SzkolaRepository szkolaRepository) {
+    public UlubionaSzkolaController(final UlubionaSzkolaRepository ulubionaSzkolaRepository,
+            final UczenRepository uczenRepository,
+            final SzkolaRepository szkolaRepository,
+            final GalleryUserRepository galleryRepo) {
         this.ulubionaSzkolaRepository = ulubionaSzkolaRepository;
         this.uczenRepository = uczenRepository;
         this.szkolaRepository = szkolaRepository;
+        this.galleryRepo = galleryRepo;
     }
-        
+
     @RequestMapping(value = "/ulubioneSzkoly", method = GET)
-    public List<UlubionaSzkolaEntity2> getUlubionaSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public List<ulubionaSzkola> getUlubionaSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<UlubionaSzkolaEntity2> rv;
+        List<ulubionaSzkola> rv2 = new ArrayList<ulubionaSzkola>();
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
@@ -72,11 +80,20 @@ public class UlubionaSzkolaController {
         Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
+        String zdjecie = "img/brak.jpg";
+        if (galleryRepo.findByUserId(idUsera) != null) {
+            zdjecie = "/api/galleryUser/" + galleryRepo.findByUserId(idUsera).getId() + ".jpg";
+        }
+
         rv = ulubionaSzkolaRepository.findByUczenId(idUcznia);
-        return rv;
+        for (UlubionaSzkolaEntity2 u : rv) {
+            rv2.add(new ulubionaSzkola(u,zdjecie));
+        }
+
+        return rv2;
     }
-        
-    @RequestMapping(value = "/ulubionaSzkola/{id:\\d+}", method = POST) 
+
+    @RequestMapping(value = "/ulubionaSzkola/{id:\\d+}", method = POST)
     @PreAuthorize("isAuthenticated()")
     public UlubionaSzkolaEntity2 createUlubionaSzkola(@PathVariable Integer id) {
         List<UlubionaSzkolaEntity2> rv;
@@ -86,26 +103,26 @@ public class UlubionaSzkolaController {
         Integer idUsera = currentUser.getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
- 
+
         rv = ulubionaSzkolaRepository.findByUczenId(uczen.getId());
         //Logger.getLogger(UlubionaSzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + newUlubionaSzkola.getId());
         final SzkolaEntity szkola = szkolaRepository.findById(id);
-        boolean dodawanie=true;
-        for(UlubionaSzkolaEntity2 szk : rv) {
-            if(szk.getSzkolaId().getId() == id){
-               dodawanie=false;
+        boolean dodawanie = true;
+        for (UlubionaSzkolaEntity2 szk : rv) {
+            if (szk.getSzkolaId().getId() == id) {
+                dodawanie = false;
             }
         }
-        if(dodawanie){
-            final UlubionaSzkolaEntity2 ulubione = new UlubionaSzkolaEntity2(uczen, szkola);	
+        if (dodawanie) {
+            final UlubionaSzkolaEntity2 ulubione = new UlubionaSzkolaEntity2(uczen, szkola);
             //szkola.setRodzajGwiazdki("glyphicon-star");
             this.szkolaRepository.save(szkola);
             return this.ulubionaSzkolaRepository.save(ulubione);
         }
         return null;
     }
-    
-    @RequestMapping(value = "/ulubionaSzkolaDelete/{id:\\d+}", method = DELETE) 
+
+    @RequestMapping(value = "/ulubionaSzkolaDelete/{id:\\d+}", method = DELETE)
     @PreAuthorize("isAuthenticated()")
     public UlubionaSzkolaEntity2 deleteUlubionaSzkola(@PathVariable Integer id) {
         List<UlubionaSzkolaEntity2> rv;
@@ -118,35 +135,35 @@ public class UlubionaSzkolaController {
         rv = ulubionaSzkolaRepository.findByUczenId(uczen.getId());
         //Logger.getLogger(UlubionaSzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + newUlubionaSzkola.getId());
         UlubionaSzkolaEntity2 szkolaDoUsuniecia = null;
-        boolean usuwanie=false;
-        for(UlubionaSzkolaEntity2 szk : rv) {
-            if(szk.getSzkolaId().getId() == id){
-               usuwanie=true;
-               szkolaDoUsuniecia = szk;
+        boolean usuwanie = false;
+        for (UlubionaSzkolaEntity2 szk : rv) {
+            if (szk.getSzkolaId().getId() == id) {
+                usuwanie = true;
+                szkolaDoUsuniecia = szk;
             }
         }
-        if(usuwanie){
+        if (usuwanie) {
             final SzkolaEntity szkola = szkolaRepository.findById(id);
             this.szkolaRepository.save(szkola);
-            ulubionaSzkolaRepository.delete(szkolaDoUsuniecia);	
+            ulubionaSzkolaRepository.delete(szkolaDoUsuniecia);
             return szkolaDoUsuniecia;
         }
         return null;
     }
-    
-        @RequestMapping(value = "/ulubioneSzkoly/{id:\\d+}", method = PUT)
-        @PreAuthorize("isAuthenticated()")
-        @Transactional
-        public UlubionaSzkolaEntity2 updateProponowaneSzkoly(final @PathVariable Integer id, final @RequestBody @Valid UlubionaSzkolaCmd updatedUlubionaSzkola, final BindingResult bindingResult) {
-            if(bindingResult.hasErrors()) {
-                throw new IllegalArgumentException("Invalid arguments.");
-            }
-	
-            final UlubionaSzkolaEntity2 ulubiona = ulubionaSzkolaRepository.findOne(id);
-		
-            if(ulubiona == null) {
-                throw new ResourceNotFoundException();
-            } 
-            return ulubiona;
+
+    @RequestMapping(value = "/ulubioneSzkoly/{id:\\d+}", method = PUT)
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public UlubionaSzkolaEntity2 updateProponowaneSzkoly(final @PathVariable Integer id, final @RequestBody @Valid UlubionaSzkolaCmd updatedUlubionaSzkola, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new IllegalArgumentException("Invalid arguments.");
         }
+
+        final UlubionaSzkolaEntity2 ulubiona = ulubionaSzkolaRepository.findOne(id);
+
+        if (ulubiona == null) {
+            throw new ResourceNotFoundException();
+        }
+        return ulubiona;
+    }
 }
