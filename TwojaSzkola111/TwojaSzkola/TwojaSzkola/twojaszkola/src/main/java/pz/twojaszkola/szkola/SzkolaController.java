@@ -127,6 +127,29 @@ public class SzkolaController {
         return rv;
     }
 
+    @RequestMapping(value = "/szkola2", method = GET)
+    public List<szkola> getSzkola2(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<SzkolaEntity> tmp;
+        List<szkola> rv = new ArrayList<szkola>();
+        tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "miasto", "adres", "kodpocztowy", "typSzkoly"));
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+        UczenEntity uczen = uczenRepository.findOne(idUsera);
+        szkola szkol = null;
+
+        for (SzkolaEntity s : tmp) {
+            String zdjecie = "img/brak.jpg";
+            if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+            }
+            
+            rv.add(new szkola(s, "glyphicon-star", zdjecie));
+        }
+        return rv;
+    }
+
     @RequestMapping(value = "/CurrentSzkola", method = GET)
     public SuperSzkola getCurrentSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;

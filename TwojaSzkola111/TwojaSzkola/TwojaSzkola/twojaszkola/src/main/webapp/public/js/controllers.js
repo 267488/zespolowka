@@ -739,6 +739,31 @@ biking2Controllers.controller('SzkolaCtrl', ['$scope', '$http', '$modal', functi
             );
         };
     }]);
+
+biking2Controllers.controller('Szkola2Ctrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
+        $http.get('/api/szkola2?all=true').success(function (data) {
+            $scope.szkola = data;
+        });
+
+        $http.get('/api/przedmioty?all=true').success(function (data) {
+            $scope.przedmioty = data;
+        });
+     
+        $scope.szukane = null;
+        $scope.Szukaj = function () {
+            $scope.szukane = document.getElementById("SzukajSzkoly").value;
+            console.log("SZUKANE " + $scope.szukane);
+            $http({
+                method: 'GET',
+                url: '/api/szukaneSzkoly/' + $scope.szukane
+            }).success(function (data) {
+                $scope.szkola = data;
+            }).error(function (data, status) {
+
+            });
+        };
+    }]);
+
 biking2Controllers.controller('AddNewUlubioneCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
         $http.get('/api/szkola?all=true').success(function (data) {
             $scope.szkola = data;
@@ -984,6 +1009,51 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
                     function () {
                     }
             );
+        };
+        $scope.osiagniecie = {
+            id: null,
+            nazwakonkursu: null,
+            termin: null,
+            przedmiot: null,
+            szczebel: null,
+            nagroda: null,
+            userId: null
+        };
+        $scope.takenOnOptions = {
+            'year-format': "'yyyy'",
+            'starting-day': 1,
+            open: false
+        };
+        $scope.openTakenOn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.takenOnOptions.open = true;
+        };
+        
+        $scope.submitOsiagniecia = function () {
+            $scope.submitting = true;
+            console.log("TERMIN " + $scope.osiagniecie.termin);
+            alert("TERMIN " + $scope.osiagniecie.termin);
+            $http({
+                method: 'POST',
+                url: '/api/osiagniecia/' + $scope.osiagniecie.przedmiot,
+                data: $scope.osiagniecie,
+                withCredentials: true,
+                formDataAppender: function (formData, key, val) {
+                    if (key !== null && key === 'termin')
+                        formData.append(key, val.toISOString());
+                    else
+                        formData.append(key, val);
+                }
+            }).success(function (data) {
+                $scope.submitting = false;
+            }).error(function (data, status) {
+                $scope.submitting = false;
+                if (status === 400)
+                    $scope.badRequest = data;
+                else if (status === 409)
+                    $scope.badRequest = 'Osiagniecie o takiej nazwie juz istnieje';
+            });
         };
         $scope.openNewKolkoDlg = function () {
             var modalInstance = $modal.open({
