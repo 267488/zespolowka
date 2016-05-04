@@ -59,6 +59,8 @@ app.controller('myCtrl',function($rootScope,$scope, $http,$location,$window) {
             
 app.controller("reg",function($rootScope,$scope, $http,$location,$window){ 
     
+    $scope.signUpError ='';
+    $scope.infoColor = '';
     $scope.userReg = 
             {
                 email:'',
@@ -70,20 +72,34 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
         
         $scope.signUp = function(){
                 alert("sign-up function");
-                
-                $http({
-                method : 'POST',
-                url : '/reg',
-                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                data: {login:$scope.userReg.login,email:$scope.userReg.email,password:$scope.userReg.password,role:$scope.userReg.role}
-                }).then(function mySucces(response) {
-                    console.log(response.data);                    
-                    
-                   
-                }, function myError(response) {
-                    
-                    console.log("error");
-                });
+                if($scope.userReg!==null)
+                {
+                if($scope.userReg.password===$scope.userReg.passwordConfirm)
+                {
+                    $scope.infoColor = "green";
+                    $scope.signUpError = "Wszystko ok";
+                                    $http({
+                                    method : 'POST',
+                                    url : '/reg',
+                                    headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                                    data: {login:$scope.userReg.login,email:$scope.userReg.email,password:$scope.userReg.password,role:$scope.userReg.role}
+                                    }).then(function mySucces(response) {
+                                        console.log(response.data);                    
+
+
+                                    }, function myError(response) {
+
+                                        $scope.infoColor = "red";
+                                        $scope.signUpError = "Błąd rejestracji";
+                                        
+                                    });
+                }
+                else{
+                    $scope.infoColor = "red";
+                    $scope.signUpError = "Hasła nie pasuja do siebie";
+                }
+                }
+
             };
     
         
