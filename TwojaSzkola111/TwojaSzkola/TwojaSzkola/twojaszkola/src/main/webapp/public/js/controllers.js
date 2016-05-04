@@ -447,6 +447,43 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                     $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
             });
         };
+        $scope.editPicture = function () {
+            alert("EDIT PICTURE");
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/_new_picture.html',
+                controller: 'AddNewPictureCtrl',
+                scope: $scope
+            });
+            modalInstance.result.then(
+                    function (newPicture) {
+                        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+                            $scope.uczen = data;
+                            $scope.zdjecie = "img/brak.jpg";
+                            if (data.galleryId.id != null) {
+                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                            }
+                        });
+                    },
+                    function () {
+                    }
+            );
+        };
+        $scope.deletePicture = function () {
+            alert("DELETE");
+            $http.delete('/api/pictureDelete/')
+                    .success(function (data) {
+                        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+                            $scope.uczen = data;
+                            $scope.zdjecie = "img/brak.jpg";
+                            if (data.galleryId.id != null) {
+                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                            }
+                        });
+                    })
+                    .error(function (data) {
+
+                    });
+        };
     }]);
 /////////////////// PROPONOWANE SZKOLY CONTROLLER ///////////////////
 
