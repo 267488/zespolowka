@@ -85,7 +85,7 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
                                     data: {login:$scope.userReg.login,email:$scope.userReg.email,password:$scope.userReg.password,role:$scope.userReg.role}
                                     }).then(function mySucces(response) {
                                         console.log(response.data);                    
-
+                                                  
 
                                     }, function myError(response) {
 

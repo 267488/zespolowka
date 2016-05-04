@@ -51,45 +51,7 @@
                 <div class="col-md-5 col-sm-12 forms-container">
                     <div class="sign">
 
-                        <form class="forms form-sign" ng-app="myApp" ng-controller="reg">
-                            <h2 class="form-sign-heading">Załóż konto</h2>
-
-                            <label for="inputEmail">E-MAIL</label><i class="fa fa-info-circle" id="mail-tooltip" data-toggle="tooltip" data-placement="right" title="E-mail."></i>
-                            <div class="input-group email">
-                                <i class="fa fa-envelope fa-1"></i>
-                                <input type="email" id="inputEmail" class="form-control have-icon" ng-model="userReg.email" min="8" placeholder="Wprowadź swój adres e-mail" required autofocus>
-                            </div>
-
-                            <label for="inputLogin">LOGIN</label><i class="fa fa-info-circle" id="mail-tooltip" data-toggle="tooltip" data-placement="right" title="Będziesz logować się przy pomocy loginu."></i>
-                            <div class="input-group email">
-                                <i class="fa fa-envelope fa-1"></i>
-                                <input type="text" id="inputLogin" class="form-control have-icon" ng-model="userReg.login" placeholder="Wprowadź swój login" required autofocus>
-                            </div>
-
-                            <label for="inputPassword">HASŁO</label><i class="fa fa-info-circle" id="password-tooltip" data-toggle="tooltip" data-placement="right" title="Hasło musi zawierać co najmniej 8 znaków."></i>
-                            <div class="input-group password">
-                                <i class="fa fa-lock fa-1"></i>
-                                <input type="password" id="inputPassword" class="form-control have-icon" ng-model="userReg.password" placeholder="Stwórz hasło" required>
-                            </div>
-
-                            <label for="inputPassword2">POTWIERDŹ HASŁO</label>
-                            <div class="input-group password2">
-                                <i class="fa fa-lock fa-1"></i>
-                                <input type="password" id="inputPassword2" class="form-control have-icon" ng-model="userReg.passwordConfirm" placeholder="Wprowadź hasło ponownie" required>
-                            </div>
-                            
-                            <label for="inputTyo">WYBIERZ TYP KONTA</label>
-                            <div class="input-group password2">
-                                <select id="inputTyp" ng-model="userReg.role">
-                                    <option>UCZEŃ</option>
-                                    <option>SZKOŁA</option>
-                                </select>
-                                
-                            </div>
-                                    
-                            <div class="input-group email" style="color: {{infoColor}}">{{signUpError}}</div>
-                            <a href="/sign-upSuccess.html"><button class="button-curve btn btn-lg btn-primary btn-block" type="submit" ng-click="signUp()" >Załóż konto</button></a>
-                        </form>
+  
 
                     </div>
                 </div>
