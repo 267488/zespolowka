@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn close-btn button-curve" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
-                <button type="submit" class="btn approve-btn button-curve" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">DODAJ</button>
+                <button type="submit" class="btn approve-btn button-curve" data-dismiss="modal" data-ng-click="submitKolko();">DODAJ</button>
             </div>
 
         </div>
@@ -160,6 +160,12 @@
                         </div>
                         <div class="right">
                             <h3 class="name">{{szkola.name}}</h3>
+                            <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                                <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                                </div>
+                            </div>
                             <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
                             <a class="button-curve orange transparent btn btn-block" data-ng-click="deletePicture();">USUŃ ZDJĘCIE</a>
 
@@ -380,10 +386,10 @@
 </div>
 <script src="js/settings-school.js"></script>
 <script>
-    $( document ).ready(function() {
-        $('.modal').on('hidden.bs.modal', function(){
-            $(this).find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val("");
-            $(this).find('input[type=checkbox]').prop("checked", false);
-        });
-    });
+                                            $(document).ready(function () {
+                                                $('.modal').on('hidden.bs.modal', function () {
+                                                    $(this).find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val("");
+                                                    $(this).find('input[type=checkbox]').prop("checked", false);
+                                                });
+                                            });
 </script>

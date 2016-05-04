@@ -23,11 +23,6 @@
                             <span><i class="fa fa-pencil-square" aria-hidden="true"></i> POSTY: </span>
                             <span class="number">{{ilosc}}</span>
                         </div>
-                 <!--       <div class="summary comments">
-                            <span><i class="fa fa-commenting" aria-hidden="true"></i> KOMENTARZE: </span>
-                            <span class="number">6</span>
-                        </div>  
-                 -->
                     </div>
                 </div>
 
@@ -60,27 +55,10 @@
                             <div class="title">{{p.profilId.nazwa}}</div>
 
                             <div class="" id="profile2"> <!-- class="collapse" -->
-
-                                <!--              <div class="summary points">
-                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                                <span> PUNKTY: </span>
-                                                <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">138</span>
-                                            </div>
-                                          <div class="summary spots">
-                                                <span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
-                                                <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">28</span>
-                                            </div>
-                                -->
                                 <div class="tags" ng-repeat="r in p.rozszerzonePrzedmioty">
                                     <div class="subject">{{r.przedmiotId.name}}</div>
                                 </div>
-
                             </div>
-
-               <!--             <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile"><span class="glyphicon glyphicon-trash"></span></button>
-
-                -->
                         </div>
 
                     </div>
@@ -94,25 +72,14 @@
                             <div class="title">{{k.nazwa}}</div>
 
                             <div class="" id="profile1"> <!-- class="collapse" -->
-
                                 <div class="summary date">
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
                                     <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{k.termin}}</span>
                                 </div>
-                                <!--           <div class="summary spots">
-                                               <span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
-                                               <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">32</span>
-                                           </div>
-                                -->
                                 <div class="tags">
                                     <div class="subject">{{k.przedmiot.name}}</div>
                                 </div>
-
                             </div>
-
-                 <!--           <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile"><span class="glyphicon glyphicon-trash"></span></button>
-                 -->
                         </div>
 
                     </div>
@@ -128,7 +95,7 @@
 
                                 <div class="summary date">
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
+                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin| date:'dd-MM-yyyy' }}</span>
                                 </div>
                                 <div class="summary stage">
                                     <span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>
@@ -142,12 +109,8 @@
                                 <div class="tags">
                                     <div class="subject">{{o.przedmiot.name}}</div>
                                 </div>
-
                             </div>
 
-                <!--            <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button type="button" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile"><span class="glyphicon glyphicon-trash"></span></button>
-                -->
                         </div>
 
                     </div>
@@ -185,6 +148,13 @@
                             <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="O czym chcesz napisać?" data-ng-model="NewAktualnosc.tekst">></textarea>
                         </div>
 
+                        <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                            <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                            </div>
+                        </div>
+
                         <div class="button-container">
                             <button class="send button-curve btn btn-lg" data-ng-click="submit()">OPUBLIKUJ</button>
                         </div>
@@ -196,59 +166,24 @@
                         <div class="post" ng-repeat="a in aktualnosci">
 
                             <div class="profile-info">
-                                <img src="/api/galleryUser/{{a.aktalnosc.userId.galleryId.id }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
+                                <img src="{{a.zdjecie}}" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
                                 <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
                             </div>
 
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
 
-
-                        <!--      <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
-
-                                               Wrapper for slides 
-                                                <div class="carousel-inner" role="listbox">
-                                                    <div class="item" ng-repeat="i in a.galleryId">
-                                                        <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">
-                                                    </div>
-                                                </div>
-                
-                                                 Controls
-                                                <a class="left carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id}}" role="button" data-slide="prev">
-                                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                                <a class="right carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id}}" role="button" data-slide="next">
-                                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                -->
-                                <div class="image" ng-repeat="i in a.galleryId">
-                                    <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
-                                </div>
-                                <div class="text">{{ a.aktualnosc.tekst}}</div>
-
+                            <div class="image" ng-repeat="i in a.galleryId">
+                                <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
                             </div>
+                            <div class="text">{{ a.aktualnosc.tekst}}</div>
 
-                            <div class="meta">
+                        </div>
 
-                                <div class="time" data-toggle="tooltip" data-placement="right" title="23 minuty temu">
-                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                    <span class="count">{{ a.aktualnosc.dataPost | date:'dd-MM-yyyy HH:mm:ss' }}</span>
-                                </div>
+                        <div class="meta">
 
-                            </div>
-                            <div>
-                                <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
-                                    <label for="inputImageData" class="col-sm-2 control-label">Image</label>
-                                    <div class="col-sm-10">
-                                        <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <br />
-                                    <button type="button" id="{{a.aktualnosc.id}}" class="btn btn-default" data-ng-click="ZaladujObrazek($event);">Dodaj Obrazek</button>
-                                </div>
+                            <div class="time" data-toggle="tooltip" data-placement="right" title="23 minuty temu">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                <span class="count">{{ a.aktualnosc.dataPost | date:'dd-MM-yyyy HH:mm:ss' }}</span>
                             </div>
 
                         </div>
@@ -262,10 +197,11 @@
         </div>
 
     </div>
-    <div class="col-md-9">
-        <script src="../js/mapa_profil_szkoly.js" type="text/javascript"></script>
-        <div id="map" style="width: 500px; height: 500px; border: 1px solid black; background: white;">    
-        </div>   
-    </div>
+
+</div>
+<div class="col-md-9">
+    <script src="../js/mapa_profil_szkoly.js" type="text/javascript"></script>
+    <div id="map" style="width: 500px; height: 500px; border: 1px solid black; background: white;">    
+    </div>   
 </div>
 

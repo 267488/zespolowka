@@ -113,10 +113,11 @@ public class SzkolaController {
         UczenEntity uczen = uczenRepository.findOne(idUsera);
         szkola szkol = null;
         String zdjecie = "img/brak.jpg";
-        if (galleryUserRepo.findByUserId(idUsera) != null) {
-            zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
-        }
+
         for (SzkolaEntity s : tmp) {
+            if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+            }
             if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
                 szkol = new szkola(s, "glyphicon-star", zdjecie);
             } else {
@@ -144,8 +145,10 @@ public class SzkolaController {
             if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
                 zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
             }
-            
-            rv.add(new szkola(s, "glyphicon-star", zdjecie));
+            szkola sz = new szkola(s, "glyphicon-star", zdjecie);
+            rv.add(sz);
+            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "SZ: " + sz.getZdjecie() + ", " + sz.getSzkola().getName());
+
         }
         return rv;
     }
@@ -193,9 +196,11 @@ public class SzkolaController {
                 Integer idUsera = currentUser.getId();
                 UczenEntity uczen = uczenRepository.findOne(idUsera);
                 szkola szkol = null;
-                String zdjecie = "img/brak.jpg";
-                if (galleryUserRepo.findByUserId(idUsera) != null) {
-                    zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                String zdjecie = "";
+                if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+                } else {
+                    zdjecie = "img/brak.jpg";
                 }
                 if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
                     szkol = new szkola(s, "glyphicon-star", zdjecie);
@@ -282,9 +287,11 @@ public class SzkolaController {
                 Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getUczenId().getName() + ", " + s.getProfilId().getProfil_nazwa() + ", " + s.getProfilId().getSzkola().getName() + "," + s.getPunktacja());
 
                 if (s.getPunktacja() != 0) {
-                    String zdjecie = "img/brak.jpg";
-                    if (galleryUserRepo.findByUserId(idUsera) != null) {
-                        zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                    String zdjecie = "";
+                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()) != null) {
+                        zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() + ".jpg";
+                    } else {
+                        zdjecie = "img/brak.jpg";
                     }
                     Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "ZDJECIE: " + zdjecie);
                     proponowaneSzkoly szk = new proponowaneSzkoly(s, "glyphicon-star-empty", zdjecie);
