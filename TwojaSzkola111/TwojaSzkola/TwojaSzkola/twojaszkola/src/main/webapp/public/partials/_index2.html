@@ -128,7 +128,7 @@
 
                                 <div class="summary date">
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
                                 </div>
                                 <div class="summary stage">
                                     <span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>
@@ -203,9 +203,9 @@
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
 
 
-                            <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
+                        <!--      <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
 
-                                <!--                 Wrapper for slides 
+                                               Wrapper for slides 
                                                 <div class="carousel-inner" role="listbox">
                                                     <div class="item" ng-repeat="i in a.galleryId">
                                                         <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">

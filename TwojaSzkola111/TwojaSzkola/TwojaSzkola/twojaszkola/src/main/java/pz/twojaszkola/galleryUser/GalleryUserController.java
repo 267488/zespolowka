@@ -54,6 +54,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
@@ -134,6 +135,58 @@ public class GalleryUserController {
         return rv;
     }
 
+    @RequestMapping(value = "/api/galleryUserEdit", method = POST)
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<GalleryUserEntity> editGalleryUser(
+            @RequestParam("imageData")
+            final MultipartFile imageData
+    ) {
+        ResponseEntity<GalleryUserEntity> rv;
+        if (imageData == null || imageData.isEmpty()) {
+            rv = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            final String filename = this.filenameGenerator.generateFile(imageData.getOriginalFilename());
+            final File imageFile = new File(datastoreBaseDirectory, String.format("%s/%s", DatastoreConfig.GALLERY_USER_DIRECTORY, filename));
+
+            try (FileOutputStream out = new FileOutputStream(imageFile);) {
+                out.getChannel().transferFrom(Channels.newChannel(imageData.getInputStream()), 0, Integer.MAX_VALUE);
+                out.flush();
+                CurrentUser currentUser = null;
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                currentUser = (CurrentUser) auth.getPrincipal();
+                Integer idUsera = currentUser.getId();
+                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+                
+                User user = userRepository.findById(idUsera);
+                GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
+                GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);
+                this.galleryUserRepository.delete(oldGallery);
+                rv = new ResponseEntity<>(this.galleryUserRepository.save(galleryUser), HttpStatus.OK);
+            } catch (IOException e) {
+                // Could not store data...
+                rv = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (DataIntegrityViolationException e) {
+                rv = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        return rv;
+    }
+    
+     @RequestMapping(value = "/api/pictureDelete", method = DELETE)
+    @PreAuthorize("isAuthenticated()")
+    public GalleryUserEntity deleteGalleryUser() {
+                CurrentUser currentUser = null;
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                currentUser = (CurrentUser) auth.getPrincipal();
+                Integer idUsera = currentUser.getId();
+                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+                
+                User user = userRepository.findById(idUsera);
+                GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);
+                this.galleryUserRepository.delete(oldGallery);
+                return oldGallery;
+    }
+    
     @RequestMapping({"/api/galleryUser/{id:\\d+}.jpg"})
     public void getGalleryUser(
             final @PathVariable Integer id,

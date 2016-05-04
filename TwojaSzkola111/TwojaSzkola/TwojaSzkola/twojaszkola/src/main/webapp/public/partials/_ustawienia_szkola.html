@@ -103,9 +103,9 @@
                         </div>
                         <div class="right">
                             <h3 class="name">{{szkola.name}}</h3>
-            <!--                <a class="button-curve grey transparent btn btn-block" type="button">ZMIEŃ ZDJĘCIE</a>
-                            <a class="button-curve orange transparent btn btn-block" type="button">USUŃ ZDJĘCIE</a>
-                        -->
+                            <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
+                            <a class="button-curve orange transparent btn btn-block" data-ng-click="deletePicture();">USUŃ ZDJĘCIE</a>
+                        
                         </div>
                     </div>
 
@@ -306,7 +306,7 @@
 
                                     <div class="summary date">
                                         <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
                                     </div>
                                     <div class="summary stage">
                                         <span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>

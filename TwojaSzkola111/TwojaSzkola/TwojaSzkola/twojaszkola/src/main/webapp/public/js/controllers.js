@@ -95,7 +95,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
                     $scope.aktualnosci = data;
                 });
-                
+
                 console.log("SUCCESS");
             }).error(function (data) {
                 $scope.submitting = false;
@@ -243,7 +243,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
     }]);
 //////////////////////// UCZEN CONTROLLER /////////////////
 
-biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal','$upload', function ($scope, $http, $modal, $upload) {
+biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$upload', function ($scope, $http, $modal, $upload) {
         $http.get('/api/CurrentUczen?all=true').success(function (data) {
             $scope.uczen = data;
             $scope.zdjecie = "img/brak.jpg";
@@ -774,7 +774,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             $scope.szkola = data;
             $scope.zdjecie = "img/brak.jpg";
             if (data.galleryId.id != null) {
-                $scope.zdjecie = "/api/gallerySchool/" + data.galleryId.id + ".jpg";
+                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             }
         });
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
@@ -873,7 +873,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
 
                     });
         };
-        
+
         $scope.AddNewProfil = function () {
             var modalInstance = $modal.open({
                 templateUrl: '/partials/_new_profil.html',
@@ -917,14 +917,51 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             });
             modalInstance.result.then(
                     function (newKolko) {
-                        $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
-                            $scope.kolka = data;
-                        });
-                        //$scope.kolkaZainteresowan.push(newKolko);
+//                        $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
+//                            $scope.kolka = data;
+//                        });
+                        $scope.kolka.push(newKolko);
                     },
                     function () {
                     }
             );
+        };
+        $scope.editPicture = function () {
+            alert("EDIT PICTURE");
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/_new_picture.html',
+                controller: 'AddNewPictureCtrl',
+                scope: $scope
+            });
+            modalInstance.result.then(
+                    function (newPicture) {
+                        $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+                            $scope.szkola = data;
+                            $scope.zdjecie = "img/brak.jpg";
+                            if (data.galleryId.id != null) {
+                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                            }
+                        });
+                    },
+                    function () {
+                    }
+            );
+        };
+        $scope.deletePicture = function () {
+            alert("DELETE");
+            $http.delete('/api/pictureDelete/')
+                    .success(function (data) {
+                        $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+                            $scope.szkola = data;
+                            $scope.zdjecie = "img/brak.jpg";
+                            if (data.galleryId.id != null) {
+                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                            }
+                        });
+                    })
+                    .error(function (data) {
+
+                    });
         };
     }]);
 //AKTUALNOSCI_SZKOLA CONTROLLER
@@ -1329,16 +1366,7 @@ biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalIn
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
-//        $scope.takenOnOptions = {
-//            'year-format': "'yyyy'",
-//            'starting-day': 1,
-//            open: false
-//        };
-//        $scope.openTakenOn = function () {
-//            $event.preventDefault();
-//            $event.stopPropagation();
-//            $scope.takenOnOptions.open = true;
-//        };
+
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
@@ -1347,7 +1375,7 @@ biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalIn
             $scope.submitting = true;
             $upload.upload({
                 method: 'POST',
-                url: '/api/galleryPictures/' + $data,
+                url: '/api/galleryUserEdit/' + $data,
                 file: $scope.imageData,
                 fileFormDataName: 'imageData',
                 withCredentials: true
@@ -1541,41 +1569,53 @@ biking2Controllers.controller('AboutCtrl', ['$scope', '$q', '$http', '$filter', 
         $scope.refresh();
     }]);
 
-biking2Controllers.controller('myCtrl',function($rootScope,$scope, $http,$location,$window) {
-            $scope.user = {
-              login: '',
-              password: ''
-            };
-            
-            
-            $scope.login = function(){
-                
-                console.log("login function");
-                $http({
-                method : 'POST',
-                url : '/test',
-                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                data: {login:$scope.user.login,password:$scope.user.password}
-                }).then(function mySucces(response) {
-                    console.log(response.data);
-                                                   
-                    $scope.id=response.data.id; 
-                    $window.sessionStorage.setItem('myItem',$scope.id); 
-                    
-                       
-                            switch(response.data.role.toString())
-                            {
-                                case 'SZKOLA': $window.location.href='/szkola.html';console.log("przechodze przez SZKOLA");break;
-                                case 'ADMIN': $window.open('/admin.html','_self');alert("przechodze przez ADMIN");break;
-                                case 'UCZEN': $window.location.href='/index.html';console.log("przechodze przez UCZEN");break;
-                                default: $window.location.href='/error.html';break;    
-                            }; 
-                                       
-                               
-                }, function myError(response) {
-                    $scope.myWelcome = response.statusText;
-                    console.log("error");
-                });
-            };
-        
-            }); 
+biking2Controllers.controller('myCtrl', function ($rootScope, $scope, $http, $location, $window) {
+    $scope.user = {
+        login: '',
+        password: ''
+    };
+
+
+    $scope.login = function () {
+
+        console.log("login function");
+        $http({
+            method: 'POST',
+            url: '/test',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            data: {login: $scope.user.login, password: $scope.user.password}
+        }).then(function mySucces(response) {
+            console.log(response.data);
+
+            $scope.id = response.data.id;
+            $window.sessionStorage.setItem('myItem', $scope.id);
+
+
+            switch (response.data.role.toString())
+            {
+                case 'SZKOLA':
+                    $window.location.href = '/szkola.html';
+                    console.log("przechodze przez SZKOLA");
+                    break;
+                case 'ADMIN':
+                    $window.open('/admin.html', '_self');
+                    alert("przechodze przez ADMIN");
+                    break;
+                case 'UCZEN':
+                    $window.location.href = '/index.html';
+                    console.log("przechodze przez UCZEN");
+                    break;
+                default:
+                    $window.location.href = '/error.html';
+                    break;
+            }
+            ;
+
+
+        }, function myError(response) {
+            $scope.myWelcome = response.statusText;
+            console.log("error");
+        });
+    };
+
+}); 
