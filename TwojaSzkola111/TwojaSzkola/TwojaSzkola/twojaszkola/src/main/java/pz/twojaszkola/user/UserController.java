@@ -65,12 +65,16 @@ public class UserController{
     @RequestMapping(value="/reg", method = RequestMethod.POST)
     public void userReg(@RequestBody UserTest usertest) throws AddressException, MessagingException{
         
+        System.out.println("KONTROLER REJESTRACJI");
+        
+        if(userRepository.findByLogin(usertest.getLogin())!=null) new Error("user found");
         
         System.out.println("login: "+usertest.getLogin()+", mail: "+ usertest.getEmail()+", password: "+usertest.getPassword()+", role: "+usertest.getRole());    
     
         User user = new User(usertest.getLogin(),usertest.getEmail(),usertest.getPassword(),usertest.getRole(),"UNACTIVE","UNBANNED");
         if(usertest.getRole().equals("UCZEN"))
         {
+            
         UczenEntity uczen = new UczenEntity(null, null, null, null, null, null, user);
         
         uczenRepository.save(uczen);
@@ -113,6 +117,7 @@ public class UserController{
 		transport.connect("smtp.gmail.com", "twojaszkolainfo", "twojaszkola123");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
+        
     }   
     
     @RequestMapping(value="/getAllUsers", method = RequestMethod.GET)
