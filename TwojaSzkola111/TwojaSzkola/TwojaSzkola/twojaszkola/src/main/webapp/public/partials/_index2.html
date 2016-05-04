@@ -53,11 +53,11 @@
 
                     <div role="tabpanel" id="settings-profiles" class="settings-item-container tab-pane active" data-mcs-theme="minimal-dark">
 
-                        <div class="settings-item" ng-repeat="p in profile| orderBy:['profilNazwa', 'szkola']">
+                        <div class="settings-item" ng-repeat="p in profile">
 
                             <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile2" aria-expanded="false" aria-controls="article2"><span class="glyphicon glyphicon-menu-down"></span></button>-->
 
-                            <div class="title">{{p.nazwa}}</div>
+                            <div class="title">{{p.profilId.nazwa}}</div>
 
                             <div class="" id="profile2"> <!-- class="collapse" -->
 
@@ -71,8 +71,8 @@
                                                 <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">28</span>
                                             </div>
                                 -->
-                                <div class="tags" >
-                                    <div class="subject">matematyka</div>
+                                <div class="tags" ng-repeat="r in p.rozszerzonePrzedmioty">
+                                    <div class="subject">{{r.przedmiotId.name}}</div>
                                 </div>
 
                             </div>
@@ -128,7 +128,7 @@
 
                                 <div class="summary date">
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin}}</span>
+                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
                                 </div>
                                 <div class="summary stage">
                                     <span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>
@@ -193,19 +193,19 @@
 
                     <div class="posts">
 
-                        <div class="post" ng-repeat="a in aktualnosci| orderBy:['aktualnosc.dataPost']">
+                        <div class="post" ng-repeat="a in aktualnosci">
 
                             <div class="profile-info">
-                                <!--<img src="/api/galleryStudent/{{  }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">-->
+                                <img src="/api/galleryUser/{{a.aktalnosc.userId.galleryId.id }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
                                 <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
                             </div>
 
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
 
 
-                            <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
+                        <!--      <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
 
-                                <!--                 Wrapper for slides 
+                                               Wrapper for slides 
                                                 <div class="carousel-inner" role="listbox">
                                                     <div class="item" ng-repeat="i in a.galleryId">
                                                         <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">

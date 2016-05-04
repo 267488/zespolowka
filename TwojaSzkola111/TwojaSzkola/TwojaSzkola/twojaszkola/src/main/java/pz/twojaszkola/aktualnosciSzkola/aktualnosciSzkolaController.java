@@ -16,6 +16,8 @@
 package pz.twojaszkola.aktualnosciSzkola;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.validation.Valid;
 import java.util.Date;
@@ -41,9 +43,11 @@ import pz.twojaszkola.galleryPictures.GalleryPictureEntity;
 import pz.twojaszkola.galleryPictures.GalleryPictureRepository;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.profil.ProfileController;
+import pz.twojaszkola.proponowaneSzkoly.proponowaneSzkolyEntity;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
+import pz.twojaszkola.uczen.UczenController;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
@@ -80,6 +84,19 @@ public class aktualnosciSzkolaController {
         this.uczenRepository = uczenRepository;
     }
 
+    class aktualnosciComparator implements Comparator<aktualnosci> {
+
+        @Override
+        public int compare(aktualnosci s1, aktualnosci s2) {
+            if (s1.getAktualnosc().getDataPost().before(s2.getAktualnosc().getDataPost())) {
+                return 1;
+            } else if (s2.getAktualnosc().getDataPost().before(s1.getAktualnosc().getDataPost())) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     @RequestMapping(value = "/aktualnosciSzkola", method = GET)
     public List<aktualnosci> getAktualnosciSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<aktualnosci> aktual = new ArrayList<aktualnosci>();
@@ -110,6 +127,8 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
@@ -144,6 +163,8 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 
@@ -181,6 +202,9 @@ public class aktualnosciSzkolaController {
             }
             aktual.add(aktualne);
         }
+        
+        Collections.sort(aktual, new aktualnosciComparator());
+
         for (aktualnosci a : aktual) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG OST: " + a.getAktualnosc().getTytul());
 

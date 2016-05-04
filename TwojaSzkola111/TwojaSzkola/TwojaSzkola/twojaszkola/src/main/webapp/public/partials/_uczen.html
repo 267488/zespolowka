@@ -24,9 +24,9 @@
                         </div>
                         <div class="summary posts">
                             <span><i class="fa fa-pencil-square" aria-hidden="true"></i> POSTY: </span>
-                            <span class="number">8</span>
+                            <span class="number">{{ilosc}}</span>
                         </div>
-                        <div class="summary comments">
+             <!--           <div class="summary comments">
                             <span><i class="fa fa-commenting" aria-hidden="true"></i> KOMENTARZE: </span>
                             <span class="number">36</span>
                         </div>
@@ -34,6 +34,7 @@
                             <span><i class="fa fa-check" aria-hidden="true"></i> ROZWIĄZANE ZADANIA: </span>
                             <span class="number">14</span>
                         </div>
+             -->
                     </div>
                 </div>
 
@@ -161,7 +162,7 @@
                         <div class="post" ng-repeat="a in aktualnosci">
 
                             <div class="profile-info">
-                                <!--<img src="/api/galleryStudent/{{  }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">-->
+                                <img src="/api/galleryUser/{{a.aktalnosc.userId.galleryId.id }}.jpg" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
                                 <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
                             </div>
 

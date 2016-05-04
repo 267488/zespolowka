@@ -94,8 +94,9 @@ public class UczenController {
 
     class zainteresowaniaStopienComparator implements Comparator<zainteresowaniaEntity> {
 
+        @Override
         public int compare(zainteresowaniaEntity z1, zainteresowaniaEntity z2) {
-            return z1.getStopienZainteresowania() - z2.getStopienZainteresowania();
+            return z2.getStopienZainteresowania() - z1.getStopienZainteresowania();
         }
     }
 

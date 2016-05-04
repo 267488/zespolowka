@@ -82,8 +82,6 @@ public class SecurityConfig {
                     .usernameParameter("login")
                     .passwordParameter("password")
                     .and()
-                    .sessionManagement().enableSessionUrlRewriting(true)
-                    .and()
                     .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login.html")

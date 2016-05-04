@@ -11,23 +11,6 @@
 		</label>
 	    </div>
 	</div>
-	<div class="form-group" data-ng-class="{'has-error': theForm.inputTakenOn.$invalid,'has-success': theForm.inputTakenOn.$valid}">
-	    <label for="inputTakenOn" class="col-sm-2 control-label">Date</label>
-	    <div class="col-sm-10">
-		<div class="input-group datepicker-popup">
-		    <input id="inputTakenOn" name="inputTakenOn" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" data-ng-model="picture.takenOn" data-is-open="takenOnOptions.open" data-show-weeks="false" data-show-button-bar="false" data-min="takenOnOptions.minimum" data-ng-required="true" />
-		    <span class="input-group-btn">
-			<button class="btn btn-default" data-ng-click="openTakenOn($event);" type="button"><span class="glyphicon glyphicon-calendar"></span>&#xFEFF;</button>
-		    </span>
-		</div>
-	    </div>
-	</div>
-	<div class="form-group" data-ng-class="{'has-error': theForm.inputDescription.$invalid,'has-success': theForm.inputDescription.$valid}">
-	    <label for="inputDescription" class="col-sm-2 control-label">Description</label>
-	    <div class="col-sm-10">
-		<textarea id="inputDescription" name="inputDescription" class="form-control" rows="3" data-ng-model="picture.description" data-ng-required="true"></textarea>
-	    </div>
-	</div>
 	<div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
 	    <label for="inputImageData" class="col-sm-2 control-label">Image file</label>
 	    <div class="col-sm-10">

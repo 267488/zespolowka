@@ -88,6 +88,10 @@ public class aktualnosciSzkolaEntity implements Serializable{
         this.tekst = tekst;
         this.dataPost = Calendar.getInstance();
     }
+
+    public Calendar getDataPost() {
+        return dataPost;
+    }
     
     public Integer getId() {
         return id;
@@ -120,7 +124,7 @@ public class aktualnosciSzkolaEntity implements Serializable{
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
-    
+     
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
