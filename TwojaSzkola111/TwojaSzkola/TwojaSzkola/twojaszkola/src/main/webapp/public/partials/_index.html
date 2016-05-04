@@ -45,19 +45,19 @@
 
                 <div class="list-container" data-mcs-theme="minimal-dark">
 
-                    <div class="content level1" ng-repeat="s in proponowaneSzkoly| orderBy:['uczenId', 'profilId', ]">
+                    <div class="content level1" ng-repeat="s in proponowaneSzkoly">
 
-                        <a href="#" title="{{ s.profilId.szkola.name}}">
-                            <img class="img" src="/api/gallerySchool/{{ s.profilId.szkola.galleryId.id}}.jpg" >
+                        <a href="#" title="{{ s.szkola.profilId.szkola.name}}">
+                            <img class="img" src="/api/gallerySchool/{{ s.szkola.profilId.szkola.userId.galleryId.id}}.jpg" >
                         </a>
 
                         <div class="text-container">
-                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.profilId.szkola.typSzkoly}}</span><span> nr </span><span class="number">{{ s.profilId.szkola.numer}}</span></h5></a>
-                            <a href="#" title=""><h4 class="profile-name">{{ s.profilId.profilNazwa.nazwa}}</h4></a>
-                            <div class="city">{{ s.profilId.szkola.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.profilId.szkola.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
+                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.szkola.profilId.szkola.typSzkoly}}</span><span> nr </span><span class="number">{{ s.szkola.profilId.szkola.numer}}</span></h5></a>
+                            <a href="#" title=""><h4 class="profile-name">{{ s.szkola.profilId.nazwa}}</h4></a>
+                            <div class="city">{{ s.szkola.profilId.szkola.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.szkola.profilId.szkola.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
                         </div>
 
-                        <span class="glyphicon {{ s.profilId.szkola.rodzajGwiazdki}}" id="{{ s.profilId.szkola.id}}" ng-click="Ulubione($event)"></span>
+                        <span class="glyphicon {{ s.rodzajGwiazdki}}" id="{{ s.szkola.profilId.szkola.id}}" ng-click="Ulubione($event)"></span>
 
                     </div>
 
