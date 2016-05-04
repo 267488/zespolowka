@@ -27,18 +27,22 @@ public class aktualnosci {
     private aktualnosciSzkolaEntity aktualnosc;
     private String podpis;
     private List<GalleryPictureEntity> galleryId;
+    private String zdjecie;
     
     protected aktualnosci() {
     }
 
-    public aktualnosci(aktualnosciSzkolaEntity aktualnosc, List<GalleryPictureEntity> galleryId, String podpis) {
+    public aktualnosci(aktualnosciSzkolaEntity aktualnosc, String podpis, List<GalleryPictureEntity> galleryId, String zdjecie) {
         this.aktualnosc = aktualnosc;
+        this.podpis = podpis;
         this.galleryId = galleryId;
-        this.podpis = podpis;
+        this.zdjecie = zdjecie;
     }
-    public aktualnosci(aktualnosciSzkolaEntity aktualnosc, String podpis) {
+
+    public aktualnosci(aktualnosciSzkolaEntity aktualnosc, String podpis, String zdjecie) {
         this.aktualnosc = aktualnosc;
         this.podpis = podpis;
+        this.zdjecie = zdjecie;
     }
     
     public aktualnosciSzkolaEntity getAktualnosc() {

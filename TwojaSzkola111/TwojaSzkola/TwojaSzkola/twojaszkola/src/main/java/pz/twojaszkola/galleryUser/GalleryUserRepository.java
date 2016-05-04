@@ -21,5 +21,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Michael J. Simons, 2014-02-22
  */
 public interface GalleryUserRepository extends JpaRepository<GalleryUserEntity, Integer> {
-    GalleryUserEntity findByUserId(final int idUsera);
+    GalleryUserEntity findByUserId(final int userId);
 }

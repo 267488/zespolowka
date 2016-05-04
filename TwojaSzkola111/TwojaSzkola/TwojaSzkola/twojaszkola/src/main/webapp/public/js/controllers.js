@@ -914,17 +914,15 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
                 });
             }
         };
-        $scope.UsunProfil = function (event) {
-            $scope.id = event.target.id;
-            console.log("Profil ID");
-            alert(" USUN PROFIL " + $scope.id);
-            $http.delete('/api/profilDelete/' + $scope.id)
-                    .success(function (data) {
+        $scope.UsunProfil = function (profil) {
+            $http.delete('/api/profilDelete/' + profil.id)
+                    .success(function () {
                         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
                             $scope.profile = data;
                         });
+                        alert(" USUNIETO PROFIL " + profil.id);
                     })
-                    .error(function (data) {
+                    .error(function () {
 
                     });
         };

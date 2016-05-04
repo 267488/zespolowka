@@ -15,6 +15,7 @@
  */
 package pz.twojaszkola.szkola;
 
+import pz.twojaszkola.galleryUser.GalleryUserEntity;
 import pz.twojaszkola.proponowaneSzkoly.proponowaneSzkolyEntity;
 
 /**
@@ -25,10 +26,21 @@ public class proponowaneSzkoly {
     private proponowaneSzkolyEntity szkola;   
     
     private String rodzajGwiazdki;
+    
+    private String zdjecie;
 
-    public proponowaneSzkoly(proponowaneSzkolyEntity szkola, String rodzajGwiazdki) {
+    public proponowaneSzkoly(proponowaneSzkolyEntity szkola, String rodzajGwiazdki, String zdjecie) {
         this.szkola = szkola;
         this.rodzajGwiazdki = rodzajGwiazdki;
+        this.zdjecie = zdjecie;
+    }
+
+    public String getZdjecie() {
+        return zdjecie;
+    }
+
+    public void setZdjecie(String zdjecie) {
+        this.zdjecie = zdjecie;
     }
 
     public proponowaneSzkolyEntity getSzkola() {

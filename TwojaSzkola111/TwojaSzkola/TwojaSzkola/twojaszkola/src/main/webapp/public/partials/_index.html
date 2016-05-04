@@ -48,7 +48,7 @@
                     <div class="content level1" ng-repeat="s in proponowaneSzkoly">
 
                         <a href="#" title="{{ s.szkola.profilId.szkola.name}}">
-                            <img class="img" src="/api/gallerySchool/{{ s.szkola.profilId.szkola.userId.galleryId.id}}.jpg" >
+                            <img class="img" src="{{s.zdjecie}}" >
                         </a>
 
                         <div class="text-container">
@@ -77,7 +77,7 @@
                     <div class="content level1" ng-repeat="s in ulubione_szkoly| orderBy:['szkolaId']">
 
                         <a href="#" title="{{ s.szkolaId.name}}">
-                            <img class="img" src="/api/gallerySchool/{{ s.szkolaId.userId.galleryId.id}}.jpg" >
+                            <img class="img" src="{{s.zdjecie}}" >
                         </a>
 
                         <div class="text-container">

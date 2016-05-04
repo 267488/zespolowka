@@ -114,13 +114,17 @@ public class aktualnosciSzkolaController {
                 podpis = s.getTypSzkoly() + " nr " + s.getNumer();
             }
             aktualnosci aktualne;
+            String zdjecie = "img/brak.jpg";
+                if (galleryUserRepository.findByUserId(a.getUserId().getId()) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepository.findByUserId(a.getUserId().getId()) + ".jpg";
+                }
             if (!gallery.isEmpty()) {
-                aktualne = new aktualnosci(a, gallery, podpis);
+                aktualne = new aktualnosci(a, podpis, gallery, zdjecie);
 
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1: " + aktualne.getAktualnosc().getTytul());
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2: " + aktualne.getGalleryId().size());
             } else {
-                aktualne = new aktualnosci(a, podpis);
+                aktualne = new aktualnosci(a, podpis, zdjecie);
 
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG3: " + aktualne.getAktualnosc().getTytul());
 
@@ -152,12 +156,16 @@ public class aktualnosciSzkolaController {
             SzkolaEntity s = szkolaRepository.findByUserId(a.getUserId().getId());
             String podpis = s.getTypSzkoly() + " nr " + s.getNumer();
             aktualnosci aktualne;
+            String zdjecie = "img/brak.jpg";
+                if (galleryUserRepository.findByUserId(a.getUserId().getId()) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepository.findByUserId(a.getUserId().getId()) + ".jpg";
+                }
             if (!gallery.isEmpty()) {
-                aktualne = new aktualnosci(a, gallery, podpis);
+                aktualne = new aktualnosci(a, podpis, gallery, zdjecie);
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1: " + aktualne.getAktualnosc().getTytul());
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2: " + aktualne.getGalleryId().size());
             } else {
-                aktualne = new aktualnosci(a, podpis);
+                aktualne = new aktualnosci(a, podpis, zdjecie);
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG3: " + aktualne.getAktualnosc().getTytul());
 
             }
@@ -189,13 +197,17 @@ public class aktualnosciSzkolaController {
             String podpis = u.getName() + " " + u.getLastname();
 
             aktualnosci aktualne;
+            String zdjecie = "img/brak.jpg";
+                if (galleryUserRepository.findByUserId(a.getUserId().getId()) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepository.findByUserId(a.getUserId().getId()) + ".jpg";
+                }
             if (!gallery.isEmpty()) {
-                aktualne = new aktualnosci(a, gallery, podpis);
+                aktualne = new aktualnosci(a, podpis, gallery, zdjecie);
 
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG1: " + aktualne.getAktualnosc().getTytul());
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG2: " + aktualne.getGalleryId().size());
             } else {
-                aktualne = new aktualnosci(a, podpis);
+                aktualne = new aktualnosci(a, podpis, zdjecie);
 
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG3: " + aktualne.getAktualnosc().getTytul());
 

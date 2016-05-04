@@ -39,6 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
+import pz.twojaszkola.galleryUser.GalleryUserEntity;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
@@ -111,11 +112,15 @@ public class SzkolaController {
         Integer idUsera = currentUser.getId();
         UczenEntity uczen = uczenRepository.findOne(idUsera);
         szkola szkol = null;
+        String zdjecie = "img/brak.jpg";
+        if (galleryUserRepo.findByUserId(idUsera) != null) {
+            zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+        }
         for (SzkolaEntity s : tmp) {
             if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
-                szkol = new szkola(s, "glyphicon-star");
+                szkol = new szkola(s, "glyphicon-star", zdjecie);
             } else {
-                szkol = new szkola(s, "glyphicon-star-empty");
+                szkol = new szkola(s, "glyphicon-star-empty", zdjecie);
             }
             rv.add(szkol);
         }
@@ -165,10 +170,14 @@ public class SzkolaController {
                 Integer idUsera = currentUser.getId();
                 UczenEntity uczen = uczenRepository.findOne(idUsera);
                 szkola szkol = null;
+                String zdjecie = "img/brak.jpg";
+                if (galleryUserRepo.findByUserId(idUsera) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                }
                 if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
-                    szkol = new szkola(s, "glyphicon-star");
+                    szkol = new szkola(s, "glyphicon-star", zdjecie);
                 } else {
-                    szkol = new szkola(s, "glyphicon-star-empty");
+                    szkol = new szkola(s, "glyphicon-star-empty", zdjecie);
                 }
                 rv.add(szkol);
             }
@@ -231,7 +240,7 @@ public class SzkolaController {
         }
 
         Collections.sort(proponowane, new proponowaneSzkolyEntity());
-        
+
         for (proponowaneSzkolyEntity p : proponowane) {
             Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG3: " + p.getUczenId().getName() + ", " + p.getProfilId().getProfil_nazwa() + ", " + p.getProfilId().getSzkola().getName() + "," + p.getPunktacja());
         }
@@ -240,20 +249,24 @@ public class SzkolaController {
             ilosc = proponowane.size();
         }
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "ilosc " + ilosc);
-        
-        //Collections.sort(rv, new proponowaneSzkolyEntity());
 
+        //Collections.sort(rv, new proponowaneSzkolyEntity());
         List<proponowaneSzkoly> szkoly = new ArrayList<proponowaneSzkoly>();
         int i = 0;
-        for (int j = proponowane.size()-1;j>0;j--) {
+        for (int j = proponowane.size() - 1; j > 0; j--) {
             proponowaneSzkolyEntity s = proponowane.get(j);
             if (i < ilosc) {
                 Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getUczenId().getName() + ", " + s.getProfilId().getProfil_nazwa() + ", " + s.getProfilId().getSzkola().getName() + "," + s.getPunktacja());
-                
+
                 if (s.getPunktacja() != 0) {
-                    proponowaneSzkoly szk = new proponowaneSzkoly(s, "glyphicon-star-empty");
+                    String zdjecie = "img/brak.jpg";
+                    if (galleryUserRepo.findByUserId(idUsera) != null) {
+                        zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                    }
+                    Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "ZDJECIE: " + zdjecie);
+                    proponowaneSzkoly szk = new proponowaneSzkoly(s, "glyphicon-star-empty", zdjecie);
                     if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getProfilId().getSzkola().getId(), uczen.getId()) != null) {
-                        szk = new proponowaneSzkoly(s, "glyphicon-star");
+                        szk = new proponowaneSzkoly(s, "glyphicon-star", zdjecie);
                     }
                     szkoly.add(szk);
                     i++;

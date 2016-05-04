@@ -28,12 +28,15 @@ public class szkola {
     
     private String rodzajGwiazdki;
 
+    private String zdjecie;
+    
     protected szkola() {
     }
 
-    public szkola(SzkolaEntity szkola, String rodzajGwiazdki) {
+    public szkola(SzkolaEntity szkola, String rodzajGwiazdki, String zdjecie) {
         this.szkola = szkola;
         this.rodzajGwiazdki = rodzajGwiazdki;
+        this.zdjecie = zdjecie;
     }
 
     public SzkolaEntity getSzkola() {
