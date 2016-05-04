@@ -1,88 +1,145 @@
+
 <!-- MODAL - ADDING NEW PROFILE -->
-<div class="modal fade" id="addNewProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+<div class="modal fade" id="addNewProfile" tabindex="-1" role="dialog" aria-labelledby="addNewProfileLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalLabel">NOWY PROFIL</h4>
+                <h4 class="modal-title" id="addNewProfileLabel">NOWY PROFIL</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form role="form" data-ng-submit="submit();">
+				
                     <div class="form-group">
-                        <label for="articleTitle" class="control-label">NAZWA</label>
-                        <input type="text" class="form-control" id="articleTitle" placeholder="Podaj nazwę nowego profilu" data-ng-model="profil.nazwa">
+                        <label for="inputProfilNazwa" class="control-label">NAZWA</label>
+                        <input type="text" class="form-control" id="inputProfilNazwa" placeholder="Podaj nazwę nowego profilu" data-ng-model="profil.nazwa">
                     </div>
+					
                     <div class="form-group checkbox-container">
                         <div class="label-container"><label for="contain">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Przedmioty rozszerzone, które wchodzą w skład nowego profilu."></i></div>
-                        <div data-ng-repeat="przedmiot in przedmioty" class="przedmiot" id="{{przedmiot.id}}">
+                        <div data-ng-repeat="przedmiot in przedmioty" class="checkbox przedmiot" id="{{przedmiot.id}}">
                             <label>
                                 <input type="checkbox" ng-change="sync(bool, przedmiot)" ng-model="bool" ng-checked="isChecked(przedmiot.id)">
                                 <span>{{przedmiot.name}} Selected: {{bool}} </span>
                             </label>
                         </div>
                     </div>
+					
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
-                <button type="button" data-dismiss="modal" data-ng-click="submit();">DODAJ</button>
+                <button type="button" class="btn close-btn button-curve" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
+                <button type="button" class="btn approve-btn button-curve" data-dismiss="modal" data-ng-click="submit();">DODAJ</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL - EDITING EXISTING PROFILE -->
-<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+<!-- MODAL - ADDING NEW CLUB -->
+<div class="modal fade" id="addNewClub" tabindex="-1" role="dialog" aria-labelledby="addNewClubLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalLabel">EDYTUJ PROFIL</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="profileName" class="control-label">NAZWA</label>
-                        <input type="text" class="form-control" id="profileName" value="" placeholder="Podaj nowa nazwe profilu" data-ng-model="editprofil.nazwa">
-                    </div
-                    <div class="form-group checkbox-container">
-                        <div class="label-container"><label for="">PRZEDMIOTY</label><i class="fa fa-info-circle" id="list1-tooltip" data-toggle="tooltip" data-placement="top" title="Przedmioty rozszerzone, które wchodzą w skład nowego profilu."></i></div>
-                       <div data-ng-repeat="przedmiot in przedmioty" class="przedmiot" id="{{przedmiot.id}}">
-                            <label>
-                                <input type="checkbox" ng-change="sync(bool, przedmiot)" ng-model="bool" ng-checked="isChecked(przedmiot.id)">
-                                <span>{{przedmiot.name}} Selected: {{bool}} </span>
-                            </label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn close-btn button-curve" data-dismiss="modal">ANULUJ</button>
-                <button type="button" id="" class="btn approve-btn button-curve" data-dismiss="modal">ZAPISZ</button>
-            </div>
+        <div class="modal-content">  
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+				<h4 class="modal-title" id="addNewClubLabel">NOWE KÓŁKO ZAINTERESOWAŃ</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" data-ng-submit="submit();">
+
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputPrzedmiot.$invalid,'has-success': theForm.inputPrzedmiot.$valid}">
+						<label for="inputPrzedmiotName" class="control-label">PRZEDMIOT</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Przedmiot, którego kółko dotyczy."></i>
+						<select id="inputPrzedmiotName" name="inputPrzedmiot" class="form-control" data-ng-model="kolko.przedmiot" data-ng-required="true">
+							<option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
+						</select>
+					</div>
+					
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputNazwa.$invalid,'has-success': theForm.inputNazwa.$valid}">
+						<label for="inputNazwa" class="control-label">NAZWA</label>
+						<input id="inputNazwa" name="inputNazwa" type="text" pattern="[a-zA-Z]" class="form-control" placeholder="Podaj nazwę kółka" data-ng-model="kolko.nazwa" data-ng-required="true"/>
+					</div>
+					
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputTermin.$invalid,'has-success': theForm.inputTermin.$valid}">
+						<label for="inputTermin" class="control-label">TERMIN</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Kiedy będzie odbywać się kółko?"></i>
+						<input id="inputTermin" name="inputTermin" type="text" pattern="[a-zA-Z]" class="form-control" placeholder="Podaj dzień tygodnia i godzinę" data-ng-model="kolko.termin" data-ng-required="true"/>
+					</div>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn close-btn button-curve" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
+				<button type="submit" class="btn approve-btn button-curve" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">DODAJ</button>
+			</div>
+	
         </div>
     </div>
 </div>
 
-<!-- MODAL - DELETING EXISTING PROFILE -->
-<div class="modal fade" id="deleteProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+<!-- MODAL - ADDING NEW ACHIEVEMENT -->
+<div class="modal fade" id="addNewAchievement" tabindex="-1" role="dialog" aria-labelledby="addNewAchievementLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalLabel">USUNIĘCIE PROFILU</h4>
-            </div>
-            <div class="modal-body">
-                <div class="text">Czy na pewno chcesz usunąć ten profil?</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn close-btn button-curve" data-dismiss="modal">NIE</button>
-                <button type="button" class="btn approve-btn button-curve" data-dismiss="modal">TAK</button>
-            </div>
+        <div class="modal-content">  
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+				<h4 class="modal-title" id="addNewAchievementLabel">NOWE OSIĄGNIĘCIE</h4>
+			</div>
+			<div class="modal-body new-profile">
+				<form role="form" data-ng-submit="submit();">
+					
+					<div class="form" data-ng-class="{'has-error': theForm.inputPrzedmiot.$invalid,'has-success': theForm.inputPrzedmiot.$valid}">
+						<label for="inputPrzedmiotName2">PRZEDMIOT</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Przedmiot, którego osiągnięcie dotyczy."></i>
+						<select id="inputPrzedmiotName2" name="inputPrzedmiot" class="form-control" data-ng-model="osiagniecie.przedmiot" data-ng-required="true">
+							<option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
+						</select>
+					</div>
+									
+					<div class="form" data-ng-class="{'has-error': theForm.inputNazwa.$invalid,'has-success': theForm.inputNazwa.$valid}">
+						<label for="inputKonkursName" class="control-label">NAZWA KONKURSU</label>
+						<input id="inputKonkursName" name="inputNazwa" type="text" pattern="[a-zA-Z]" class="form-control" placeholder="Podaj nazwę konkursu" data-ng-model="osiagniecie.nazwakonkursu" data-ng-required="true"/>
+					</div>
+					
+					<div class="form half-width-1">
+						<label for="etapKonkursu">ETAP KONKURSU</label>
+						<select class="form-control" ng-model="osiagniecie.szczebel" id="etapKonkursu">
+							<option>Między Szkolny</option>
+							<option>Gminny</option>
+							<option>Powiatowy</option>
+							<option>Regionalny</option>
+							<option>Wojewódzki</option>
+							<option>Ogólnokrajowy</option>
+							<option>Międzynarodowy</option>
+						</select>
+					</div>
+					
+					<div class="form half-width-2">
+						<label for="nagroda">NAGRODA</label>
+						<select class="form-control" ng-model="osiagniecie.nagroda" id="nagroda">
+							<option>I miejsce</option>
+							<option>II miejsce</option>
+							<option>III miejsce</option>
+							<option>finalista</option>
+							<option>laureat</option>
+						</select>
+					</div>
+					
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputTakenOn.$invalid,'has-success': theForm.inputTakenOn.$valid}">
+						<label for="inputTakenOn">DATA</label>
+						<div class="input-group datepicker-popup">
+							<input id="inputTakenOn" name="inputTakenOn" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" data-ng-model="osiagniecie.termin" data-is-open="takenOnOptions.open" data-show-weeks="false" data-show-button-bar="false" data-min="takenOnOptions.minimum" data-ng-required="true" />
+							<span class="input-group-btn">
+								<button class="btn btn-default" data-ng-click="openTakenOn($event);" type="button"><span class="glyphicon glyphicon-calendar"></span>&#xFEFF;</button>
+							</span>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn close-btn button-curve" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
+				<button type="submit" class="btn approve-btn button-curve" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">DODAJ</button>
+			</div>	
         </div>
     </div>
 </div>
-
 
 <div class="row">
 
@@ -204,25 +261,23 @@
 
     </div>
 
-    <!-- PROFILE -->
+    <!-- ZAKŁADKI -->
     <div class="col-sm-12 col-lg-6">
-
-        <button type="button" class="btn btn-default" data-ng-click="openNewOsiagniecieDlg();">Nowe Osiągnięcie</button>
-	<button type="button" class="btn btn-default" data-ng-click="openNewKolkoDlg();">Nowe Kółko Zainteresowań</button>
-        <!-- KLASY -->
+	
+        <!-- PROFILE -->
         <div class="row">
             <div class="col-sm-12">
                 <div class="widget student-settings">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#addNewProfile"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button type="button" class="btn addNew" data-toggle="modal" data-dismiss="modal" data-target="#addNewProfile"><span class="glyphicon glyphicon-plus"></span></button>
                     <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile-container" aria-expanded="false" aria-controls="profile-container"><span class="glyphicon glyphicon-menu-down"></span></button>-->
 
 
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills" role="tablist">
-                        <li role="presentation" class="active"><a href="#settings-profiles" aria-controls="settings-profiles" role="tab" data-toggle="tab">KLASY</a></li>
-                        <li role="presentation"><a href="#settings-clubs" aria-controls="settings-clubs" role="tab" data-toggle="tab">KÓŁKA ZAINTERESOWAŃ</a></li>
-                        <li role="presentation"><a href="#settings-achievements" aria-controls="settings-achievements" role="tab" data-toggle="tab">OSIĄGNIĘCIA</a></li>
+                        <li role="presentation" class="tab1"><a href="#settings-profiles" aria-controls="settings-profiles" role="tab" data-toggle="tab">PROFILE</a></li>
+                        <li role="presentation" class="tab2"><a href="#settings-clubs" aria-controls="settings-clubs" role="tab" data-toggle="tab">KÓŁKA ZAINTERESOWAŃ</a></li>
+                        <li role="presentation" class="tab3"><a href="#settings-achievements" aria-controls="settings-achievements" role="tab" data-toggle="tab">OSIĄGNIĘCIA</a></li>
                     </ul>
 
 
@@ -231,35 +286,26 @@
 
                         <div role="tabpanel" id="settings-profiles" class="settings-item-container tab-pane active" data-mcs-theme="minimal-dark">
 
-
                             <div class="settings-item" ng-repeat="p in profile">
-
-                                <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile2" aria-expanded="false" aria-controls="article2"><span class="glyphicon glyphicon-menu-down"></span></button>-->
 
                                 <div class="title">{{p.profilId.nazwa}}</div>
 
-                                <div class="" id="profile2"> <!-- class="collapse" -->
-
-                                    <!--              <div class="summary points">
-                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                                    <span> PUNKTY: </span>
-                                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">138</span>
-                                                </div>
-                                              <div class="summary spots">
-                                                    <span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
-                                                    <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">28</span>
-                                                </div>
-                                    -->
-                                    <div class="tags" ng-repeat="r in p.rozszerzonePrzedmioty">
-                                        <div class="subject">{{r.przedmiotId.name}}</div>
-                                    </div>
-
-                                </div>
-
-                                <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-            <!--                    <button type="button" id="{{p.id}}" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile" data-ng-click="UsunProfil($event);"><span class="glyphicon glyphicon-trash"></span></button>
-            -->                 <button type="button" class="delete btn btn-primary" data-ng-click="UsunProfil(p.profilId);"><span class="glyphicon glyphicon-trash"></span></button>
-
+								<!--              <div class="summary points">
+												<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+												<span> PUNKTY: </span>
+												<span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">138</span>
+											</div>
+										  <div class="summary spots">
+												<span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
+												<span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">28</span>
+											</div>
+								-->
+								<div class="tags" ng-repeat="r in p.rozszerzonePrzedmioty">
+									<div class="subject">{{r.przedmiotId.name}}</div>
+								</div>
+								
+                                <button type="button" class="edit btn btn-primary" ng-click="modalEditProfile($event);"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button type="button" class="delete btn btn-primary" ng-click="modalDeleteProfile($event);"><span class="glyphicon glyphicon-trash"></span></button>
 
                             </div>
 
@@ -269,29 +315,23 @@
 
                             <div class="settings-item" ng-repeat="k in kolka">
 
-                                <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile1" aria-expanded="false" aria-controls="profile1"><span class="glyphicon glyphicon-menu-down"></span></button>-->
-
                                 <div class="title">{{k.nazwa}}</div>
 
-                                <div class="" id="profile1"> <!-- class="collapse" -->
+								<div class="summary date">
+									<span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
+									<span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{k.termin}}</span>
+								</div>
+								<!--           <div class="summary spots">
+											   <span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
+											   <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">32</span>
+										   </div>
+								-->
+								<div class="tags">
+									<div class="subject">{{k.przedmiot.name}}</div>
+								</div>
 
-                                    <div class="summary date">
-                                        <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{k.termin}}</span>
-                                    </div>
-                                    <!--           <div class="summary spots">
-                                                   <span><i class="fa fa-users" aria-hidden="true"></i> LIMIT MIEJSC: </span>
-                                                   <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">32</span>
-                                               </div>
-                                    -->
-                                    <div class="tags">
-                                        <div class="subject">{{k.przedmiot.name}}</div>
-                                    </div>
-
-                                </div>
-
-                                <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <button type="button" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button type="button" class="edit btn btn-primary" ng-click="modalEditClub($event);"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button type="button" class="delete btn btn-primary" ng-click="modalDeleteClub($event);"><span class="glyphicon glyphicon-trash"></span></button>
 
                             </div>
 
@@ -301,33 +341,29 @@
 
                             <div class="settings-item" ng-repeat="o in osiagniecia">
 
-                                <!--<button class="btn roll collapsed" type="button" data-toggle="collapse" data-target="#profile1" aria-expanded="false" aria-controls="profile1"><span class="glyphicon glyphicon-menu-down"></span></button>-->
-
                                 <div class="title">{{o.nazwakonkursu}}</div>
 
-                                <div class="" id="profile1"> <!-- class="collapse" -->
 
-                                    <div class="summary date">
-                                        <span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
-                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
-                                    </div>
-                                    <div class="summary stage">
-                                        <span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>
-                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">{{o.szczebel}}</span>
-                                    </div>
-                                    <div class="summary prize">
-                                        <span><i class="fa fa-trophy" aria-hidden="true"></i> NAGRODA: </span>
-                                        <span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">{{o.nagroda}}</span>
-                                    </div>
+								<div class="summary date">
+									<span><i class="fa fa-calendar" aria-hidden="true"></i> DATA: </span>
+									<span class="number" data-toggle="tooltip" data-placement="right" title="Wymagana ilość punktów.">{{o.termin | date:'dd-MM-yyyy' }}</span>
+								</div>
+								<div class="summary stage">
+									<span><i class="fa fa-level-up" aria-hidden="true"></i> ETAP: </span>
+									<span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">{{o.szczebel}}</span>
+								</div>
+								<div class="summary prize">
+									<span><i class="fa fa-trophy" aria-hidden="true"></i> NAGRODA: </span>
+									<span class="number" data-toggle="tooltip" data-placement="right" title="Maksymalna ilość uczniów w klasie.">{{o.nagroda}}</span>
+								</div>
 
-                                    <div class="tags">
-                                        <div class="subject">{{o.przedmiot.name}}</div>
-                                    </div>
+								<div class="tags">
+									<div class="subject">{{o.przedmiot.name}}</div>
+								</div>
 
-                                </div>
-
-                                <button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editProfile"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <button type="button" class="delete btn btn-primary" data-toggle="modal" data-target="#deleteProfile"><span class="glyphicon glyphicon-trash"></span></button>
+								
+								<button type="button" class="edit btn btn-primary" ng-click="modalEditAchievement($event);"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button type="button" class="delete btn btn-primary" ng-click="modalDeleteAchievement($event);"><span class="glyphicon glyphicon-trash"></span></button>
 
                             </div>
 
@@ -342,5 +378,3 @@
     </div>
 
 </div>
-
-<!--<script src="js/profile-school.js"></script>-->
