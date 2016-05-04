@@ -98,6 +98,7 @@ public class OsiagnieciaController {
             return 0;
         }
     }
+
     @RequestMapping(value = "/osiagnieciaCurrentUser", method = GET)
     public List<OsiagnieciaEntity> getOsiagnieciaCurrentUser(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<OsiagnieciaEntity> rv;
@@ -106,10 +107,10 @@ public class OsiagnieciaController {
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         rv = osiagnieciaRepository.findByUserId(idUsera);
-        for (OsiagnieciaEntity o: rv ) {
-            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, " OSIAGNIECIA " +  o.getNazwakonkursu());
+        for (OsiagnieciaEntity o : rv) {
+            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, " OSIAGNIECIA " + o.getNazwakonkursu());
         }
-        
+
         Collections.sort(rv, new osiagnieciaComparator());
         return rv;
     }
@@ -134,111 +135,106 @@ public class OsiagnieciaController {
         przedmiotyEntity przedmiot = przedmiotyRepo.findById(newOsiagniecie.getPrzedmiot());
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "PRZEDMIOT NAME" + przedmiot.getName());
 
-        boolean dodawanie = true;
-
-        if (dodawanie) {
-            Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "NAZWA KONKURSU " + newOsiagniecie.getNazwakonkursu());
-            final OsiagnieciaEntity osiagniecie = new OsiagnieciaEntity(newOsiagniecie.getNazwakonkursu(), newOsiagniecie.getTermin(), przedmiot, newOsiagniecie.getSzczebel(), newOsiagniecie.getNagroda(), user);
-            final OsiagnieciaEntity e = this.osiagnieciaRepository.save(osiagniecie);
-            if (user.getRole() == "SZKOLA") {
-                Integer idSzkoly = 1;//szkolaRepository.findByUserId(idUsera).getId();
-                List<ProfilEntity> profile = profilRepository.findBySzkolaId(idSzkoly);
-                Integer pkt = 0;
-                if ("Między Szkolny".equals(osiagniecie.getSzczebel()) || "Gminny".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 1;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
-                } else if ("Powiatowy".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 2;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
-                } else if ("Regionalny".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 3;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
-                } else if ("Wojewódzki".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 5;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
-                } else if ("Ogólnokrajowy".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 10;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
-                } else if ("Międzynarodowy".equals(osiagniecie.getSzczebel())) {
-                    pkt = pkt + 20;
-                    if ("I miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 3;
-                    } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 2;
-                    } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 1;
-                    } else if ("finalista".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 5;
-                    } else if ("laureat".equals(osiagniecie.getNagroda())) {
-                        pkt = pkt * 10;
-                    }
+        Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "NAZWA KONKURSU " + newOsiagniecie.getNazwakonkursu());
+        final OsiagnieciaEntity osiagniecie = new OsiagnieciaEntity(newOsiagniecie.getNazwakonkursu(), newOsiagniecie.getTermin(), przedmiot, newOsiagniecie.getSzczebel(), newOsiagniecie.getNagroda(), user);
+        final OsiagnieciaEntity e = this.osiagnieciaRepository.save(osiagniecie);
+        if (user.getRole() == "SZKOLA") {
+            Integer idSzkoly = szkolaRepository.findByUserId(idUsera).getId();
+            List<ProfilEntity> profile = profilRepository.findBySzkolaId(idSzkoly);
+            Integer pkt = 0;
+            if ("Między Szkolny".equals(osiagniecie.getSzczebel()) || "Gminny".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 1;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
                 }
-                for (ProfilEntity profil : profile) {
-                    OcenaPrzedmiotuEntity ocena = ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil2(przedmiot.getId(), profil.getId());
-                    if (ocena == null) {
-                        OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil, przedmiot, pkt);
-                        this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
-                    } else {
-                        ocena.setOcena(ocena.getOcena() + pkt);
-                        //ocena.setId(ocena.getId());
-                        this.ocenaPrzedmiotuRepo.save(ocena);
-                    }
+            } else if ("Powiatowy".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 2;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
+                }
+            } else if ("Regionalny".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 3;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
+                }
+            } else if ("Wojewódzki".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 5;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
+                }
+            } else if ("Ogólnokrajowy".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 10;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
+                }
+            } else if ("Międzynarodowy".equals(osiagniecie.getSzczebel())) {
+                pkt = pkt + 20;
+                if ("I miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 3;
+                } else if ("II miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 2;
+                } else if ("III miejsce".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 1;
+                } else if ("finalista".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 5;
+                } else if ("laureat".equals(osiagniecie.getNagroda())) {
+                    pkt = pkt * 10;
                 }
             }
-            return e;
+            for (ProfilEntity profil : profile) {
+                OcenaPrzedmiotuEntity ocena = ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil2(przedmiot.getId(), profil.getId());
+                if (ocena == null) {
+                    OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil, przedmiot, pkt);
+                    this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
+                } else {
+                    ocena.setOcena(ocena.getOcena() + pkt);
+                    //ocena.setId(ocena.getId());
+                    this.ocenaPrzedmiotuRepo.save(ocena);
+                }
+            }
         }
+        return e;
 
-        return null;
     }
 
     @RequestMapping(value = "/osiagniecia{id:\\d+}", method = PUT)

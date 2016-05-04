@@ -39,7 +39,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
-import pz.twojaszkola.galleryUser.GalleryUserEntity;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
@@ -112,11 +111,13 @@ public class SzkolaController {
         Integer idUsera = currentUser.getId();
         UczenEntity uczen = uczenRepository.findOne(idUsera);
         szkola szkol = null;
-        String zdjecie = "img/brak.jpg";
+        String zdjecie = "";
 
         for (SzkolaEntity s : tmp) {
             if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
                 zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+            } else {
+                zdjecie = "img/brak.jpg";
             }
             if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
                 szkol = new szkola(s, "glyphicon-star", zdjecie);
@@ -309,10 +310,8 @@ public class SzkolaController {
 
     @RequestMapping(value = "/szkola", method = POST)
     @PreAuthorize("isAuthenticated()")
-    public SzkolaEntity createSzkola(final @RequestBody @Valid SzkolaCmd newSzkola, final BindingResult bindingResult) {
-        // if(bindingResult.hasErrors()) {
-        //     throw new IllegalArgumentException("Invalid arguments.");
-        // }
+    public SzkolaEntity createSzkola(final @RequestBody @Valid SzkolaCmd newSzkola) {
+        
         User user = userRepository.findById(2);
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOGG: " + newSzkola.getNumer());
         final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getNumer(), newSzkola.getMiasto(), newSzkola.getAdres(), newSzkola.getKodpocztowy(), newSzkola.getTypSzkoly(), newSzkola.getRodzajSzkoly(), user);
@@ -321,12 +320,6 @@ public class SzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-//        if (galleryUserRepo.findByUserId(idUsera) != null) {
-//            //szkola.setGalleryId(newSzkola.getGalleryId());
-//            szkola.setGalleryId(galleryUserRepo.findByUserId(idUsera));
-//        } else {
-//            szkola.setGalleryId(galleryUserRepo.findOne(1));
-//        }
         return this.szkolaRepository.save(szkola);
     }
 
