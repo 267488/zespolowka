@@ -907,27 +907,33 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             });
         };
 
+        $scope.editInfoColor = '';    
+
         $scope.submit2 = function () {
             $scope.submitting = true;
 
             if ($scope.szkola.password !== $scope.tmp_password)
             {
-                $scope.editError = 'Szkola o takiej nazwie juz istnieje';
+                $scope.editInfoColor = "red";
+                $scope.editError = 'Hasła nie pasują do siebie';
             } else {
                 $http({
                     method: 'PUT',
-                    url: '/api/szkola',
+                    url: '/editSchool',
                     data: $scope.szkola
                 }).success(function (data) {
                     $scope.submitting = false;
-                    $scope.editError = null;
+                    $scope.editInfoColor = "green";
+                    $scope.editError = "edytowano pomyślnie";
                     $modal.close(data);
                 }).error(function (data, status) {
                     $scope.submitting = false;
                     if (status === 400)
-                        $scope.editError = 'Szkola o takiej nazwie juz istnieje';
+                    {$scope.editInfoColor = "red";
+                     $scope.editError = 'Szkola o takiej nazwie juz istnieje';}
                     else if (status === 409)
-                        $scope.editError = 'Szkola o takiej nazwie juz istnieje';
+                    {$scope.editInfoColor = "red";
+                     $scope.editError = 'Szkola o takiej nazwie juz istnieje';}
                 });
             }
         };

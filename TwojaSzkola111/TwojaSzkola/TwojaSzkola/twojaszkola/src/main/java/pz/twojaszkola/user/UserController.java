@@ -354,7 +354,7 @@ public class UserController{
     }
     
     @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
-    public SuperSzkola editSchool()
+    public SuperSzkola editSchool(@RequestBody SuperSzkola editSzkola)
     {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -363,6 +363,8 @@ public class UserController{
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
        
+        if(szkola.getName().equals(editSzkola.getName()))return null;    
+        
         SuperSzkola superSzkola;
         superSzkola = new SuperSzkola(user.getLogin(),
                 user.getPassword(),
