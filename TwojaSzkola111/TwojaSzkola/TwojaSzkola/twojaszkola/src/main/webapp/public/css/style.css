@@ -608,9 +608,6 @@ nav.navbar #navbar > ul > li.second > a {
 	display: table-cell;
 	vertical-align: middle;
 }
-.main .widget.suggested .list-container .content > .text-container {
-    padding-right: 20px !important;
-}
 @media screen and (max-width: 767px) {
 	.main .list-container .content .img {
 		left: 13px;
@@ -1037,7 +1034,7 @@ nav.navbar #navbar > ul > li.second > a {
     border-radius: 3px;
 	background: #f8f8f8;
 }
-.modal #modalLabel {
+.modal .modal-title {
     margin: 0px;
 	margin-top: 5px;
     font-size: 13px;

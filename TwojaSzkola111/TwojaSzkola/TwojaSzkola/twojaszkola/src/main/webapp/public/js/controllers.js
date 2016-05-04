@@ -302,7 +302,7 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
                     $http.get('/api/aktualnosciCurrentUczen?all=true').success(function (data) {
                         $scope.aktualnosci = data;
                     });
-
+                    $scope.imageData = null;
                     console.log("SUCCESS");
                 }).error(function (data) {
                     $scope.submitting = false;
