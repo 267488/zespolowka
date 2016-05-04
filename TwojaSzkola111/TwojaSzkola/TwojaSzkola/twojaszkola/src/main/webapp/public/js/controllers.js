@@ -179,9 +179,8 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
 biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
         $http.get('/api/CurrentSzkola?all=true').success(function (data) {
             $scope.szkola = data;
-            $scope.zdjecie = "";
-            if (data.userId.galleryId.id!=null) {
-                $scope.zdjecie = "/api/galleryUser/" + data.userId.galleryId.id + ".jpg";
+            if (data.galleryId.id) {
+                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
@@ -390,7 +389,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 $scope.zdjecie = "img/brak.jpg";
             }
         });
- 
+
         $scope.submit = function () {
             $scope.submitting = true;
             $http({
@@ -794,8 +793,8 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
             $scope.szkola = data;
             $scope.tmp_password = $scope.szkola.password;
             $scope.zdjecie = "";
-            if (data.userId.galleryId.id) {
-                $scope.zdjecie = "/api/galleryUser/" + data.userId.galleryId.id + ".jpg";
+            if (data.galleryId.id) {
+                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
@@ -1033,9 +1032,10 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 $scope.imageData = null;
                 $http.get('/api/CurrentSzkola?all=true').success(function (data) {
                     $scope.szkola = data;
-                    $scope.zdjecie = "img/brak.jpg";
-                    if ($scope.szkola.userId.galleryId.id != null) {
-                        $scope.zdjecie = "/api/galleryUser/" + $scope.szkola.userId.galleryId.id + ".jpg";
+                    if (data.galleryId.id) {
+                        $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                    } else {
+                        $scope.zdjecie = "img/brak.jpg";
                     }
                 });
                 alert("DODANO ZDJECIE");
@@ -1052,9 +1052,10 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                     .success(function (data) {
                         $http.get('/api/CurrentSzkola?all=true').success(function (data) {
                             $scope.szkola = data;
-                            $scope.zdjecie = "img/brak.jpg";
-                            if (data.userId.galleryId.id != null) {
-                                $scope.zdjecie = "/api/galleryUser/" + data.userId.galleryId.id + ".jpg";
+                            if (data.galleryId.id) {
+                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                            } else {
+                                $scope.zdjecie = "img/brak.jpg";
                             }
                         });
                     })
@@ -1419,187 +1420,6 @@ biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalIn
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
         };
-    }]);
-biking2Controllers.controller('TracksCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
-        $http.get('/api/tracks').success(function (data) {
-            $scope.tracks = data;
-        });
-        $scope.openNewTrackDlg = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/_new_track.html',
-                controller: 'AddNewTrackCtrl',
-                scope: $scope
-            });
-            modalInstance.result.then(
-                    function (newTrack) {
-                        $scope.tracks.push(newTrack);
-                    },
-                    function () {
-                    }
-            );
-        };
-    }]);
-biking2Controllers.controller('AddNewTrackCtrl', ['$scope', '$modalInstance', '$upload', function ($scope, $modalInstance, $upload) {
-        $scope.track = {
-            name: null,
-            coveredOn: new Date(),
-            description: null,
-            type: 'biking'
-        };
-        $scope.trackData = null;
-        $scope.types = ['biking', 'running'];
-        $scope.onFileSelect = function ($files) {
-            $scope.trackData = $files[0];
-        };
-        $scope.coveredOnOptions = {
-            'year-format': "'yyyy'",
-            'starting-day': 1,
-            open: false
-        };
-        $scope.openCoveredOn = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.coveredOnOptions.open = true;
-        };
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-        $scope.submit = function () {
-            $scope.submitting = true;
-            $upload.upload({
-                method: 'POST',
-                url: '/api/tracks',
-                data: $scope.track,
-                file: $scope.trackData,
-                fileFormDataName: 'trackData',
-                withCredentials: true,
-                formDataAppender: function (formData, key, val) {
-                    // Without that, val.toJSON() is used which adds "...
-                    if (key !== null && key === 'coveredOn')
-                        formData.append(key, val.toISOString());
-                    else
-                        formData.append(key, val);
-                }
-            }).success(function (data) {
-                $scope.submitting = false;
-                $modalInstance.close(data);
-            }).error(function (data, status) {
-                $scope.submitting = false;
-                if (status === 409)
-                    $scope.badRequest = 'A track with the given name on that date already exists.';
-                else
-                    $scope.badRequest = 'There\'s something wrong with your input, please check!';
-            });
-        };
-    }]);
-biking2Controllers.controller('TrackCtrl', ['$scope', '$http', '$q', '$routeParams', function ($scope, $http, $q, $routeParams) {
-        $q.all([$http.get('/api/tracks/' + $routeParams.id), $http.get('/api/home')]).then(function (values) {
-            $scope.track = values[0].data;
-            $scope.home = values[1].data;
-        });
-    }]);
-biking2Controllers.controller('LocationCtrl', ['$scope', '$http', function ($scope, $http) {
-        $scope.locations = [];
-        $http.get('/api/locations').success(function (data) {
-            $scope.locations = data;
-            var stompClient = Stomp.over(new SockJS('/api/ws'));
-            stompClient.connect({}, function () {
-                stompClient.subscribe('/topic/currentLocation', function (greeting) {
-                    $scope.$apply(function () {
-                        $scope.locations.push(JSON.parse(greeting.body));
-                    });
-                });
-            });
-            $scope.$on("$destroy", function () {
-                stompClient.disconnect(function () {
-                });
-            });
-        });
-    }]);
-biking2Controllers.controller('AboutCtrl', ['$scope', '$q', '$http', '$filter', '$interval', function ($scope, $q, $http, $filter, $interval) {
-        $scope.refreshInterval = 30;
-        $scope.memoryConfig = {
-            options: {
-                chart: {
-                    type: 'area'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Memory usage'
-                },
-                subtitle: {
-                    text: 'Refreshes every ' + $scope.refreshInterval + ' seconds'
-                },
-                tooltip: {
-                    shared: true,
-                    valueSuffix: 'MiB'
-                },
-                plotOptions: {
-                    area: {
-                        stacking: 'normal',
-                        lineColor: '#666666',
-                        lineWidth: 1,
-                        marker: {
-                            lineWidth: 1,
-                            lineColor: '#666666'
-                        }
-                    }
-                }
-            },
-            series: [{
-                    name: 'Free',
-                    data: []
-                }, {
-                    name: 'Used',
-                    data: []
-                }],
-            loading: false,
-            xAxis: {
-                categories: [],
-                tickmarkPlacement: 'on',
-                title: {
-                    enabled: false
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'MiB'
-                }
-            }
-        };
-        $q.all([$http.get('/api/system/info'), $http.get('/api/system/env/java.(runtime|vm).*')]).then(function (values) {
-            $scope.info = values[0].data;
-            $scope.info.env = values[1].data;
-        });
-        $scope.refresh = function () {
-            var formatKibiBytes = function (bytes) {
-                return Math.round((bytes / Math.pow(1024, Math.floor(1))) * 10) / 10;
-            };
-            $http.get('/api/system/metrics').success(function (data) {
-                $scope.metrics = data;
-                $scope.metrics["mem.used"] = $scope.metrics.mem - $scope.metrics["mem.free"];
-                $scope.humanizedUptime = moment.duration($scope.metrics.uptime).humanize();
-                var max = 10;
-                var cur = $scope.memoryConfig.series[0].data.length;
-                if (cur === max) {
-                    $scope.memoryConfig.series[0].data.splice(0, 1);
-                    $scope.memoryConfig.series[1].data.splice(0, 1);
-                    $scope.memoryConfig.xAxis.categories.splice(0, 1);
-                }
-                $scope.memoryConfig.series[0].data.push(formatKibiBytes($scope.metrics["mem.free"]));
-                $scope.memoryConfig.series[1].data.push(formatKibiBytes($scope.metrics["mem.used"]));
-                $scope.memoryConfig.xAxis.categories.push($filter('date')(new Date(), "HH:mm:ss"));
-            });
-        };
-        var timer = $interval(function () {
-            $scope.refresh();
-        }, $scope.refreshInterval * 1000);
-        $scope.$on("$destroy", function () {
-            $interval.cancel(timer);
-        });
-        $scope.refresh();
     }]);
 
 biking2Controllers.controller('myCtrl', function ($rootScope, $scope, $http, $location, $window) {

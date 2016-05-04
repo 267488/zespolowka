@@ -134,13 +134,7 @@ public class SzkolaController {
         List<SzkolaEntity> tmp;
         List<szkola> rv = new ArrayList<szkola>();
         tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "miasto", "adres", "kodpocztowy", "typSzkoly"));
-        CurrentUser currentUser = null;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        currentUser = (CurrentUser) auth.getPrincipal();
-        Integer idUsera = currentUser.getId();
-        UczenEntity uczen = uczenRepository.findOne(idUsera);
-        szkola szkol = null;
-
+        
         for (SzkolaEntity s : tmp) {
             String zdjecie = "img/brak.jpg";
             if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
@@ -225,16 +219,10 @@ public class SzkolaController {
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         List<proponowaneSzkolyEntity> proponowane = new ArrayList<proponowaneSzkolyEntity>();
-        List<proponowaneSzkolyEntity> rv = new ArrayList<proponowaneSzkolyEntity>();
         List<przedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
         final UczenEntity uczen = uczenRepository.findById(idUcznia);
         final String typ = uczen.getCzegoSzukam();
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG TYP: " + typ);
-
-        List<UlubionaSzkolaEntity2> rv2;
-        List<SzkolaEntity> tmp;
-        rv2 = ulubionaSzkolaRepo.findByUczenId(uczen.getId());
-        tmp = szkolaRepository.findAll();
 
         List<ProfilEntity> profile;
         if ("Szkoła Średnia dowolnego typu".equals(typ)) {
@@ -289,7 +277,7 @@ public class SzkolaController {
 
                 if (s.getPunktacja() != 0) {
                     String zdjecie = "";
-                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()) != null) {
+                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() != null) {
                         zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() + ".jpg";
                     } else {
                         zdjecie = "img/brak.jpg";
