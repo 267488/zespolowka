@@ -13,8 +13,9 @@
             </div>
             <div class="right">
                 <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
+                <button type="button" class="btn btn-default" data-ng-click="editPicture();">Add picture</button>
                 <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
-                <a class="button-curve orange transparent btn btn-block" >USUŃ ZDJĘCIE</a> 
+                <a class="button-curve orange transparent btn btn-block" data-ng-click="deletePicture();" >USUŃ ZDJĘCIE</a> 
             </div>
         </div>
 

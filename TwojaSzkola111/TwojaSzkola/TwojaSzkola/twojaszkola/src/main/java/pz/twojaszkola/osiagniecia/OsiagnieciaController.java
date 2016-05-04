@@ -15,6 +15,8 @@
  */
 package pz.twojaszkola.osiagniecia;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuEntity;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
+import pz.twojaszkola.aktualnosciSzkola.aktualnosci;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
 import pz.twojaszkola.przedmioty.przedmiotyEntity;
@@ -83,6 +86,18 @@ public class OsiagnieciaController {
         return rv;
     }
 
+    class osiagnieciaComparator implements Comparator<OsiagnieciaEntity> {
+
+        @Override
+        public int compare(OsiagnieciaEntity s1, OsiagnieciaEntity s2) {
+            if (s1.getTermin().before(s2.getTermin())) {
+                return 1;
+            } else if (s2.getTermin().before(s1.getTermin())) {
+                return -1;
+            }
+            return 0;
+        }
+    }
     @RequestMapping(value = "/osiagnieciaCurrentUser", method = GET)
     public List<OsiagnieciaEntity> getOsiagnieciaCurrentUser(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         List<OsiagnieciaEntity> rv;
@@ -94,7 +109,8 @@ public class OsiagnieciaController {
         for (OsiagnieciaEntity o: rv ) {
             Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, " OSIAGNIECIA " +  o.getNazwakonkursu());
         }
-        Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "OSIAGNIECIA BRAK");
+        
+        Collections.sort(rv, new osiagnieciaComparator());
         return rv;
     }
 

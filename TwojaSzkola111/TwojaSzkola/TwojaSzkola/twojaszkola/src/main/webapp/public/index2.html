@@ -88,10 +88,13 @@
                         <li><a data-ng-active-tab data-ng-href="/osiagniecia">Osiągnięcia</a></li>
                         <li><a data-ng-active-tab data-ng-href="/ocenaPrzedmiotu">Ocena Przedmiotu</a></li>
                         <li class="second"><a data-ng-active-tab data-ng-href="/location">Lokalizacja</a></li>
-                        <li class="second"><form action="/logout" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button>Wyloguj się</button></form></li>
-                        
+                        <li class="second">
+							<form action="/logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button class="btn"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-out fa-stack-1x "></i></span>Wyloguj się</button>
+							</form>
+						</li>
+						
                     </ul>
 
                     <div class="logo-container hidden-xs">

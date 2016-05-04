@@ -161,10 +161,10 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 $scope.zdjecie = "/api/gallerySchool/" + data.userId.galleryId.id + ".jpg";
             }
         });
-        
-        
-        $scope.editSuperSzkola = function(){
-            
+
+
+        $scope.editSuperSzkola = function () {
+
         };
 
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
@@ -443,7 +443,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 data: $scope.uczen
             }).success(function (data) {
                 $scope.submitting = false;
-                $modalInstance.close(data);
+
             }).error(function (data, status) {
                 $scope.submitting = false;
                 if (status === 400)
@@ -453,7 +453,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
             });
         };
         $scope.editPicture = function () {
-            alert("EDIT PICTURE");
             var modalInstance = $modal.open({
                 templateUrl: '/partials/_new_picture.html',
                 controller: 'AddNewPictureCtrl',
@@ -467,6 +466,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                             if (data.galleryId.id != null) {
                                 $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
                             }
+                            alert("EDIT PICTURE");
                         });
                     },
                     function () {
@@ -483,6 +483,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                             if (data.galleryId.id != null) {
                                 $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
                             }
+                            alert("Zdjecie zostało usunięte");
                         });
                     })
                     .error(function (data) {
@@ -809,10 +810,10 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
     }]);
 //////////EDIT SZKOLA///////////////
 biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
-        
+
         $scope.tmp_password;
         $scope.editError;
-        
+
         $http.get('/api/przedmioty?all=true').success(function (data) {
             $scope.przedmioty = data;
         });
@@ -891,27 +892,26 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
 
         $scope.submit2 = function () {
             $scope.submitting = true;
-            
-            if($scope.szkola.password!==$scope.tmp_password)
+
+            if ($scope.szkola.password !== $scope.tmp_password)
             {
                 $scope.editError = 'Szkola o takiej nazwie juz istnieje';
-            }
-            else{
-            $http({
-                method: 'PUT',
-                url: '/api/szkola',
-                data: $scope.szkola
-            }).success(function (data) {
-                $scope.submitting = false;
-                $scope.editError = null;
-                $modal.close(data);
-            }).error(function (data, status) {
-                $scope.submitting = false;
-                if (status === 400)
-                    $scope.editError = 'Szkola o takiej nazwie juz istnieje';
-                else if (status === 409)
-                    $scope.editError = 'Szkola o takiej nazwie juz istnieje';
-            });
+            } else {
+                $http({
+                    method: 'PUT',
+                    url: '/api/szkola',
+                    data: $scope.szkola
+                }).success(function (data) {
+                    $scope.submitting = false;
+                    $scope.editError = null;
+                    $modal.close(data);
+                }).error(function (data, status) {
+                    $scope.submitting = false;
+                    if (status === 400)
+                        $scope.editError = 'Szkola o takiej nazwie juz istnieje';
+                    else if (status === 409)
+                        $scope.editError = 'Szkola o takiej nazwie juz istnieje';
+                });
             }
         };
         $scope.UsunProfil = function (event) {
@@ -1374,48 +1374,6 @@ biking2Controllers.controller('AddNewOsiagniecieCtrl', ['$scope', '$modalInstanc
 /**********************************************************************/
 
 /*********************************************************************/
-
-biking2Controllers.controller('GalleryCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
-        $scope.imageInterval = 5000;
-        $scope.allPictures = [];
-        $scope.slides = [];
-        $scope.reshuffle = function () {
-            $scope.allPictures = $scope.allPictures.randomize();
-            $scope.slides.length = 0;
-            var max = Math.min(15, $scope.allPictures.length);
-            for (var i = 0; i < max; ++i) {
-                $scope.slides.push({
-                    image: '/api/galleryPictures/' + $scope.allPictures[i].id + '.jpg',
-                    takenOn: $scope.allPictures[i].takenOn,
-                    text: $scope.allPictures[i].description
-                });
-            }
-        };
-        $http.get('/api/galleryPictures').success(function (data) {
-            $scope.allPictures = data;
-            $scope.reshuffle();
-        });
-        $scope.openNewPictureDlg = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/_new_picture.html',
-                controller: 'AddNewPictureCtrl',
-                scope: $scope
-            });
-            modalInstance.result.then(
-                    function (newPicture) {
-                        if ($scope.slides.length < 15) {
-                            $scope.slides.push({
-                                image: '/api/galleryPictures/' + newPicture.id + '.jpg',
-                                takenOn: newPicture.takenOn,
-                                text: newPicture.description
-                            });
-                        }
-                    },
-                    function () {
-                    }
-            );
-        };
-    }]);
 biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalInstance', '$upload', function ($data, $scope, $modalInstance, $upload) {
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {

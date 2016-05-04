@@ -84,15 +84,15 @@
 <!-- PROFIL UCZNIA -->  <li><a data-ng-active-tab data-ng-href="/uczen"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Profil</a></li>
                         <li><a data-ng-active-tab data-ng-href="/szkoly"><span class="fa-stack fa-lg pull-left"><i class="fa fa-university fa-stack-1x "></i></span>Wyszukiwarka szkół</a></li>
                         <li><a data-ng-active-tab data-ng-href="/ustawieniaUcznia"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cog fa-stack-1x "></i></span>Ustawienia</a></li>
-                        
-              <!--          <li><a data-ng-active-tab data-ng-href="signout"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-out fa-stack-1x "></i></span>Wyloguj się</a></li>
-                    -->    
-
                         <li><a data-ng-active-tab data-ng-href="/osiagniecia">Osiągnięcia</a></li>
                         <li><a data-ng-active-tab data-ng-href="/zainteresowania">Zainteresowania</a></li>
-                        <li class="second"><form action="/logout" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button>Wyloguj się</button></form></li>
+                        <li>
+							<form action="/logout" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<button class="btn"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-out fa-stack-1x "></i></span>Wyloguj się</button>
+							</form>
+						</li>
+						
                     </ul>
 
                     <div class="logo-container hidden-xs">

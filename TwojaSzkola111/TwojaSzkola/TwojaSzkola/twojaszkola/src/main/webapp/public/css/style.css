@@ -608,6 +608,9 @@ nav.navbar #navbar > ul > li.second > a {
 	display: table-cell;
 	vertical-align: middle;
 }
+.main .widget.suggested .list-container .content > .text-container {
+    padding-right: 20px !important;
+}
 @media screen and (max-width: 767px) {
 	.main .list-container .content .img {
 		left: 13px;
@@ -1787,18 +1790,43 @@ nav.navbar #navbar > ul > li.second > a {
     line-height: 40px;
 }
  
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
+.sidebar-nav li button {
+	padding: 0px !important;
+	font-weight: 300;
+	line-height: 36px;
+	border-radius: 0px;
+	background: transparent;
     color: #fff;
 }
+.sidebar-nav li button:hover,
+.sidebar-nav li button:active,
+.sidebar-nav li button:focus {
+	color: #fff;
+}
+.sidebar-nav li button > span.fa-stack {
+	width: 51px;
+}
+.sidebar-nav li button > span.fa-stack > i.fa {
+	padding-left: 2px;
+}
+ 
+.sidebar-nav li a,
+.sidebar-nav li button {
+    width: 100%;
+	display: block;
+    text-decoration: none;
+    color: #fff;
+    text-align: left;
+}
 .sidebar-nav li.active > a,
-.sidebar-nav li.active > a:focus {
+.sidebar-nav li.active > a:focus,
+.sidebar-nav li.active > button,
+.sidebar-nav li.active > button:focus {
     background: rgba(255,255,255,0.2);
 }
  
-.sidebar-nav li a:hover,
-.sidebar-nav li.active a:hover,
+.sidebar-nav li:hover,
+.sidebar-nav li.active:hover,
 .sidebar-nav li a:active {
     text-decoration: none;
     color: #fff;
@@ -1807,7 +1835,9 @@ nav.navbar #navbar > ul > li.second > a {
 }
  
 .sidebar-nav li a:active,
-.sidebar-nav li a:focus {
+.sidebar-nav li a:focus,
+.sidebar-nav li button:active,
+.sidebar-nav li button:focus {
     text-decoration: none;
 }
  

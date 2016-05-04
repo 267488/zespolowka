@@ -22,7 +22,7 @@
 		    <tbody>
 			<tr ng-repeat="s in ocenaPrzedmiotu | orderBy:['profilId', 'przedmiotId', 'ocena']">
 			    <td>{{ s.profilId.szkola.name }}</td>
-                            <td>{{ s.profilId.profilNazwa.nazwa }}</td>
+                            <td>{{ s.profilId.nazwa }}</td>
                             <td>{{ s.przedmiotId.name }}</td>
 			    <td>{{ s.ocena }}</td>
                         </tr>

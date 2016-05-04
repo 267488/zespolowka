@@ -130,7 +130,7 @@ public class SzkolaController {
         User user = userRepository.findById(currentUser.getId());
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
-       
+
         SuperSzkola superSzkola;
         superSzkola = new SuperSzkola(user.getLogin(),
                 user.getPassword(),
@@ -142,8 +142,8 @@ public class SzkolaController {
                 szkola.getKodpocztowy(),
                 szkola.getTypSzkoly(),
                 szkola.getRodzajSzkoly(),
-                user.getGalleryId());  
-          return superSzkola;  
+                user.getGalleryId());
+        return superSzkola;
     }
 
     @RequestMapping(value = "/szkola/{id}", method = GET)
@@ -177,7 +177,7 @@ public class SzkolaController {
     }
 
     @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
-    public List<szkola> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public List<proponowaneSzkoly> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
@@ -231,6 +231,7 @@ public class SzkolaController {
         }
 
         Collections.sort(proponowane, new proponowaneSzkolyEntity());
+        
         for (proponowaneSzkolyEntity p : proponowane) {
             Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG3: " + p.getUczenId().getName() + ", " + p.getProfilId().getProfil_nazwa() + ", " + p.getProfilId().getSzkola().getName() + "," + p.getPunktacja());
         }
@@ -238,23 +239,27 @@ public class SzkolaController {
         if (proponowane.size() < 3) {
             ilosc = proponowane.size();
         }
-        for (int i = 0; i < ilosc; i++) {
-            if (proponowane.get(i).getPunktacja() != 0) {
-                rv.add(proponowane.get(i));
-            }
-        }
-        //Collections.sort(rv, new proponowaneSzkolyEntity());
+        Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "ilosc " + ilosc);
         
-        List<szkola> szkoly = new ArrayList<szkola>();
-        for (proponowaneSzkolyEntity s : rv) {
-            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG5: " + s.getProfilId().getSzkola().getName() + " " + s.getProfilId().getProfil_nazwa());
-            szkola szk =null;
-            if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getProfilId().getSzkola().getId() , uczen.getId()) != null) {
-                szk = new szkola(s.getProfilId().getSzkola(),"glyphicon-star");
-            } else {
-                szk = new szkola(s.getProfilId().getSzkola(),"glyphicon-star-empty");
+        //Collections.sort(rv, new proponowaneSzkolyEntity());
+
+        List<proponowaneSzkoly> szkoly = new ArrayList<proponowaneSzkoly>();
+        int i = 0;
+        for (int j = proponowane.size()-1;j>0;j--) {
+            proponowaneSzkolyEntity s = proponowane.get(j);
+            if (i < ilosc) {
+                Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getUczenId().getName() + ", " + s.getProfilId().getProfil_nazwa() + ", " + s.getProfilId().getSzkola().getName() + "," + s.getPunktacja());
+                
+                if (s.getPunktacja() != 0) {
+                    proponowaneSzkoly szk = new proponowaneSzkoly(s, "glyphicon-star-empty");
+                    if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getProfilId().getSzkola().getId(), uczen.getId()) != null) {
+                        szk = new proponowaneSzkoly(s, "glyphicon-star");
+                    }
+                    szkoly.add(szk);
+                    i++;
+                    Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG5: " + s.getUczenId().getName() + ", " + s.getProfilId().getProfil_nazwa() + ", " + s.getProfilId().getSzkola().getName() + "," + s.getPunktacja());
+                }
             }
-            szkoly.add(szk);
         }
         return szkoly;
     }
@@ -322,18 +327,16 @@ public class SzkolaController {
 
         return this.szkolaRepository.save(szkola);
     }
-    
-    
-    @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
-    public SuperSzkola editSchool(final @RequestBody @Valid SuperSzkola updatedSzkola)
-    {
+
+    @RequestMapping(value = "/editSchool", method = RequestMethod.PUT)
+    public SuperSzkola editSchool(final @RequestBody @Valid SuperSzkola updatedSzkola) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         User user = userRepository.findById(currentUser.getId());
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
-       
+
         SuperSzkola superSzkola;
         superSzkola = new SuperSzkola(user.getLogin(),
                 user.getPassword(),
@@ -345,7 +348,7 @@ public class SzkolaController {
                 szkola.getKodpocztowy(),
                 szkola.getTypSzkoly(),
                 szkola.getRodzajSzkoly(),
-                user.getGalleryId());  
-          return superSzkola;    
+                user.getGalleryId());
+        return superSzkola;
     }
 }
