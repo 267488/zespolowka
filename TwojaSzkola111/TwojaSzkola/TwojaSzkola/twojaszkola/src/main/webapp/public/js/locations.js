@@ -17,6 +17,8 @@ $(document).ready(function () {
     var adresULatLng;
     var adresSLatLng;
 
+    
+
     console.log("ID:" + id);
 
     $.getJSON('http://localhost:8090/api/uczen/' + id, function (data2) {
