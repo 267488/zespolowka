@@ -348,8 +348,8 @@ public class UserController{
         
     }
     
-    @RequestMapping(value="/currentSchool", method = RequestMethod.GET)
-    public SuperSzkola currentSchool()
+    @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
+    public SuperSzkola editSchool()
     {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

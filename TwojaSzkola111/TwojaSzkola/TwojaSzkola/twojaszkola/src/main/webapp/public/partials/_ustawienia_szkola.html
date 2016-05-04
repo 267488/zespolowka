@@ -117,7 +117,7 @@
                                 <label for="inputEmail">E-MAIL</label>
                                 <div class="input-group email">
                                     <i class="fa fa-envelope fa-1"></i>
-                                    <input type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" value="liceum1.torun@gmail.com">
+                                    <input ng-model="szkola.mail" type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" value="liceum1.torun@gmail.com">
                                 </div>
                             </div>
 
@@ -125,7 +125,7 @@
                                 <label for="inputPassword">NOWE HASŁO</label>
                                 <div class="input-group password">
                                     <i class="fa fa-lock fa-1"></i>
-                                    <input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło">
+                                    <input ng-model="szkola.password" type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło">
                                 </div>
                             </div>
 
@@ -133,7 +133,7 @@
                                 <label for="inputPassword2">POTWIERDŹ HASŁO</label>
                                 <div class="input-group password2">
                                     <i class="fa fa-lock fa-1"></i>
-                                    <input type="password" id="inputPassword2" class="form-control have-icon" placeholder="Wpisz ponownie hasło">
+                                    <input ng-model="szkola.password" type="password" id="inputPassword2" class="form-control have-icon" placeholder="Wpisz ponownie hasło">
                                 </div>
                             </div>
 
@@ -142,35 +142,35 @@
                             <div class="form half-width-1">
                                 <label for="inputName">NAZWA SZKOŁY</label>
                                 <div class="input-group">
-                                    <input type="text" id="inputName"  class="form-control" placeholder="Wpisz nazwę szkoły" ng-model="szkola.name">
+                                    <input ng-model="szkola.name" type="text" id="inputName"  class="form-control" placeholder="Wpisz nazwę szkoły" ng-model="szkola.name">
                                 </div>
                             </div>
 
                             <div class="form half-width-2">
                                 <label for="inputSchoolNumber">NUMER</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Podaj numer szkoły."></i>
                                 <div class="input-group">
-                                    <input type="text" id="inputSchoolNumber"  class="form-control" placeholder="Podaj numer szkoły" ng-model="szkola.numer">
+                                    <input ng-model="szkola.numer" type="text" id="inputSchoolNumber"  class="form-control" placeholder="Podaj numer szkoły" ng-model="szkola.numer">
                                 </div>
                             </div>
 
                             <div class="form half-width-1">
                                 <label for="inputCity">MIASTO</label>
                                 <div class="input-group">
-                                    <input type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" ng-model="szkola.miasto">
+                                    <input ng-model="szkola.miasto" type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" ng-model="szkola.miasto">
                                 </div>
                             </div>
 
                             <div class="form half-width-2">
                                 <label for="inputZipcode">KOD POCZTOWY</label>
                                 <div class="input-group">
-                                    <input type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" ng-model="szkola.kodpocztowy">
+                                    <input ng-model="szkola.kodpocztowy" type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" ng-model="szkola.kodpocztowy">
                                 </div>
                             </div>
 
                             <div class="form half-width-1">
                                 <label for="inputSchoolType">TYP SZKOŁY</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Typ szkoły, którą reprezentuje ten profil."></i>
                                 <div class="input-group">
-                                    <select class="form-control" id="inputSchoolType" ng-model="szkola.typSzkoly">
+                                    <select ng-model="szkola.typSzkoly" class="form-control" id="inputSchoolType" ng-model="szkola.typSzkoly">
                                         <option>Szkoła Podstawowa</option>
                                         <option>Gimnazjum</option>
                                         <option>Technikum</option>
@@ -183,13 +183,16 @@
                             <div class="form half-width-2 last">
                                 <label for="inputSchoolGenre">RODZAJ SZKOŁY</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Jakiego rodzaju jest to szkoła?"></i>
                                 <div class="input-group">
-                                    <select class="form-control" id="inputSchoolGenre" ng-model="szkola.rodzajSzkoly">
+                                    <select ng-model="szkola.rodzajSzkoly" class="form-control" id="inputSchoolGenre" ng-model="szkola.rodzajSzkoly">
                                         <option selected>Publiczna</option>
                                         <option>Prywatna</option>
                                     </select>
                                 </div>
                             </div>
-
+                            
+                            <div class="form half-width-2 last">
+                                <label for="inputSchoolGenre" style="color:red;">{{editError}}</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Jakiego rodzaju jest to szkoła?"></i>
+                            </div>
                             <button class="button-curve btn btn-lg btn-primary btn-block" type="submit" data-ng-click="submit2();">ZAPISZ</button>
                         </form>	
                     </div>

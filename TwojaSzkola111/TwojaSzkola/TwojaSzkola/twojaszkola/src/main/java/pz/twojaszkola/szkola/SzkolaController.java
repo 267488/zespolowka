@@ -31,6 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -51,6 +52,7 @@ import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.ulubione.UlubionaSzkolaEntity2;
 import pz.twojaszkola.ulubione.UlubionaSzkolaRepository;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.user.SuperSzkola;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
 import pz.twojaszkola.zainteresowania.zainteresowaniaController;
@@ -121,14 +123,27 @@ public class SzkolaController {
     }
 
     @RequestMapping(value = "/CurrentSzkola", method = GET)
-    public SzkolaEntity getCurrentSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public SuperSzkola getCurrentSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
-        Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-        SzkolaEntity sz = szkolaRepository.findByUserId(idUsera);
-        return sz;
+        User user = userRepository.findById(currentUser.getId());
+
+        SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
+       
+        SuperSzkola superSzkola;
+        superSzkola = new SuperSzkola(user.getLogin(),
+                user.getPassword(),
+                user.getEmail(),
+                szkola.getName(),
+                szkola.getNumer(),
+                szkola.getMiasto(),
+                szkola.getAdres(),
+                szkola.getKodpocztowy(),
+                szkola.getTypSzkoly(),
+                szkola.getRodzajSzkoly(),
+                user.getGalleryId());  
+          return superSzkola;  
     }
 
     @RequestMapping(value = "/szkola/{id}", method = GET)
@@ -306,5 +321,31 @@ public class SzkolaController {
         }
 
         return this.szkolaRepository.save(szkola);
+    }
+    
+    
+    @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
+    public SuperSzkola editSchool(final @RequestBody @Valid SuperSzkola updatedSzkola)
+    {
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        User user = userRepository.findById(currentUser.getId());
+
+        SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
+       
+        SuperSzkola superSzkola;
+        superSzkola = new SuperSzkola(user.getLogin(),
+                user.getPassword(),
+                user.getEmail(),
+                szkola.getName(),
+                szkola.getNumer(),
+                szkola.getMiasto(),
+                szkola.getAdres(),
+                szkola.getKodpocztowy(),
+                szkola.getTypSzkoly(),
+                szkola.getRodzajSzkoly(),
+                user.getGalleryId());  
+          return superSzkola;    
     }
 }

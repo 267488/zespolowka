@@ -161,6 +161,11 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 $scope.zdjecie = "/api/gallerySchool/" + data.userId.galleryId.id + ".jpg";
             }
         });
+        
+        
+        $scope.editSuperSzkola = function(){
+            
+        };
 
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
             $scope.profile = data;
@@ -767,11 +772,16 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
     }]);
 //////////EDIT SZKOLA///////////////
 biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
+        
+        $scope.tmp_password;
+        $scope.editError;
+        
         $http.get('/api/przedmioty?all=true').success(function (data) {
             $scope.przedmioty = data;
         });
         $http.get('/api/CurrentSzkola?all=true').success(function (data) {
             $scope.szkola = data;
+            $scope.tmp_password = $scope.szkola.password;
             $scope.zdjecie = "img/brak.jpg";
             if (data.galleryId.id != null) {
                 $scope.zdjecie = "/api/gallerySchool/" + data.galleryId.id + ".jpg";
@@ -844,20 +854,28 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
 
         $scope.submit2 = function () {
             $scope.submitting = true;
+            
+            if($scope.szkola.password!==$scope.tmp_password)
+            {
+                
+            }
+            else{
             $http({
                 method: 'PUT',
                 url: '/api/szkola',
                 data: $scope.szkola
             }).success(function (data) {
                 $scope.submitting = false;
+                $scope.editError = null;
                 $modal.close(data);
             }).error(function (data, status) {
                 $scope.submitting = false;
                 if (status === 400)
-                    $scope.badRequest = data;
+                    $scope.editError = 'Szkola o takiej nazwie juz istnieje';
                 else if (status === 409)
-                    $scope.badRequest = 'Szkola o takiej nazwie juz istnieje';
+                    $scope.editError = 'Szkola o takiej nazwie juz istnieje';
             });
+            }
         };
         $scope.UsunProfil = function (event) {
             $scope.id = event.target.id;
