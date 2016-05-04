@@ -82,6 +82,8 @@ public class SecurityConfig {
                     .usernameParameter("login")
                     .passwordParameter("password")
                     .and()
+                    .sessionManagement().enableSessionUrlRewriting(true)
+                    .and()
                     .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login.html")
@@ -108,31 +110,3 @@ public class SecurityConfig {
     
 }
 
-
-/*
-http
-		.httpBasic()
-		    .and()
-		.authorizeRequests()	
-		    .antMatchers(		
-			    "/api/system/env/java.(runtime|vm).*",
-			    "/api/system/metrics/**"
-		    ).permitAll()
-		    .antMatchers("/api/system/env/**").denyAll()		    
-		    .antMatchers("/**").permitAll()		    
-		    .and()
-		.sessionManagement()
-		    .sessionCreationPolicy(STATELESS)
-		    .and()
-		.csrf()
-		    .disable()
-		.headers()
-		    .frameOptions() // OEmbedController#embedTrack uses an iframe
-		    .disable()
-                    .and()
-                    .formLogin().loginPage("/login")
-		;  
-
-
-
-*/
