@@ -7,43 +7,43 @@ var dystans;
 
 $(document).ready(function () {
 
-    //Trzeba id zrobić tak, aby był aktywnego. Teraz jest przypisywany ręcznie id=6  
     var geocoder;
     var map;
-    var service = new google.maps.DistanceMatrixService();
     var czegoSzukam;
     var adresUcznia;
-    var id = 6;
+    var currentId;
     var adresULatLng;
     var adresSLatLng;
 
-    
+    //$.getJSON('http://localhost:8090/currentID/', function (data3) {
+    $.getJSON('http://localhost:8090/currentID/', function (data3) {
+        
+        $.getJSON('http://localhost:8090/api/uczen/' + currentId, function (data2) {
 
-    console.log("ID:" + id);
+            $.getJSON('http://localhost:8090/api/szkolaBy/' + data2.czegoSzukam, function (data) {
+                currentId = data3; //trzeba sprawdzic
+                console.log("Biezace id" + currentId);
+                czegoSzukam = data2.czegoSzukam;
+                adresUcznia = data2.adres + " " + data2.kodpocztowy;
+                console.log("Adres ucznia: " + adresUcznia);
+                console.log("Wybór ucznia: " + czegoSzukam);
 
-    $.getJSON('http://localhost:8090/api/uczen/' + id, function (data2) {
+                for (var i = 0; i < data.length; i++)
+                {
+                    dane[i] = data[i].adres + " " + data[i].kodpocztowy;
+                    nazwy[i] = data[i].name;
+                    kod[i] = data[i].kodpocztowy;
+                    ids[i] = data[i].id;
 
-        $.getJSON('http://localhost:8090/api/szkolaBy/' + data2.czegoSzukam, function (data) {
-            czegoSzukam = data2.czegoSzukam;
-            adresUcznia = data2.adres + " " + data2.kodpocztowy;
-            console.log("Adres ucznia: " + adresUcznia);
-            console.log("Wybór ucznia: " + czegoSzukam);
+                    console.log("Nazwa: " + nazwy[i]);
+                    console.log("Adres: " + dane[i]);
+                    console.log("Kod pocztowy: " + kod[i]);
+                }
 
-            for (var i = 0; i < data.length; i++)
-            {
-                dane[i] = data[i].adres + " " + data[i].kodpocztowy;
-                nazwy[i] = data[i].name;
-                kod[i] = data[i].kodpocztowy;
-                ids[i] = data[i].id;
+                codeAddressUczen(adresUcznia);
+                codeAddress(dane, nazwy);
 
-                console.log("Nazwa: " + nazwy[i]);
-                console.log("Adres: " + dane[i]);
-                console.log("Kod pocztowy: " + kod[i]);
-            }
-
-            codeAddressUczen(adresUcznia);
-            codeAddress(dane, nazwy);
-
+            });
         });
     });
 
@@ -54,24 +54,6 @@ $(document).ready(function () {
                 adresULatLng = results[0].geometry.location;
             }
         });
-    }
-
-    function callback(response, status) {
-        console.log(response);
-        console.log(status);
-        if (status == google.maps.DistanceMatrixStatus.OK) {
-            var origins = response.originAddresses;
-            var destinations = response.destinationAddresses;
-            for (var i = 0; i < origins.length; i++) {
-                var results = response.rows[i].elements;
-                for (var j = 0; j < results.length; j++) {
-                    var element = results[j];
-                    var dystans = element.distance.text;
-                    console.log("Dystans: " + dystans);
-                    //$('.list-container').append(dystans);
-                }
-            }
-        }
     }
 
     function initialize() {
@@ -99,13 +81,7 @@ $(document).ready(function () {
                             map: map,
                             position: results[0].geometry.location
                         });
-                        adresSLatLng = results[0].geometry.location;
-                        service.getDistanceMatrix(
-                                {
-                                    origins: [adresULatLng], //adres Ucznia
-                                    destinations: [adresSLatLng], //adres Szkoły
-                                    travelMode: google.maps.TravelMode.WALKING,
-                                }, callback);
+
                         console.log("Adres Ucznia: " + adresULatLng);
                         console.log("Adres Szkoły: " + adresSLatLng);
                         console.log("pokaz2: " + nazwy[k]);

@@ -957,36 +957,37 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 else if (status === 409)
                     $scope.badRequest = 'Osiagniecie o takiej nazwie juz istnieje';
             });
-            $scope.kolko = {
-                id: null,
-                nazwa: null,
-                termin: null,
-                przedmiot: null,
-                szkola: null
-            };
-            $scope.submitKolko = function () {
-                $scope.submitting = true;
-                alert("JESTEM TU");
-                $http({
-                    method: 'POST',
-                    url: '/api/kolkaZainteresowan/' + $scope.kolko.przedmiot,
-                    data: $scope.kolko
-                }).success(function (data) {
-                    $scope.submitting = false;
-                    $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
-                        $scope.kolka = data;
-                    });
-                    alert("Dodałem kółko");
-                }).error(function (data, status) {
-                    $scope.submitting = false;
-                    alert("Błąd");
-                    if (status === 400)
-                        $scope.badRequest = data;
-                    else if (status === 409)
-                        $scope.badRequest = 'Kolko o takiej nazwie juz istnieje';
-                });
-            };
         };
+        $scope.kolko = {
+            id: null,
+            nazwa: null,
+            termin: null,
+            przedmiot: null,
+            szkola: null
+        };
+        $scope.submit3 = function () {
+            $scope.submitting = true;
+            console.log("JESTEM TU");
+            $http({
+                method: 'POST',
+                url: '/api/kolkaZainteresowan',
+                data: $scope.kolko
+            }).success(function (data) {
+                $scope.submitting = false;
+                $http.get('/api/kolkaZainteresowanCurrentSchool?all=true').success(function (data) {
+                    $scope.kolka = data;
+                });
+                console.log("Dodałem kółko");
+            }).error(function (data, status) {
+                $scope.submitting = false;
+                console.log("Błąd");
+                if (status === 400)
+                    $scope.badRequest = data;
+                else if (status === 409)
+                    $scope.badRequest = 'Kolko o takiej nazwie juz istnieje';
+            });
+        };
+        
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
