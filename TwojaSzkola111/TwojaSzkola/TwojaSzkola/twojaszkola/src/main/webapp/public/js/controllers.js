@@ -39,6 +39,12 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
             }
         });
+        
+        $scope.ileDanych = 0;
+        
+        
+        
+        
         $http.get('/api/aktualnosciSzkola?all=true').success(function (data) {
             $scope.aktualnosci = data;
         });
@@ -451,7 +457,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
         };
         $scope.submit = function () {
             $scope.submitting = true;
-            if ($scope.password != null && $scope.password == $scope.password2) {
+            if ($scope.uczen.password != null && $scope.password == $scope.password2) {
                 console.log("Póki co nie mogę zmienić hasła");
             }
             $http({
@@ -466,7 +472,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 if (status === 400)
                     $scope.badRequest = data;
                 else if (status === 409)
-                    $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
+                    $scope.badRequest = 'błąd';
             });
         };
         $scope.editPicture = function () {

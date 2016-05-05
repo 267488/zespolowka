@@ -106,7 +106,7 @@ public class UserController{
                         + "\n user id: "+user.getId()
                         + "\n user login: "+user.getLogin()
                         + "\n user password: "+user.getPassword()                       
-                        + " \n\n http://localhost:8090/activeSuccess.html/"+user.getId();
+                        + " \n\n http://localhost:8090/active/"+user.getId();
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("RegCtrl:  Mail Session has been created successfully..");
  
@@ -356,88 +356,7 @@ public class UserController{
         //return "strona aktywacyjna | user id to activation: "+id+"<a href='/'>wroc do strony logowania</a>";
         //return "activeSuccess.html";
         
-        return "<!DOCTYPE html>\n" +
-"<html lang=\"en\">\n" +
-"    <head>\n" +
-"        <meta charset=\"utf-8\">\n" +
-"        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-"        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->\n" +
-"        <meta name=\"description\" content=\"\">\n" +
-"        <meta name=\"author\" content=\"Michał Kaproń\">\n" +
-"        <link rel=\"icon\" href=\"images/favicon.ico\">\n" +
-"\n" +
-"        <title>Twoja Szkoła | Aktywacja</title>\n" +
-"\n" +
-"        <!-- Bootstrap core CSS -->\n" +
-"        <link href=\"bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
-"\n" +
-"        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-"        <link href=\"bootstrap/assets/css/ie10-viewport-bug-workaround.css\" rel=\"stylesheet\">\n" +
-"\n" +
-"        <!-- Fonts for this template -->\n" +
-"        <link href=\"css/font-awesome.min.css\" rel=\"stylesheet\">\n" +
-"        <link href=\"css/fonts.css\" rel=\"stylesheet\">\n" +
-"\n" +
-"        <!-- Custom styles for this template -->\n" +
-"        <link href=\"css/style.css\" rel=\"stylesheet\">\n" +
-"\n" +
-"        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->\n" +
-"        <!--[if lt IE 9]><script src=\"../../assets/js/ie8-responsive-file-warning.js\"></script><![endif]-->\n" +
-"        <script src=\"bootstrap/assets/js/ie-emulation-modes-warning.js\"></script>\n" +
-"\n" +
-"        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->\n" +
-"        <!--[if lt IE 9]>\n" +
-"          <script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>\n" +
-"          <script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>\n" +
-"        <![endif]-->\n" +
-"    </head>\n" +
-"\n" +
-"    <body class=\"sign-container\">\n" +
-"\n" +
-"        <div class=\"container-fluid\">\n" +
-"            <div class=\"row\">\n" +
-"\n" +
-"                <a href=\"/sign-up.html\" target=\"_self\" class=\"button-login button-curve btn btn-lg\">Zarejestruj się</a>\n" +
-"\n" +
-"                <div class=\"col-md-7 col-sm-12 invitation-container\">\n" +
-"                    <div class=\"invitation\">Nie wiesz jaką <span style=\"color: #1DE9B6;\">szkołę wybrać?</span></div>\n" +
-"                    <div class=\"invitation small\">Z nami wybierzesz <span style=\"color: #1DE9B6;\">najlepszą!</span></div>\n" +
-"                </div>\n" +
-"\n" +
-"                <div class=\"col-md-5 col-sm-12 forms-container\">\n" +
-"                    <div class=\"sign\">\n" +
-"\n" +          "<p>Aktywacja przbiegła pomyślnie</p>"+
-                "<a href=\"/login.html\" >Wróć do strony logowania</a>"+
-"\n" +
-"                    </div>\n" +
-"                </div>\n" +
-"\n" +
-"            </div>\n" +
-"\n" +
-"        </div> <!-- /container -->\n" +
-"\n" +
-"\n" +
-"        <script src=\"js/jquery-2.2.2.min.js\"></script> \n" +
-"\n" +
-"        <script>\n" +
-"                                    $(document).ready(function () {\n" +
-"                                        $(function () {\n" +
-"                                            $('[data-toggle=\"tooltip\"]').tooltip()\n" +
-"                                        });\n" +
-"                                    });\n" +
-"        </script>\n" +
-"\n" +
-"        <!-- Bootstrap core JavaScript\n" +
-"        ================================================== -->\n" +
-"        <!-- Placed at the end of the document so the pages load faster -->\n" +
-"        <!--   <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>-->\n" +
-"        <script>window.jQuery || document.write('<script src=\"../../assets/js/vendor/jquery.min.js\"><\\/script>')</script>\n" +
-"        <script src=\"bootstrap/dist/js/bootstrap.min.js\"></script>\n" +
-"        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-"        <script src=\"bootstrap/assets/js/ie10-viewport-bug-workaround.js\"></script>\n" +
-"    </body>\n" +
-"</html>";
+        return "Aktywowano konto <br> <a href=\"/login.html\">Wróć do strony logowania</a>";
     }
 }
     

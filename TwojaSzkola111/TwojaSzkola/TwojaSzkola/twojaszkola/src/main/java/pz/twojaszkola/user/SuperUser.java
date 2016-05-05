@@ -25,20 +25,33 @@ public class SuperUser {
     private String lastname;
     private String mail;
     private String login;
+    private String password;
     private int uczen_id;
-    private int user_id;
+    private String miasto;
     private String kodpocztowy;
-    private String pesel;
+    private String adres;
+    private String czegoSzukam;
 
-    public SuperUser(String name, String lastname, String mail, String login, int uczen_id, int user_id, String kodpocztowy, String pesel) {
+    public SuperUser(int uczen_id, 
+            String name, 
+            String lastname, 
+            String mail, 
+            String login,
+            String password,
+            String miasto,
+            String kodpocztowy, 
+            String adres, 
+            String czegoSzukam) {
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
         this.login = login;
+        this.password = password;
         this.uczen_id = uczen_id;
-        this.user_id = user_id;
+        this.miasto = miasto;
         this.kodpocztowy = kodpocztowy;
-        this.pesel = pesel;
+        this.adres = adres;
+        this.czegoSzukam = czegoSzukam;
     }
 
     public String getName() {
@@ -73,20 +86,22 @@ public class SuperUser {
         this.login = login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
+    
     public int getUczen_id() {
         return uczen_id;
     }
 
     public void setUczen_id(int uczen_id) {
         this.uczen_id = uczen_id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
     }
 
     public String getKodpocztowy() {
@@ -97,14 +112,29 @@ public class SuperUser {
         this.kodpocztowy = kodpocztowy;
     }
 
-    public String getPesel() {
-        return pesel;
+    public String getAdres() {
+        return adres;
     }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
+    public void setAdres(String adres) {
+        this.adres = adres;
     }
-    
-    
-    
+
+    public String getMiasto() {
+        return miasto;
+    }
+
+    public void setMiasto(String miasto) {
+        this.miasto = miasto;
+    }
+
+    public String getCzegoSzukam() {
+        return czegoSzukam;
+    }
+
+    public void setCzegoSzukam(String czegoSzukam) {
+        this.czegoSzukam = czegoSzukam;
+    }
+
+   
 }

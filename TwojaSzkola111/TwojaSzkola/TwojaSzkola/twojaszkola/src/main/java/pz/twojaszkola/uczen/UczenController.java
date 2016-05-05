@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.user.SuperUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
 import pz.twojaszkola.zainteresowania.zainteresowaniaController;
@@ -70,14 +71,27 @@ public class UczenController {
     }
 
     @RequestMapping(value = "/CurrentUczen", method = GET)
-    public UczenEntity getUczenById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public SuperUser getUczenById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
-        return uczen;
+        final User user = userRepository.findById(idUsera);
+        
+        SuperUser superUser = new SuperUser(uczen.getId(),
+                uczen.getName(),
+                uczen.getLastname(),
+                user.getEmail(),
+                user.getLogin(),
+                user.getPassword(),
+                uczen.getMiasto(),
+                uczen.getKodpocztowy(),
+                uczen.getAdres(),
+                uczen.getCzegoSzukam());
+        
+        return superUser;
     }
 
     @RequestMapping(value = "/CurrentUczen/zainteresowania", method = GET)
@@ -151,7 +165,7 @@ public class UczenController {
     @RequestMapping(value = "/CurrentUczen", method = PUT)
     @PreAuthorize("isAuthenticated()")
     @Transactional
-    public UczenEntity updateUczen(final @RequestBody @Valid UczenCmd updatedUczen, final BindingResult bindingResult) {
+    public UczenEntity updateUczen(final @RequestBody @Valid SuperUser updatedUczen, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new IllegalArgumentException("Invalid arguments.");
         }
