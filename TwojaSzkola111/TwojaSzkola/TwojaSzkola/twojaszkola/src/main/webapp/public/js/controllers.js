@@ -414,23 +414,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                     $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
             });
         };
-    }]);
-/////////////////// EDIT UCZEN CONTROLLER //////////////////////////
-
-biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$upload', function ($scope, $modal, $http, $upload) {
-
-        $http.get('/api/CurrentUczen').success(function (data) {
-            console.log("get current uczen");
-            $scope.uczen = data;
-            $scope.zdjecie = "img/brak.jpg";
-            if (data.galleryId.id != null) {
-                $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
-            }
-
-            console.log(data);
-        });
-        $scope.password = null;
-        $scope.password2 = null;
+        
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
@@ -465,46 +449,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
         };
-        $scope.submit = function () {
-            $scope.submitting = true;
-            if ($scope.uczen.password != null && $scope.password == $scope.password2) {
-                console.log("Póki co nie mogę zmienić hasła");
-            }
-            $http({
-                method: 'PUT',
-                url: '/api/CurrentUczen',
-                data: $scope.uczen
-            }).success(function (data) {
-                $scope.submitting = false;
-            }).error(function (data, status) {
-                $scope.submitting = false;
-                if (status === 400)
-                    $scope.badRequest = data;
-                else if (status === 409)
-                    $scope.badRequest = 'błąd';
-            });
-        };
-        $scope.editPicture = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/_new_picture.html',
-                controller: 'AddNewPictureCtrl',
-                scope: $scope
-            });
-            modalInstance.result.then(
-                    function (newPicture) {
-                        $http.get('/api/CurrentUczen?all=true').success(function (data) {
-                            $scope.uczen = data;
-                            $scope.zdjecie = "img/brak.jpg";
-                            if (data.galleryId.id != null) {
-                                $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
-                            }
-                            alert("EDIT PICTURE");
-                        });
-                    },
-                    function () {
-                    }
-            );
-        };
+        
         $scope.deletePicture = function () {
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
