@@ -80,14 +80,15 @@ public class UlubionaSzkolaController {
         Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
-        String zdjecie = "img/brak.jpg";
-        if (galleryRepo.findByUserId(idUsera) != null) {
-            zdjecie = "/api/galleryUser/" + galleryRepo.findByUserId(idUsera).getId() + ".jpg";
-        }
-
         rv = ulubionaSzkolaRepository.findByUczenId(idUcznia);
         for (UlubionaSzkolaEntity2 u : rv) {
-            rv2.add(new ulubionaSzkola(u,zdjecie));
+            String zdjecie = "";
+            if (galleryRepo.findByUserId(u.getSzkolaId().getUserId().getId()) != null) {
+                zdjecie = "/api/galleryUser/" + galleryRepo.findByUserId(u.getSzkolaId().getUserId().getId()).getId() + ".jpg";
+            } else {
+                zdjecie = "img/brak.jpg";
+            }
+            rv2.add(new ulubionaSzkola(u, zdjecie));
         }
 
         return rv2;

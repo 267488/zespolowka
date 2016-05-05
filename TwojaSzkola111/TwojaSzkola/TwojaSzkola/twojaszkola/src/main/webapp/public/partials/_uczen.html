@@ -10,7 +10,7 @@
 
                 <div class="main-info">
                     <div class="left">
-                        <img src="{{ zdjecie}}" class="img-responsive" alt="Zdjęcie profilowe" >
+                        <img src="{{zdjecie}}" class="img-responsive" alt="Zdjęcie profilowe" >
                     </div>
                     <div class="right">
                         <h3 class="name">{{ uczen.name}} {{ uczen.lastname}}</h3>
@@ -161,28 +161,6 @@
                             </div>
 
                             <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
-
-
-                            <!--          <div id="carousel-post-gallery-{{ a.aktualnosc.id}}" class="carousel slide" data-ride="carousel">
-          
-                                           Wrapper for slides 
-                                          <div class="carousel-inner" role="listbox">
-                                              <div class="item" ng-repeat="i in a.galleryId">
-                                                  <img src="/api/galleryPictures/{{i.id}}.jpg" alt="Zdjęcie Postu - {{ a.aktualnosc.tytul}}">
-                                              </div>
-                                          </div>
-          
-                                           Controls 
-                                          <a class="left carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id}}" role="button" data-slide="prev">
-                                              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                              <span class="sr-only">Previous</span>
-                                          </a>
-                                          <a class="right carousel-control" href="#carousel-post-gallery-{{ a.aktualnosc.id}}" role="button" data-slide="next">
-                                              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                              <span class="sr-only">Next</span>
-                                          </a>
-                                      </div>
-                            -->
                             <div class="image" ng-repeat="i in a.galleryId">
                                 <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
                             </div>

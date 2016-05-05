@@ -103,11 +103,12 @@ public class KolkaZainteresowanController {
         if (bindingResult.hasErrors()) {
             throw new IllegalArgumentException("Invalid arguments.");
         }
-        //final Profil_nazwaEntity profil_nazwa = profil_nazwaRepository.findById(id);
-
-        Integer idSzkoly = 1; //////////////////////////////ID SZKOLY////////////////////////////////////////
-
-        final SzkolaEntity szkola = szkolaRepository.findById(idSzkoly);
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+       
+        final SzkolaEntity szkola = szkolaRepository.findByUserId(idUsera);
 
         Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
         //final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
@@ -135,7 +136,7 @@ public class KolkaZainteresowanController {
             Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "TERMIN KÓŁA " + newKolko.getTermin());
             final KolkaZainteresowanEntity kolko = new KolkaZainteresowanEntity(newKolko.getNazwa(), newKolko.getTermin(), przedmiot, szkola);
             final KolkaZainteresowanEntity e = this.kolkaZainteresowanRepository.save(kolko);
-            List<ProfilEntity> profile = profilRepository.findBySzkolaId(idSzkoly);
+            List<ProfilEntity> profile = profilRepository.findBySzkolaId(szkola.getId());
             for (ProfilEntity profil : profile) {
                     OcenaPrzedmiotuEntity ocena = ocenaPrzedmiotuRepo.getOcenaByPrzedmiotAndProfil2(przedmiot.getId(), profil.getId());
                 if (ocena == null) {

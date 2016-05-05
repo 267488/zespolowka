@@ -81,18 +81,18 @@
                     <ul class="sidebar-nav nav-stacked" id="menu">
 
                         <li><a data-ng-active-tab data-ng-href="/index.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x "></i></span>Home</a></li>
-<!-- PROFIL UCZNIA -->  <li><a data-ng-active-tab data-ng-href="/uczen"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Profil</a></li>
+                        <!-- PROFIL UCZNIA -->  <li><a data-ng-active-tab data-ng-href="/uczen"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Profil</a></li>
                         <li><a data-ng-active-tab data-ng-href="/szkoly"><span class="fa-stack fa-lg pull-left"><i class="fa fa-university fa-stack-1x "></i></span>Wyszukiwarka szkół</a></li>
                         <li><a data-ng-active-tab data-ng-href="/ustawieniaUcznia"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cog fa-stack-1x "></i></span>Ustawienia</a></li>
                         <li><a data-ng-active-tab data-ng-href="/osiagniecia">Osiągnięcia</a></li>
                         <li><a data-ng-active-tab data-ng-href="/zainteresowania">Zainteresowania</a></li>
                         <li>
-							<form action="/logout" method="post">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<button class="btn"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-out fa-stack-1x "></i></span>Wyloguj się</button>
-							</form>
-						</li>
-						
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button class="btn"><span class="fa-stack fa-lg pull-left"><i class="fa fa-sign-out fa-stack-1x "></i></span>Wyloguj się</button>
+                            </form>
+                        </li>
+
                     </ul>
 
                     <div class="logo-container hidden-xs">
@@ -123,34 +123,34 @@
 
 
         <script type="text/javascript">
-            //<![CDATA[
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4558057-6']);
-            _gaq.push(['_trackPageview']);
-            (function () {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-            })();
-            //]]>
+                    //<![CDATA[
+                    var _gaq = _gaq || [];
+                    _gaq.push(['_setAccount', 'UA-4558057-6']);
+                    _gaq.push(['_trackPageview']);
+                    (function () {
+                        var ga = document.createElement('script');
+                        ga.type = 'text/javascript';
+                        ga.async = true;
+                        ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(ga, s);
+                    })();
+                    //]]>
         </script>
 
         <script src="js/jquery-2.2.2.min.js"></script> 
         <script src="js/d3.min.js"></script>
         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-        
+
         <script src="js/menu.js"></script>
         <script>
-            $( document ).ready(function() {
+            $(document).ready(function () {
                 $(function () {
-                  $('[data-toggle="tooltip"]').tooltip()
+                    $('[data-toggle="tooltip"]').tooltip()
                 });
             });
         </script>
-        
+
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

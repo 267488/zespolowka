@@ -39,7 +39,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
-import pz.twojaszkola.galleryUser.GalleryUserEntity;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
@@ -112,17 +111,39 @@ public class SzkolaController {
         Integer idUsera = currentUser.getId();
         UczenEntity uczen = uczenRepository.findOne(idUsera);
         szkola szkol = null;
-        String zdjecie = "img/brak.jpg";
-        if (galleryUserRepo.findByUserId(idUsera) != null) {
-            zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
-        }
+        String zdjecie = "";
+
         for (SzkolaEntity s : tmp) {
+            if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+            } else {
+                zdjecie = "img/brak.jpg";
+            }
             if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
                 szkol = new szkola(s, "glyphicon-star", zdjecie);
             } else {
                 szkol = new szkola(s, "glyphicon-star-empty", zdjecie);
             }
             rv.add(szkol);
+        }
+        return rv;
+    }
+
+    @RequestMapping(value = "/szkola2", method = GET)
+    public List<szkola> getSzkola2(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<SzkolaEntity> tmp;
+        List<szkola> rv = new ArrayList<szkola>();
+        tmp = szkolaRepository.findAll(new Sort(Sort.Direction.ASC, "name", "miasto", "adres", "kodpocztowy", "typSzkoly"));
+        
+        for (SzkolaEntity s : tmp) {
+            String zdjecie = "img/brak.jpg";
+            if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+            }
+            szkola sz = new szkola(s, "glyphicon-star", zdjecie);
+            rv.add(sz);
+            Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "SZ: " + sz.getZdjecie() + ", " + sz.getSzkola().getName());
+
         }
         return rv;
     }
@@ -172,9 +193,11 @@ public class SzkolaController {
                 Integer idUsera = currentUser.getId();
                 UczenEntity uczen = uczenRepository.findOne(idUsera);
                 szkola szkol = null;
-                String zdjecie = "img/brak.jpg";
-                if (galleryUserRepo.findByUserId(idUsera) != null) {
-                    zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                String zdjecie = "";
+                if (galleryUserRepo.findByUserId(s.getUserId().getId()) != null) {
+                    zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getUserId().getId()).getId() + ".jpg";
+                } else {
+                    zdjecie = "img/brak.jpg";
                 }
                 if (ulubionaSzkolaRepo.findBySzkolaIdAndUczenId(s.getId(), uczen.getId()) != null) {
                     szkol = new szkola(s, "glyphicon-star", zdjecie);
@@ -198,16 +221,10 @@ public class SzkolaController {
         Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         List<proponowaneSzkolyEntity> proponowane = new ArrayList<proponowaneSzkolyEntity>();
-        List<proponowaneSzkolyEntity> rv = new ArrayList<proponowaneSzkolyEntity>();
         List<przedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
         final UczenEntity uczen = uczenRepository.findById(idUcznia);
         final String typ = uczen.getCzegoSzukam();
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG TYP: " + typ);
-
-        List<UlubionaSzkolaEntity2> rv2;
-        List<SzkolaEntity> tmp;
-        rv2 = ulubionaSzkolaRepo.findByUczenId(uczen.getId());
-        tmp = szkolaRepository.findAll();
 
         List<ProfilEntity> profile;
         if ("Szkoła Średnia dowolnego typu".equals(typ)) {
@@ -261,9 +278,11 @@ public class SzkolaController {
                 Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG4: " + s.getUczenId().getName() + ", " + s.getProfilId().getProfil_nazwa() + ", " + s.getProfilId().getSzkola().getName() + "," + s.getPunktacja());
 
                 if (s.getPunktacja() != 0) {
-                    String zdjecie = "img/brak.jpg";
-                    if (galleryUserRepo.findByUserId(idUsera) != null) {
-                        zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(idUsera).getId() + ".jpg";
+                    String zdjecie = "";
+                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() != null) {
+                        zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() + ".jpg";
+                    } else {
+                        zdjecie = "img/brak.jpg";
                     }
                     Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "ZDJECIE: " + zdjecie);
                     proponowaneSzkoly szk = new proponowaneSzkoly(s, "glyphicon-star-empty", zdjecie);
@@ -281,10 +300,8 @@ public class SzkolaController {
 
     @RequestMapping(value = "/szkola", method = POST)
     @PreAuthorize("isAuthenticated()")
-    public SzkolaEntity createSzkola(final @RequestBody @Valid SzkolaCmd newSzkola, final BindingResult bindingResult) {
-        // if(bindingResult.hasErrors()) {
-        //     throw new IllegalArgumentException("Invalid arguments.");
-        // }
+    public SzkolaEntity createSzkola(final @RequestBody @Valid SzkolaCmd newSzkola) {
+        
         User user = userRepository.findById(2);
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOGG: " + newSzkola.getNumer());
         final SzkolaEntity szkola = new SzkolaEntity(newSzkola.getName(), newSzkola.getNumer(), newSzkola.getMiasto(), newSzkola.getAdres(), newSzkola.getKodpocztowy(), newSzkola.getTypSzkoly(), newSzkola.getRodzajSzkoly(), user);
@@ -293,12 +310,6 @@ public class SzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-//        if (galleryUserRepo.findByUserId(idUsera) != null) {
-//            //szkola.setGalleryId(newSzkola.getGalleryId());
-//            szkola.setGalleryId(galleryUserRepo.findByUserId(idUsera));
-//        } else {
-//            szkola.setGalleryId(galleryUserRepo.findOne(1));
-//        }
         return this.szkolaRepository.save(szkola);
     }
 

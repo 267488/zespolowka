@@ -123,7 +123,8 @@ public class GalleryUserController {
                 
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
-
+                user.setGalleryId(galleryUser);
+                this.userRepository.save(user);
                 rv = new ResponseEntity<>(this.galleryUserRepository.save(galleryUser), HttpStatus.OK);
             } catch (IOException e) {
                 // Could not store data...

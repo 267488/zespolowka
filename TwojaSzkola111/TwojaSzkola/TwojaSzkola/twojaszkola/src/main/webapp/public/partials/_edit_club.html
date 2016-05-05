@@ -1,0 +1,37 @@
+<!-- MODAL - EDITING EXISTING ACHIEVEMENT -->
+<div class="modal fade" id="editClub" tabindex="-1" role="dialog" aria-labelledby="editClubLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editClubLabel">EDYCJA KÓŁKA ZAINTERESOWAŃ</h4>
+            </div>
+           <div class="modal-body">
+				<form role="form" data-ng-submit="submit();">
+
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputPrzedmiot.$invalid,'has-success': theForm.inputPrzedmiot.$valid}">
+						<label for="inputPrzedmiotName" class="control-label">PRZEDMIOT</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Przedmiot, którego kółko dotyczy."></i>
+						<select id="inputPrzedmiotName" name="inputPrzedmiot" class="form-control" data-ng-model="kolko.przedmiot" data-ng-required="true">
+							<option data-ng-repeat="przedmiot in przedmioty" value="{{ przedmiot.id}}">{{ przedmiot.name }}</option> 
+						</select>
+					</div>
+					
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputNazwa.$invalid,'has-success': theForm.inputNazwa.$valid}">
+						<label for="inputNazwa" class="control-label">NAZWA</label>
+						<input id="inputNazwa" name="inputNazwa" type="text" pattern="[a-zA-Z]" class="form-control" placeholder="Podaj nazwę kółka" data-ng-model="kolko.nazwa" data-ng-required="true"/>
+					</div>
+					
+					<div class="form-group" data-ng-class="{'has-error': theForm.inputTermin.$invalid,'has-success': theForm.inputTermin.$valid}">
+						<label for="inputTermin" class="control-label">TERMIN</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Kiedy będzie odbywać się kółko?"></i>
+						<input id="inputTermin" name="inputTermin" type="text" pattern="[a-zA-Z]" class="form-control" placeholder="Podaj dzień tygodnia i godzinę" data-ng-model="kolko.termin" data-ng-required="true"/>
+					</div>
+					
+				</form>
+			</div>
+            <div class="modal-footer">
+                <button type="button" class="btn close-btn button-curve" data-dismiss="modal" data-ng-click="cancel();">ANULUJ</button>
+                <button type="button" class="btn approve-btn button-curve" ng-click="editClub($event);" data-ng-disabled="theForm.$invalid || submitting" data-dismiss="modal" data-ng-click="submit();">ZAPISZ</button>
+            </div>
+        </div>
+    </div>
+</div>
