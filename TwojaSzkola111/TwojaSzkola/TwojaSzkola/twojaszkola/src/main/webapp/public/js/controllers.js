@@ -26,8 +26,8 @@ var biking2Controllers = angular
         });
 biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
 
-        
-        
+
+
         $http.get('/api/ProponowaneSzkoly?all=true').success(function (data) {
             $scope.proponowaneSzkoly = data;
 
@@ -194,7 +194,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
-            
+
         });
 
 
@@ -786,19 +786,19 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
 biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$upload', function ($scope, $http, $modal, $upload) {
 
         $scope.szkola1 = {
-            id:null,
-            login:null,
-            password:null,
-            mail:null,
-            name:null,
-            numer:null,
-            miasto:null,
-            adres:null,
-            kodpocztowy:null,
-            typSzkoly:null,
-            rodzajSzkoly:null,
-            galleryId:null
-        };  
+            id: null,
+            login: null,
+            password: null,
+            mail: null,
+            name: null,
+            numer: null,
+            miasto: null,
+            adres: null,
+            kodpocztowy: null,
+            typSzkoly: null,
+            rodzajSzkoly: null,
+            galleryId: null
+        };
         $scope.tmp_password;
         $scope.editError;
         $http.get('/api/przedmioty?all=true').success(function (data) {
@@ -814,7 +814,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
-            
+
         });
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
             $scope.profile = data;
@@ -879,11 +879,9 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         };
         $scope.editInfoColor = '';
         $scope.submit2 = function () {
-<<<<<<< HEAD
-            
-            
-            console.log($scope.szkola1); 
-            $scope.szkola.galleryId=null;
+
+            console.log($scope.szkola1);
+            $scope.szkola.galleryId = null;
 
             $scope.submitting = true;
 
@@ -895,26 +893,26 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 $http({
                     method: 'POST',
                     url: '/api/editSchool',
-                    headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
                     data: $scope.szkola
                 }).success(function (data) {
                     $scope.editInfoColor = "green";
                     $scope.editError = "edytowano pomyślnie";
                     $modal.close(data);
-                                $http.get('/api/CurrentSzkola').success(function (data) {
-                                        $scope.szkola1 = data;
-                                        $scope.tmp_password = $scope.szkola1.password;
-                                        $scope.zdjecie = "";
-                                        console.log($scope.szkola1);
-                                        if (data.galleryId.id) {
-                                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
-                                        } else {
-                                            $scope.zdjecie = "img/brak.jpg";
-                                        }
-            
-                                });
+                    $http.get('/api/CurrentSzkola').success(function (data) {
+                        $scope.szkola1 = data;
+                        $scope.tmp_password = $scope.szkola1.password;
+                        $scope.zdjecie = "";
+                        console.log($scope.szkola1);
+                        if (data.galleryId.id) {
+                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                        } else {
+                            $scope.zdjecie = "img/brak.jpg";
+                        }
+
+                    });
                 }).error(function (data, status) {
-                    
+
                     if (status === 400)
                     {
                         $scope.editInfoColor = "red";
@@ -1031,7 +1029,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                     $scope.badRequest = 'Kolko o takiej nazwie juz istnieje';
             });
         };
-        
+
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
