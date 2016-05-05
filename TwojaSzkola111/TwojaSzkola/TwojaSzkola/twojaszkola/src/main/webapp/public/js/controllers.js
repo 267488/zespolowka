@@ -413,7 +413,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                     $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
             });
         };
-<<<<<<< HEAD
     }]);
 /////////////////// EDIT UCZEN CONTROLLER //////////////////////////
 
@@ -429,8 +428,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
         });
         $scope.password = null;
         $scope.password2 = null;
-=======
->>>>>>> 2ebdef2ea72d7caa07e18ae92dd4137bbbdfb64e
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
@@ -466,7 +463,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
         };
-<<<<<<< HEAD
         $scope.submit = function () {
             $scope.submitting = true;
             if ($scope.uczen.password != null && $scope.password == $scope.password2) {
@@ -508,8 +504,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                     }
             );
         };
-=======
->>>>>>> 2ebdef2ea72d7caa07e18ae92dd4137bbbdfb64e
         $scope.deletePicture = function () {
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
