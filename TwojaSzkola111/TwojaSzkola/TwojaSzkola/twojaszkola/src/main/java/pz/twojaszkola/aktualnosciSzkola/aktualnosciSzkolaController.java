@@ -112,7 +112,7 @@ public class aktualnosciSzkolaController {
             }
             aktualnosci aktualne;
             String zdjecie = "";
-                if (galleryUserRepository.findByUserId(a.getUserId().getId()).getId() != null) {
+                if (galleryUserRepository.findByUserId(a.getUserId().getId()) != null) {
                     zdjecie = "/api/galleryUser/" + galleryUserRepository.findByUserId(a.getUserId().getId()).getId() + ".jpg";
                 } else {
                     zdjecie = "img/brak.jpg";
