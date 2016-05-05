@@ -71,7 +71,7 @@ public class UczenController {
     }
 
     @RequestMapping(value = "/CurrentUczen", method = GET)
-    public SuperUser getUczenById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public SuperUser getCurrentUczen() {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();

@@ -416,12 +416,14 @@ biking2Controllers.controller('AddNewUczenCtrl', ['$scope', '$modalInstance', '$
 /////////////////// EDIT UCZEN CONTROLLER //////////////////////////
 
 biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$upload', function ($scope, $modal, $http, $upload) {
-        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+        $http.get('/api/CurrentUczen').success(function (data) {
             $scope.uczen = data;
             $scope.zdjecie = "img/brak.jpg";
             if (data.galleryId.id != null) {
                 $scope.zdjecie = "/api/galleryStudent/" + data.galleryId.id + ".jpg";
             }
+            
+            console.log(data);
         });
         $scope.password = null;
         $scope.password2 = null;
