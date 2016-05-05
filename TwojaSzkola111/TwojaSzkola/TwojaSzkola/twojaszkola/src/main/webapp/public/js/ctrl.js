@@ -71,7 +71,6 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
             };
         
         $scope.signUp = function(){
-                alert("sign-up function");
                 if($scope.userReg!==null)
                 {
                 if($scope.userReg.password===$scope.userReg.passwordConfirm)
@@ -85,10 +84,11 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
                                     data: {login:$scope.userReg.login,email:$scope.userReg.email,password:$scope.userReg.password,role:$scope.userReg.role}
                                     }).then(function mySucces(response) {
                                         console.log(response.data);                    
-                                                  
+                                        $window.location.href="/sign-upSuccess.html";          
 
                                     }, function myError(response) {
-
+                                        console.log(response);
+                                        
                                         $scope.infoColor = "red";
                                         $scope.signUpError = "Błąd rejestracji";
                                         

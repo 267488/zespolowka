@@ -87,7 +87,6 @@ public class UczenEntity implements Serializable {
 
     @Column(name = "adres")
     @Size(max = 255)
-    @NotBlank
     private String adres;
     
     @ManyToOne
