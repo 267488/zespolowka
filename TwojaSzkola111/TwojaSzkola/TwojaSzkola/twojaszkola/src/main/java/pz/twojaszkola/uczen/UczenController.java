@@ -31,6 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -38,7 +39,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.support.ResourceNotFoundException;
+import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.user.SuperSzkola;
 import pz.twojaszkola.user.SuperUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
@@ -165,37 +168,32 @@ public class UczenController {
         //return uczen;
     }
 
-    @RequestMapping(value = "/CurrentUczen", method = PUT)
-    @PreAuthorize("isAuthenticated()")
-    @Transactional
-    public UczenEntity updateUczen(final @RequestBody @Valid SuperUser updatedUczen, final BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException("Invalid arguments.");
-        }
+    @RequestMapping(value="/editUczen", method = RequestMethod.POST)
+    public boolean editSchool(@RequestBody SuperSzkola editSzkola)
+    {
+        
+        System.out.println("EDIT UCZEN: ");
+        
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
-        Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-        Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        User user = userRepository.findById(currentUser.getId());
 
-        User user = userRepository.findById(idUsera);
-        //GalleryStudentEntity gallery = galleryStudentRepo.findOne(idUsera);
-        //final UczenEntity uczen = new UczenEntity(updatedUczen.getPesel(), updatedUczen.getName(), updatedUczen.getLastname(), updatedUczen.getCzegoSzukam(), updatedUczen.getKodpocztowy(), user);
-        final UczenEntity uczen = this.uczenRepository.findById(idUcznia);
-        uczen.setName(updatedUczen.getName());
-        uczen.setLastname(updatedUczen.getLastname());
-        uczen.setCzegoSzukam(updatedUczen.getCzegoSzukam());
-        uczen.setKodpocztowy(updatedUczen.getKodpocztowy());
-        uczen.setMiasto(updatedUczen.getMiasto());
-        uczen.setAdres(updatedUczen.getAdres());
-        uczen.setUserId(user);
-
-        if (uczen == null) {
-            throw new ResourceNotFoundException();
-        }
-
-        return this.uczenRepository.save(uczen);
+        SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
+        
+        user.setEmail(editSzkola.getMail());
+        szkola.setName(editSzkola.getName());
+        szkola.setNumer(editSzkola.getNumer());
+        szkola.setMiasto(editSzkola.getMiasto());
+        szkola.setAdres(editSzkola.getAdres());
+        szkola.setKodpocztowy(editSzkola.getKodpocztowy());
+        szkola.setTypSzkoly(editSzkola.getTypSzkoly());
+        szkola.setRodzajSzkoly(editSzkola.getRodzajSzkoly());
+        //user.setGalleryId(editSzkola.getGalleryId());
+        
+        szkolaRepository.save(szkola);
+        userRepository.save(user);
+        return true;
+        
     }
 }

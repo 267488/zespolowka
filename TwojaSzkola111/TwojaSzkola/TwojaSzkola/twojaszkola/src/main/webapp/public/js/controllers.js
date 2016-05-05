@@ -404,8 +404,8 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
         $scope.submit = function () {
             $scope.submitting = true;
             $http({
-                method: 'PUT',
-                url: '/api/CurrentUczen',
+                method: 'POST',
+                url: '/api/editUczen',
                 data: $scope.uczen
             }).success(function (data) {
                 $scope.submitting = false;
@@ -879,8 +879,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         };
         $scope.editInfoColor = '';
         $scope.submit2 = function () {
-<<<<<<< HEAD
-            
+           
             
             console.log($scope.szkola1); 
             $scope.szkola.galleryId=null;
