@@ -26,13 +26,13 @@ public class SuperUser {
     private String mail;
     private String login;
     private String password;
-    private int uczen_id;
+    private Integer uczen_id;
     private String miasto;
     private String kodpocztowy;
     private String adres;
     private String czegoSzukam;
 
-    public SuperUser(int uczen_id, 
+    public SuperUser(Integer uczen_id, 
             String name, 
             String lastname, 
             String mail, 
@@ -96,11 +96,11 @@ public class SuperUser {
 
     
     
-    public int getUczen_id() {
+    public Integer getUczen_id() {
         return uczen_id;
     }
 
-    public void setUczen_id(int uczen_id) {
+    public void setUczen_id(Integer uczen_id) {
         this.uczen_id = uczen_id;
     }
 

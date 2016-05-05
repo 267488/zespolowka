@@ -149,16 +149,18 @@ public class SzkolaController {
     }
 
     @RequestMapping(value = "/CurrentSzkola", method = GET)
-    public SuperSzkola getCurrentSzkola(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public SuperSzkola getCurrentSzkola() {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         User user = userRepository.findById(currentUser.getId());
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
-
-        SuperSzkola superSzkola;
-        superSzkola = new SuperSzkola(
+        System.out.println("Current user id: "+currentUser.getId());
+        //SuperSzkola superSzkola = null;
+        System.out.println("getCurrentSchool test"+szkola.getId());
+        
+        return new SuperSzkola(
                 szkola.getId(),
                 user.getLogin(),
                 user.getPassword(),
@@ -171,7 +173,10 @@ public class SzkolaController {
                 szkola.getTypSzkoly(),
                 szkola.getRodzajSzkoly(),
                 user.getGalleryId());
-        return superSzkola;
+                
+      
+        
+        
     }
 
     @RequestMapping(value = "/szkola/{id}", method = GET)
@@ -354,34 +359,32 @@ public class SzkolaController {
         return this.szkolaRepository.save(szkola);
     }
 
-    @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
-    public SuperSzkola editSchool(@RequestBody SuperSzkola editSzkola)
-    {
+@RequestMapping(value="/editSchool", method = RequestMethod.POST)
+public boolean editSchool(@RequestBody SuperSzkola editSzkola)
+{
+        
+        System.out.println("EDIT SCHOOL: ");
+        
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         User user = userRepository.findById(currentUser.getId());
 
         SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
-       
         
+        user.setEmail(editSzkola.getMail());
+        szkola.setName(editSzkola.getName());
+        szkola.setNumer(editSzkola.getNumer());
+        szkola.setMiasto(editSzkola.getMiasto());
+        szkola.setAdres(editSzkola.getAdres());
+        szkola.setKodpocztowy(editSzkola.getKodpocztowy());
+        szkola.setTypSzkoly(editSzkola.getTypSzkoly());
+        szkola.setRodzajSzkoly(editSzkola.getRodzajSzkoly());
+        //user.setGalleryId(editSzkola.getGalleryId());
         
-        if(szkola.getName().equals(editSzkola.getName()) && szkola.getId()==editSzkola.getId())return null;    
+        szkolaRepository.save(szkola);
+        userRepository.save(user);
+        return true;
         
-        SuperSzkola superSzkola;
-        superSzkola = new SuperSzkola(
-                szkola.getId(),
-                user.getLogin(),
-                user.getPassword(),
-                user.getEmail(),
-                szkola.getName(),
-                szkola.getNumer(),
-                szkola.getMiasto(),
-                szkola.getAdres(),
-                szkola.getKodpocztowy(),
-                szkola.getTypSzkoly(),
-                szkola.getRodzajSzkoly(),
-                user.getGalleryId());  
-          return superSzkola;    
-    }
+}
 }

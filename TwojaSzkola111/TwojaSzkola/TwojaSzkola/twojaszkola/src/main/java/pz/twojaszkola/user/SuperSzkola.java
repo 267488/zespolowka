@@ -41,7 +41,18 @@ public class SuperSzkola {
     private String rodzajSzkoly;
     private GalleryUserEntity galleryId;
 
-    public SuperSzkola(int id,String login, String password, String mail, String name, Integer numer, String miasto, String adres, String kodpocztowy, String typSzkoly, String rodzajSzkoly, GalleryUserEntity galleryId) {
+    public SuperSzkola(int id,
+            String login, 
+            String password, 
+            String mail, 
+            String name, 
+            Integer numer, 
+            String miasto, 
+            String adres, 
+            String kodpocztowy, 
+            String typSzkoly, 
+            String rodzajSzkoly, 
+            GalleryUserEntity galleryId) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -56,6 +67,8 @@ public class SuperSzkola {
         this.galleryId = galleryId;
     }
 
+    protected SuperSzkola(){}
+    
     public int getId() {
         return id;
     }

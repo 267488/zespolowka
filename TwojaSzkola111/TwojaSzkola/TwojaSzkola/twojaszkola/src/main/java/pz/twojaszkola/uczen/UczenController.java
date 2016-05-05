@@ -75,12 +75,15 @@ public class UczenController {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
-        Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-        final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
-        final User user = userRepository.findById(idUsera);
+
+        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + currentUser.getId());
+        final User user = userRepository.findById(currentUser.getId());
+        final UczenEntity uczen = uczenRepository.findByUserId(user.getId());
         
-        SuperUser superUser = new SuperUser(uczen.getId(),
+        System.out.println("CurrentUczenController test"+currentUser.getId());
+        System.out.println("CurrentUczenController test"+uczen.getId());
+        
+        return new SuperUser(uczen.getId(),
                 uczen.getName(),
                 uczen.getLastname(),
                 user.getEmail(),
@@ -91,7 +94,7 @@ public class UczenController {
                 uczen.getAdres(),
                 uczen.getCzegoSzukam());
         
-        return superUser;
+
     }
 
     @RequestMapping(value = "/CurrentUczen/zainteresowania", method = GET)

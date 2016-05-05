@@ -14,27 +14,36 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html ng-app="login" ng-controller="adminCtrl">
+<html ng-app="admin" ng-controller="adminCtrl">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script src="/js/ctrl2.js"></script>
+        <script src="/js/admin.js"></script>
     </head>
     <body>
         <div >
         <div>To jest admin</div>
         <div>{{tmp}}</div>
         </div>
-        <div>
-            <select ng-model="lista">
-                <option>lista uczniow</option>
-                <option>lista szkol</option>
-            </select>
-        </div>
+        <hr/>
         <div>{{lista}}</div>
-        
+       
+        <div>
+            <div data-ng-view></div>
+        </div>
+        <div><input type="number" ng-model='tmp1'></div>
+        <div>
+            <div>TABELA</div>           
+            <select ng-model="template" ng-options="t.name for t in templates">
+            <option value="">(blank)</option>
+            </select>           
+            <div>
+            <div ng-include="template.url" api="api"></div>
+            </div>
+        </div>
+        <hr/>
         <div>
             <table class="table table-condensed table-bordered table-striped">
 		    <thead>
@@ -53,14 +62,43 @@ limitations under the License.
 			    <td>{{ u.password }}</td>
                             <td>{{ u.state }}</td>
                             <td>{{ u.ban }}</td>
+                            <td><button ng-click="getOne(u)">baton</button>
+                            <td><input type="checkbox" ng-model="u.selected" name="checkbox" value="u.id"><br></td>
                         </tr>
 		    </tbody>
 		</table>
-            <div>{{myId}}</div>
+    
         </div>
+        <hr/>
+        <div><button ng-click="zaz()">zaznaczone</button></div>
+        <div><button ng-click="ban()">zablokuj zaznaczonych uzytkownikow</button></div>
+        <div><button ng-click="uban()">odblokuj zaznaczonych uzytkownikow</button></div>
+        <div><button ng-click="banAll()">zablokuj wszystkich uzytkownikow</button></div>
+        <div><button ng-click="ubanAll()">odblokuj wszystkich uzytkownikow</button></div>
+        <div><button ng-click="del()">usun zaznaczonych uzytkownikow</button></div>
+        <hr/>
+        <div>Wyslij wiadomosc do uzytkownikow</div>
+        <form>
+            Temat:<br>
+            <input ng-model="mailTemat" type="text" name="firstname"><br>
+            Treść:<br>
+            <textarea ng-model="mailTresc" cols="60" rows="10"></textarea>
+            <div><button ng-click="sendAdminMail()">Wyślij do wybranych</button></div>
+            <div><button ng-click="sendAdminMailToAll()">Wyślij do wszystkich</button></div>
+        </form>
+        
+        <hr/>
+        <div>Zmien haslo wybranego uzytkownika</div>
+        <form>
+            Nowe haslo:<input type="text" ng-model="newPassword">
+            <div><button ng-click="changePassword()">Zmien</button></div>
+        </form>
+        <hr/>
         <form action="/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit">Log out</button>
             </form>
+        
+        
     </body>
 </html>

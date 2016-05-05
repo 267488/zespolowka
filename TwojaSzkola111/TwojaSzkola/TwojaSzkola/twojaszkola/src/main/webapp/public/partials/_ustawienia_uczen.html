@@ -33,7 +33,7 @@
                     <label for="inputEmail">E-MAIL</label>
                     <div class="input-group email">
                         <i class="fa fa-envelope fa-1"></i>
-                        <input data-ng-model="uczen.mail" type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" data-ng-model="uczen.mail">
+                        <input type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" data-ng-model="uczen.mail">
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label for="inputPassword">NOWE HASŁO</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Hasło musi posiadać minimum 8 znaków."></i>
                     <div class="input-group password">
                         <i class="fa fa-lock fa-1"></i>
-                        <input data-ng-model="uczen.password" type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło" data-ng-model="password">
+                        <input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło" data-ng-model="password">
                     </div>
                 </div>
 
@@ -58,28 +58,28 @@
                 <div class="form half-width-1">
                     <label for="inputName">IMIĘ</label>
                     <div class="input-group">
-                        <input data-ng-model="uczen.name" type="text" id="inputName"  class="form-control" placeholder="Wpisz swoje imię" data-ng-model="uczen.name">
+                        <input type="text" id="inputName"  class="form-control" placeholder="Wpisz swoje imię" data-ng-model="uczen.name">
                     </div>
                 </div>
 
                 <div class="form half-width-2">
                     <label for="inputEmail">NAZWISKO</label>
                     <div class="input-group">
-                        <input data-ng-model="uczen.lastname" type="text" id="inputSurname"  class="form-control" placeholder="Wpisz swoje nazwisko" data-ng-model="uczen.lastname">
+                        <input type="text" id="inputSurname"  class="form-control" placeholder="Wpisz swoje nazwisko" data-ng-model="uczen.lastname">
                     </div>
                 </div>
 
                 <div class="form half-width-1">
                     <label for="inputCity">MIASTO</label>
                     <div class="input-group">
-                        <input data-ng-model="uczen.miasto" type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" value="Toruń">
+                        <input  type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" value="Toruń">
                     </div>
                 </div>
 
                 <div class="form half-width-2">
                     <label for="inputZipcode">KOD POCZTOWY</label>
                     <div class="input-group">
-                        <input data-ng-model="uczen.kodpocztowy" type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" data-ng-model="uczen.kodpocztowy">
+                        <input  type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" data-ng-model="uczen.kodpocztowy">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                 <div class="form last">
                     <label for="inputSearchingSchool">CZEGO SZUKAM</label><i class="fa fa-info-circle" id="list2-tooltip" data-toggle="tooltip" data-placement="top" title="Jakiego typu szkoły poszukujesz?"></i>
                     <div class="input-group">
-                        <select data-ng-model="uczen.czegoSzukam" class="form-control" id="inputSearchingSchool" ng-model="uczen.czegoSzukam">
+                        <select class="form-control" id="inputSearchingSchool" ng-model="uczen.czegoSzukam">
                             <option>Szkoła Podstawowa</option>
                             <option>Gimnazjum</option>
                             <option>Technikum</option>

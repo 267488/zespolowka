@@ -187,13 +187,15 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
     }]);
 
 biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
-        $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+        $http.get('/api/CurrentSzkola').success(function (data) {
             $scope.szkola = data;
+            console.log($scope.szkola);
             if (data.galleryId.id) {
                 $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
+            
         });
 
 
@@ -822,21 +824,37 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
 //////////EDIT SZKOLA///////////////
 biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$upload', function ($scope, $http, $modal, $upload) {
 
+        $scope.szkola1 = {
+            id:null,
+            login:null,
+            password:null,
+            mail:null,
+            name:null,
+            numer:null,
+            miasto:null,
+            adres:null,
+            kodpocztowy:null,
+            typSzkoly:null,
+            rodzajSzkoly:null,
+            galleryId:null
+        };  
         $scope.tmp_password;
         $scope.editError;
 
         $http.get('/api/przedmioty?all=true').success(function (data) {
             $scope.przedmioty = data;
         });
-        $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+        $http.get('/api/CurrentSzkola').success(function (data) {
             $scope.szkola = data;
             $scope.tmp_password = $scope.szkola.password;
             $scope.zdjecie = "";
+            console.log($scope.szkola);
             if (data.galleryId.id) {
                 $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
+            
         });
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
             $scope.profile = data;
@@ -906,24 +924,38 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         $scope.editInfoColor = '';
 
         $scope.submit2 = function () {
-            $scope.submitting = true;
-
+            
+            
+            console.log($scope.szkola1); 
+            $scope.szkola.galleryId=null;
             if ($scope.szkola.password !== $scope.tmp_password)
             {
                 $scope.editInfoColor = "red";
                 $scope.editError = 'Hasła nie pasują do siebie';
             } else {
                 $http({
-                    method: 'PUT',
+                    method: 'POST',
                     url: '/api/editSchool',
+                    headers: {'Content-Type': 'application/json','Accept': 'application/json'},
                     data: $scope.szkola
                 }).success(function (data) {
-                    $scope.submitting = false;
                     $scope.editInfoColor = "green";
                     $scope.editError = "edytowano pomyślnie";
                     $modal.close(data);
+                                $http.get('/api/CurrentSzkola').success(function (data) {
+                                        $scope.szkola1 = data;
+                                        $scope.tmp_password = $scope.szkola1.password;
+                                        $scope.zdjecie = "";
+                                        console.log($scope.szkola1);
+                                        if (data.galleryId.id) {
+                                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                                        } else {
+                                            $scope.zdjecie = "img/brak.jpg";
+                                        }
+            
+                                });
                 }).error(function (data, status) {
-                    $scope.submitting = false;
+                    
                     if (status === 400)
                     {
                         $scope.editInfoColor = "red";
@@ -1069,7 +1101,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 withCredentials: true
             }).success(function (data) {
                 $scope.imageData = null;
-                $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+                $http.get('/api/CurrentSzkola').success(function (data) {
                     $scope.szkola = data;
                     if (data.galleryId.id) {
                         $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
@@ -1089,7 +1121,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
             alert("DELETE");
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
-                        $http.get('/api/CurrentSzkola?all=true').success(function (data) {
+                        $http.get('/api/CurrentSzkola').success(function (data) {
                             $scope.szkola = data;
                             if (data.galleryId.id) {
                                 $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
