@@ -352,32 +352,6 @@ public class UserController{
 		transport.close();
         
     }
-    
-    @RequestMapping(value="/editSchool", method = RequestMethod.PUT)
-    public SuperSzkola editSchool(@RequestBody SuperSzkola editSzkola)
-    {
-        CurrentUser currentUser = null;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        currentUser = (CurrentUser) auth.getPrincipal();
-        User user = userRepository.findById(currentUser.getId());
 
-        SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
-       
-        if(szkola.getName().equals(editSzkola.getName()))return null;    
-        
-        SuperSzkola superSzkola;
-        superSzkola = new SuperSzkola(user.getLogin(),
-                user.getPassword(),
-                user.getEmail(),
-                szkola.getName(),
-                szkola.getNumer(),
-                szkola.getMiasto(),
-                szkola.getAdres(),
-                szkola.getKodpocztowy(),
-                szkola.getTypSzkoly(),
-                szkola.getRodzajSzkoly(),
-                user.getGalleryId());  
-          return superSzkola;    
-    }
 }
     
