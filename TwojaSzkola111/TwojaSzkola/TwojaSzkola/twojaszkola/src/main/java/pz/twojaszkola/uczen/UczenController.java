@@ -39,9 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.support.ResourceNotFoundException;
-import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.user.CurrentUser;
-import pz.twojaszkola.user.SuperSzkola;
 import pz.twojaszkola.user.SuperUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
@@ -95,7 +93,8 @@ public class UczenController {
                 uczen.getMiasto(),
                 uczen.getKodpocztowy(),
                 uczen.getAdres(),
-                uczen.getCzegoSzukam());
+                uczen.getCzegoSzukam(),
+                user.getGalleryId());
         
 
     }
@@ -168,17 +167,23 @@ public class UczenController {
         //return uczen;
     }
 
+
     @RequestMapping(value="/editUczen", method = RequestMethod.POST)
     public boolean editSchool(@RequestBody SuperUser editUczen)
     {
         
         System.out.println("EDIT UCZEN: ");
         
+
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
-        User user = userRepository.findById(currentUser.getId());
+        Integer idUsera = currentUser.getId();
+        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
+        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
+        User user = userRepository.findById(currentUser.getId());
         UczenEntity uczen = uczenRepository.findByUserId(currentUser.getId());
         
         user.setEmail(editUczen.getMail());
@@ -191,6 +196,6 @@ public class UczenController {
         uczenRepository.save(uczen);
         userRepository.save(user);
         return true;
-        
+
     }
 }

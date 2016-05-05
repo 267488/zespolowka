@@ -164,5 +164,4 @@ public class SuperSzkola {
     public void setGalleryId(GalleryUserEntity galleryId) {
         this.galleryId = galleryId;
     }
-
 }
