@@ -28,7 +28,7 @@ import pz.twojaszkola.galleryUser.GalleryUserEntity;
  * @author radon
  */
 public class SuperSzkola {
-
+    private int id;
     private String login;
     private String password;
     private String mail;
@@ -41,7 +41,8 @@ public class SuperSzkola {
     private String rodzajSzkoly;
     private GalleryUserEntity galleryId;
 
-    public SuperSzkola(String login, String password, String mail, String name, Integer numer, String miasto, String adres, String kodpocztowy, String typSzkoly, String rodzajSzkoly, GalleryUserEntity galleryId) {
+    public SuperSzkola(int id,String login, String password, String mail, String name, Integer numer, String miasto, String adres, String kodpocztowy, String typSzkoly, String rodzajSzkoly, GalleryUserEntity galleryId) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.mail = mail;
@@ -55,6 +56,14 @@ public class SuperSzkola {
         this.galleryId = galleryId;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getLogin() {
         return login;
     }

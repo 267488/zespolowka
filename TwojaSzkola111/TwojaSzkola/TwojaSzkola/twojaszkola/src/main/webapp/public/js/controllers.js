@@ -919,7 +919,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', fu
             } else {
                 $http({
                     method: 'PUT',
-                    url: '/editSchool',
+                    url: '/api/editSchool',
                     data: $scope.szkola
                 }).success(function (data) {
                     $scope.submitting = false;
