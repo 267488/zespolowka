@@ -216,7 +216,7 @@ public class SzkolaController {
     }
 
     @RequestMapping(value = "/ProponowaneSzkoly", method = GET)
-    public List<proponowaneSzkoly> getProponowaneSzkoly(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public List<proponowaneSzkoly> getProponowaneSzkoly() {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
@@ -284,7 +284,7 @@ public class SzkolaController {
 
                 if (s.getPunktacja() != 0) {
                     String zdjecie = "";
-                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() != null) {
+                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()) != null) {
                         zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() + ".jpg";
                     } else {
                         zdjecie = "img/brak.jpg";

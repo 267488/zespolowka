@@ -15,12 +15,14 @@
  */
 package pz.twojaszkola.user;
 
+import pz.twojaszkola.galleryUser.GalleryUserEntity;
+
 /**
  *
  * @author radon
  */
 public class SuperUser {
-    
+
     private String name;
     private String lastname;
     private String mail;
@@ -31,17 +33,19 @@ public class SuperUser {
     private String kodpocztowy;
     private String adres;
     private String czegoSzukam;
+    private GalleryUserEntity galleryId;
 
-    public SuperUser(Integer uczen_id, 
-            String name, 
-            String lastname, 
-            String mail, 
+    public SuperUser(Integer uczen_id,
+            String name,
+            String lastname,
+            String mail,
             String login,
             String password,
             String miasto,
-            String kodpocztowy, 
-            String adres, 
-            String czegoSzukam) {
+            String kodpocztowy,
+            String adres,
+            String czegoSzukam,
+            GalleryUserEntity galleryId) {
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
@@ -52,6 +56,7 @@ public class SuperUser {
         this.kodpocztowy = kodpocztowy;
         this.adres = adres;
         this.czegoSzukam = czegoSzukam;
+        this.galleryId = galleryId;
     }
 
     public String getName() {
@@ -94,8 +99,6 @@ public class SuperUser {
         this.password = password;
     }
 
-    
-    
     public Integer getUczen_id() {
         return uczen_id;
     }
@@ -136,5 +139,11 @@ public class SuperUser {
         this.czegoSzukam = czegoSzukam;
     }
 
-   
+    public GalleryUserEntity getGalleryId() {
+        return galleryId;
+    }
+
+    public void setGalleryId(GalleryUserEntity galleryId) {
+        this.galleryId = galleryId;
+    }
 }

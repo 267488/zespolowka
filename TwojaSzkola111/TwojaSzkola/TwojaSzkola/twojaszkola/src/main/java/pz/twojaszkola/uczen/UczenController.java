@@ -92,7 +92,8 @@ public class UczenController {
                 uczen.getMiasto(),
                 uczen.getKodpocztowy(),
                 uczen.getAdres(),
-                uczen.getCzegoSzukam());
+                uczen.getCzegoSzukam(),
+                user.getGalleryId());
         
 
     }
