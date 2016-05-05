@@ -284,7 +284,7 @@ public class SzkolaController {
 
                 if (s.getPunktacja() != 0) {
                     String zdjecie = "";
-                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()) != null) {
+                    if (galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() != null) {
                         zdjecie = "/api/galleryUser/" + galleryUserRepo.findByUserId(s.getProfilId().getSzkola().getUserId().getId()).getId() + ".jpg";
                     } else {
                         zdjecie = "img/brak.jpg";
