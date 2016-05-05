@@ -95,9 +95,9 @@ public class KolkaZainteresowanController {
         return rv;
     }
     
-    @RequestMapping(value = "/kolkaZainteresowan/{id:\\d+}", method = POST)
+    @RequestMapping(value = "/kolkaZainteresowan", method = POST)
     @PreAuthorize("isAuthenticated()")
-    public KolkaZainteresowanEntity createKolkaZainteresowan(final @PathVariable Integer id,
+    public KolkaZainteresowanEntity createKolkaZainteresowan(
             final @RequestBody @Valid KolkaZainteresowanCmd newKolko,
             final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -110,8 +110,7 @@ public class KolkaZainteresowanController {
        
         final SzkolaEntity szkola = szkolaRepository.findByUserId(idUsera);
 
-        Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
-        //final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
+       //final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
 
         przedmiotyEntity przedmiot = przedmiotyRepo.findById(newKolko.getPrzedmiot());
         Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "PRZEDMIOT NAME" + przedmiot.getName());
@@ -126,11 +125,11 @@ public class KolkaZainteresowanController {
 
         // rv = kolkaZainteresowanRepository.findByPrzedmiot(id);
         boolean dodawanie = true;
-        //       for (KolkaZainteresowanEntity prof : rv) {
-        //           if (prof.getProfil_nazwa().getId() == id) {
-        //               dodawanie = false;
-        //           }
-        //       }
+//               for (KolkaZainteresowanEntity prof : rv) {
+//                   if (prof.getProfil_nazwa().getId() == id) {
+//                       dodawanie = false;
+//                   }
+//               }
         if (dodawanie) {
             Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "NAZWA KÓŁA " + newKolko.getNazwa());
             Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "TERMIN KÓŁA " + newKolko.getTermin());
