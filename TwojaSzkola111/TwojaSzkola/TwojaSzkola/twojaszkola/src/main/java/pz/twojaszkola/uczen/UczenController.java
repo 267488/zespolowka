@@ -169,7 +169,7 @@ public class UczenController {
     }
 
     @RequestMapping(value="/editUczen", method = RequestMethod.POST)
-    public boolean editSchool(@RequestBody SuperSzkola editSzkola)
+    public boolean editSchool(@RequestBody SuperUser editUczen)
     {
         
         System.out.println("EDIT UCZEN: ");
@@ -179,19 +179,16 @@ public class UczenController {
         currentUser = (CurrentUser) auth.getPrincipal();
         User user = userRepository.findById(currentUser.getId());
 
-        SzkolaEntity szkola = szkolaRepository.findByUserId(currentUser.getId());
+        UczenEntity uczen = uczenRepository.findByUserId(currentUser.getId());
         
-        user.setEmail(editSzkola.getMail());
-        szkola.setName(editSzkola.getName());
-        szkola.setNumer(editSzkola.getNumer());
-        szkola.setMiasto(editSzkola.getMiasto());
-        szkola.setAdres(editSzkola.getAdres());
-        szkola.setKodpocztowy(editSzkola.getKodpocztowy());
-        szkola.setTypSzkoly(editSzkola.getTypSzkoly());
-        szkola.setRodzajSzkoly(editSzkola.getRodzajSzkoly());
-        //user.setGalleryId(editSzkola.getGalleryId());
-        
-        szkolaRepository.save(szkola);
+        user.setEmail(editUczen.getMail());
+        uczen.setName(editUczen.getName());
+        uczen.setLastname(editUczen.getLastname());
+        uczen.setMiasto(editUczen.getMiasto());
+        uczen.setKodpocztowy(editUczen.getKodpocztowy());
+        uczen.setAdres(editUczen.getAdres());
+        uczen.setCzegoSzukam(editUczen.getCzegoSzukam());
+        uczenRepository.save(uczen);
         userRepository.save(user);
         return true;
         
