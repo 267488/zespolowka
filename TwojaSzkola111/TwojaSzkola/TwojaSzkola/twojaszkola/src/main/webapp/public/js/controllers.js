@@ -25,6 +25,9 @@ var biking2Controllers = angular
             loading: true
         });
 biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
+
+        
+        
         $http.get('/api/ProponowaneSzkoly?all=true').success(function (data) {
             $scope.proponowaneSzkoly = data;
 
@@ -32,7 +35,8 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
         $http.get('/api/ulubioneSzkoly?all=true').success(function (data) {
             $scope.ulubione_szkoly = data;
         });
-        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+        $http.get('/api/CurrentUczen').success(function (data) {
+            console.log("get current user");
             $scope.uczen = data;
             $scope.zdjecie = "";
             if (data.userId.galleryId.id) {
@@ -386,39 +390,8 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
 /////////////////// EDIT UCZEN CONTROLLER //////////////////////////
 
 biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$upload', function ($scope, $modal, $http, $upload) {
-        $http.get('/api/CurrentUczen?all=true').success(function (data) {
-            $scope.uczen = data;
-            $scope.zdjecie = "";
-            if (data.userId.galleryId.id != null) {
-                $scope.zdjecie = "/api/galleryUser/" + data.userId.galleryId.id + ".jpg";
-            } else {
-                $scope.zdjecie = "img/brak.jpg";
-            }
-        });
-
-        $scope.submit = function () {
-            $scope.submitting = true;
-            $http({
-                method: 'PUT',
-                url: '/api/CurrentUczen',
-                data: $scope.uczen
-            }).success(function (data) {
-                $scope.submitting = false;
-
-            }).error(function (data, status) {
-                $scope.submitting = false;
-                if (status === 400)
-                    $scope.badRequest = data;
-                else if (status === 409)
-                    $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
-            });
-        };
-
-    }]);
-/////////////////// EDIT UCZEN CONTROLLER //////////////////////////
-
-biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$upload', function ($scope, $modal, $http, $upload) {
         $http.get('/api/CurrentUczen').success(function (data) {
+            console.log("get current uczen");
             $scope.uczen = data;
             $scope.zdjecie = "img/brak.jpg";
             if (data.galleryId.id != null) {

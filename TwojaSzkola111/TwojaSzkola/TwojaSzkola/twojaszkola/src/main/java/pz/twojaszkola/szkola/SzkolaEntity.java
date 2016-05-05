@@ -82,7 +82,6 @@ public class SzkolaEntity implements Serializable {
 
     @Column(name = "name")
     @Size(max = 255)
-    @NotBlank
     private String name;
 
     @Column(name = "numer")
@@ -91,25 +90,20 @@ public class SzkolaEntity implements Serializable {
 
     @Column(name = "miasto")
     @Size(max = 255)
-    @NotBlank
     private String miasto;
 
     @Column(name = "adres")
     @Size(max = 255)
-    @NotBlank
     private String adres;
 
     @Column(name = "kodpocztowy", length = 6)
     @Size(max = 6)
-    @NotBlank
     private String kodpocztowy;
     
     @Column(name = "typSzkoly")
-    @NotBlank
     private String typSzkoly;
     
     @Column(name = "rodzajSzkoly")
-    @NotBlank
     private String rodzajSzkoly;
     
     @ManyToOne
