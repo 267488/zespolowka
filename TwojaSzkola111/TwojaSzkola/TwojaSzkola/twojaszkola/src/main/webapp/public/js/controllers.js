@@ -467,10 +467,7 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 {$scope.badRequest = 'Uczen o takim nr psl juz istnieje';   
                     $scope.editInfo="BŁĄD EDYCJI";
                 }          
-            });
-<<<<<<< HEAD
-=======
-            
+            });    
             }
         };
         
@@ -479,7 +476,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
             $scope.imageData = $files[0];
         };
         $scope.editPicture = function () {
->>>>>>> origin/nowa-galaz
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
                     })
