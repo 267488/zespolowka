@@ -35,7 +35,8 @@ public class SuperUser {
     private String czegoSzukam;
     private GalleryUserEntity galleryId;
 
-    public SuperUser(Integer uczen_id,
+    public SuperUser(
+            int uczen_id,
             String name,
             String lastname,
             String mail,
@@ -58,7 +59,9 @@ public class SuperUser {
         this.czegoSzukam = czegoSzukam;
         this.galleryId = galleryId;
     }
-
+    
+    protected SuperUser(){}
+    
     public String getName() {
         return name;
     }
