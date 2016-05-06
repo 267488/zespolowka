@@ -12,14 +12,20 @@
                 <img src="{{zdjecie}}" class="img-circle img-responsive" width="80" height="80" alt="Zdjęcie profilowe" >
             </div>
             <div class="right">
-                <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
+         <!--        <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
                 <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
-                                <label for="inputImageData" class="col-sm-2 control-label">Image</label>
-                                <div class="col-sm-10">
-                                    <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
-                                </div>
-                            </div>
-                <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
+                    <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                    </div>
+                </div>
+               <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
+             -->   
+                <form class="btn-container" action="" method="post" enctype="multipart/form-data">
+                    <div class="upload">
+                        <input type="file" name="upload" data-ng-file-select="onFileSelect($files);" class="button-curve grey transparent btn btn-block" type="button">
+                    </div>
+                </form>
                 <a class="button-curve orange transparent btn btn-block" data-ng-click="deletePicture();" >USUŃ ZDJĘCIE</a> 
             </div>
         </div>

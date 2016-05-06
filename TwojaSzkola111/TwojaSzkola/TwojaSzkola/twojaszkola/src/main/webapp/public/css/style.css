@@ -555,9 +555,9 @@ nav.navbar #navbar > ul > li.second > a {
 	border-radius: 3px;
 	background: #fff;
 	position: relative;
-	-webkit-transition: all 0.1s;
-    -moz-transition: all 0.1s;
-    -o-transition: all 0.1s;
+	-webkit-transition: all 0.15s;
+    -moz-transition: all 0.15s;
+    -o-transition: all 0.15s;
     transition: all 0.15s;
 }
 .main .list-container .content:hover {
@@ -976,11 +976,38 @@ nav.navbar #navbar > ul > li.second > a {
 	font-weight: 300;
 }
 .main .widget.profile-edition .main-info > .right > .btn {
-	max-width: 200px;
+	max-width: 176px;
+	min-width: 174px;
+	height: 34px;
 	margin-left: 15px;
 	margin-top: 0px;
 	width: 35%;
 	float: left;
+}
+.main .widget.profile-edition .main-info > .right > .btn-container {
+	width: 176px;
+	height: 34px;
+	margin-left: 15px;
+	float: left;
+	margin-bottom: 5px;
+}
+.main .widget.profile-edition .main-info > .right > .btn-container > .upload {
+	width: 176px;
+	height: 34px;
+	background: url("../img/change-img-bg.png");
+	background-color: #fff;
+	border-radius: 20px;
+}
+.main .widget.profile-edition .main-info > .right > .btn-container > .upload:hover,
+.main .widget.profile-edition .main-info > .right > .btn-container > .upload:focus {
+	background-color: #dedede;
+}
+.main .widget.profile-edition .main-info > .right > .btn-container > .upload > input {
+	min-width: 174px;
+	height: 34px;
+	margin-top: 0px;
+	float: left;
+	opacity: 0;
 }
 @media screen and (max-width: 767px) {
 	.main .widget.profile-edition .main-info > .left {
@@ -1001,6 +1028,11 @@ nav.navbar #navbar > ul > li.second > a {
 		margin-right: auto;
 		margin-bottom: 10px;
 		width: 100%;
+		float: none;
+	}
+	.main .widget.profile-edition .main-info > .right > .btn-container {
+		margin-left: auto;
+		margin-right: auto;
 		float: none;
 	}
 	.main .widget.profile-edition .main-info > .right > .btn:last-child {
@@ -2175,7 +2207,153 @@ nav.navbar #navbar > ul > li.second > a {
 	font-weight: 400;
 }
 
+.main .widget.settings-student .sliders-container {
+	padding: 30px 35px;
+}
+.main .widget.settings-student #sliders {
+	max-width: 430px;
+    margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 0px;
+	padding-left: 0px;
+	padding-bottom: 25px;
+}
+.main .widget.settings-student #sliders li {
+    padding-bottom: 20px;
+	list-style: none;
+	position: relative;
+}
+.main .widget.settings-student #sliders li.title {
+	padding-bottom: 10px;
+}
+.main .widget.settings-student #sliders li > #total {
+	width: 32px;
+	font-size: 18px;
+    font-weight: 400;
+    color: #FF3365;
+	display: inline-block;
+}
+.main .widget.settings-student #sliders li > #undoIcon {
+	margin-left: 20px;
+	position: relative;
+    top: -1px;
+	-webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.35s ease-in-out;
+	font-size: 16px;
+	cursor: pointer;
+}
+.main .widget.settings-student #sliders li > #undoIcon:hover {
+	top: -1px;
+	-ms-transform: rotate(-135deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-250deg) translateY(1px);
+}
+.main .widget.settings-student #sliders li > .name {
+	padding-bottom: 5px;
+}
+.main .widget.settings-student #sliders li > .slider {
+    max-width: 400px;
+	height: 6px;
+    background: #f0f1f6;
+    border: none;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	transition: all 0.25s;
+}
 
+.main .widget.settings-student #sliders li > .slider > .ui-slider-range {
+	background: #FF3365;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.main .widget.settings-student #sliders li > .slider > .ui-slider-handle {
+	top: -7px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+	background: #fff;
+	box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.38);
+	border: none;
+	-webkit-transition: box-shadow 0.25s;
+    -moz-transition: box-shadow 0.25s;
+    -o-transition: box-shadow 0.25s;
+    transition: box-shadow 0.25s;
+}
+.main .widget.settings-student #sliders li > .slider > .ui-slider-handle:hover {
+	box-shadow: 0px 5px 20px -2px rgba(0, 0, 0, 0.6);
+}
+.main .widget.settings-student #sliders li > .slider > .ui-slider-handle:focus,
+.main .widget.settings-student #sliders li > .slider > .ui-slider-handle.ui-state-focus {
+	border: none;
+	outline: none;
+}
+
+.main .widget.settings-student #sliders li > .value {
+	display: inline-block;
+    position: absolute;
+	top: 22px;
+    left: 420px;
+}
+.main .widget.settings-student #sliders div {
+    margin-bottom: 5px;
+}
+.main .widget.settings-student .btn {
+	max-width: 450px;
+	margin-left: auto;
+	margin-right: auto;
+	background: #4BE1AB;
+}
+@media screen and (max-width: 767px) {
+	.main .widget.settings-student .sliders-container {
+		padding: 25px 30px 30px 30px;
+	}
+	.main .widget.settings-student #sliders li > .slider {
+		max-width: initial;
+		width: 80%;
+	}
+	.main .widget.settings-student #sliders li > .value {
+		left: initial;
+		right: 0px;
+	}
+}
+.main .widget.settings-student #sliders li:nth-child(2) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(10) > .slider > .ui-slider-range {
+	background: #1DE9B6;
+}
+.main .widget.settings-student #sliders li:nth-child(3) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(11) > .slider > .ui-slider-range {
+	background: #ffb300;
+}
+.main .widget.settings-student #sliders li:nth-child(4) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(12) > .slider > .ui-slider-range {
+	background: #ff3366;
+}
+.main .widget.settings-student #sliders li:nth-child(5) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(13) > .slider > .ui-slider-range {
+	background: #00B0FF;
+}
+.main .widget.settings-student #sliders li:nth-child(6) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(14) > .slider > .ui-slider-range {
+	background: #ba77ff;
+}
+.main .widget.settings-student #sliders li:nth-child(7) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(15) > .slider > .ui-slider-range {
+	background: #ff99b2;
+}
+.main .widget.settings-student #sliders li:nth-child(8) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(16) > .slider > .ui-slider-range {
+	background: #6563a4;
+}
+.main .widget.settings-student #sliders li:nth-child(9) > .slider > .ui-slider-range,
+.main .widget.settings-student #sliders li:nth-child(17) > .slider > .ui-slider-range {
+	background: #26A69A;
+}
 
 
 

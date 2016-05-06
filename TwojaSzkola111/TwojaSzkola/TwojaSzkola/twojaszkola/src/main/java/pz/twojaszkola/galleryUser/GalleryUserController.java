@@ -121,10 +121,13 @@ public class GalleryUserController {
                 Integer idUsera = currentUser.getId();
                 Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
                 
+                
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
                 user.setGalleryId(galleryUser);
                 this.userRepository.save(user);
+                GalleryUserEntity old = galleryUserRepository.findByUserId(idUsera);
+                this.galleryUserRepository.delete(old);
                 rv = new ResponseEntity<>(this.galleryUserRepository.save(galleryUser), HttpStatus.OK);
             } catch (IOException e) {
                 // Could not store data...
@@ -136,6 +139,7 @@ public class GalleryUserController {
         return rv;
     }
 
+    ////// nieużywana //////////////////
     @RequestMapping(value = "/api/galleryUserEdit", method = POST)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<GalleryUserEntity> editGalleryUser(

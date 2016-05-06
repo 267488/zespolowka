@@ -198,9 +198,11 @@ public class aktualnosciSzkolaController {
             String podpis = u.getName() + " " + u.getLastname();
 
             aktualnosci aktualne;
-            String zdjecie = "img/brak.jpg";
+            String zdjecie = "";
                 if (galleryUserRepository.findByUserId(a.getUserId().getId()) != null) {
                     zdjecie = "/api/galleryUser/" + galleryUserRepository.findByUserId(a.getUserId().getId()).getId() + ".jpg";
+                } else {
+                    zdjecie = "img/brak.jpg";
                 }
             if (!gallery.isEmpty()) {
                 aktualne = new aktualnosci(a, podpis, gallery, zdjecie);
@@ -232,7 +234,7 @@ public class aktualnosciSzkolaController {
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         final User user = userRepository.findById(idUsera);
-        List<aktualnosciSzkolaEntity> aktualnosciSzkola = user.getAktualnosciSzkola();
+        List<aktualnosciSzkolaEntity> aktualnosciSzkola = aktualnosciSzkolaRepository.findByUserId(idUsera); //user.getAktualnosciSzkola();
 
         return aktualnosciSzkola.size();
     }

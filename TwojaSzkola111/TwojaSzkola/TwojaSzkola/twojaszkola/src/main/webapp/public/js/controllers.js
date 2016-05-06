@@ -81,7 +81,6 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                     });
                     $scope.imageData = null;
                     console.log("SUCCESS");
-                    $modal.close(data);
                 }).error(function (data) {
                     $scope.submitting = false;
                     console.log("UNSUCCESS");
@@ -100,7 +99,6 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                     tekst: null,
                     id: null
                 };
-                $modal.close(data);
             }).error(function (data, status) {
                 $scope.submitting = false;
                 if (status === 400)
@@ -398,6 +396,10 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 $scope.zdjecie = "img/brak.jpg";
             }
         });
+         $scope.imageData = null;
+        $scope.onFileSelect = function ($files) {
+            $scope.imageData = $files[0];
+        };
         $scope.submit = function () {
             $scope.submitting = true;
             $http({
@@ -413,13 +415,6 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 else if (status === 409)
                     $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
             });
-        };
-        
-        $scope.imageData = null;
-        $scope.onFileSelect = function ($files) {
-            $scope.imageData = $files[0];
-        };
-        $scope.editPicture = function () {
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
                     })
@@ -866,6 +861,35 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                     }
                 });
             }
+            //            $http.delete('/api/pictureDelete')
+//                    .success(function (data) {
+//                    })
+//                    .error(function (data) {
+//
+//                    });
+            $upload.upload({
+                method: 'POST',
+                url: '/api/galleryUser',
+                file: $scope.imageData,
+                fileFormDataName: 'imageData',
+                withCredentials: true
+            }).success(function (data) {
+                $scope.imageData = null;
+                $http.get('/api/CurrentSzkola').success(function (data) {
+                    $scope.szkola = data;
+                    if (data.galleryId.id) {
+                        $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                    } else {
+                        $scope.zdjecie = "img/brak.jpg";
+                    }
+                });
+                alert("DODANO ZDJECIE");
+                console.log("SUCCESS");
+            }).error(function (data) {
+                $scope.submitting = false;
+                console.log("UNSUCCESS");
+                $scope.badRequest = 'There\'s something wrong with your input, please check!';
+            });
         };
         $scope.UsunProfil = function (profil) {
             $http.delete('/api/profilDelete/' + profil.id)
@@ -976,37 +1000,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
-        $scope.editPicture = function () {
-            $http.delete('/api/pictureDelete')
-                    .success(function (data) {
-                    })
-                    .error(function (data) {
-
-                    });
-            $upload.upload({
-                method: 'POST',
-                url: '/api/galleryUser',
-                file: $scope.imageData,
-                fileFormDataName: 'imageData',
-                withCredentials: true
-            }).success(function (data) {
-                $scope.imageData = null;
-                $http.get('/api/CurrentSzkola').success(function (data) {
-                    $scope.szkola = data;
-                    if (data.galleryId.id) {
-                        $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
-                    } else {
-                        $scope.zdjecie = "img/brak.jpg";
-                    }
-                });
-                alert("DODANO ZDJECIE");
-                console.log("SUCCESS");
-            }).error(function (data) {
-                $scope.submitting = false;
-                console.log("UNSUCCESS");
-                $scope.badRequest = 'There\'s something wrong with your input, please check!';
-            });
-        };
+    
         $scope.deletePicture = function () {
             alert("DELETE");
             $http.delete('/api/pictureDelete')
@@ -1216,64 +1210,7 @@ biking2Controllers.controller('AddNewProfilCtrl', ['$scope', '$modalInstance', '
             });
         };
     }]);
-//Kolka Zainteresowan
-biking2Controllers.controller('KolkaCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
-        $http.get('/api/kolkaZainteresowan?all=true').success(function (data) {
-            $scope.kolka = data;
-        });
-        $scope.openNewKolkoDlg = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/_new_kolko.html',
-                controller: 'AddNewKolkoCtrl',
-                scope: $scope
-            });
-            modalInstance.result.then(
-                    function (newKolko) {
-                        $http.get('/api/kolkaZainteresowan?all=true').success(function (data) {
-                            $scope.kolka = data;
-                        });
-                        //$scope.kolkaZainteresowan.push(newKolko);
-                    },
-                    function () {
-                    }
-            );
-        };
-    }]);
-biking2Controllers.controller('AddNewKolkoCtrl', ['$scope', '$modalInstance', '$http', function ($scope, $modalInstance, $http) {
-        $http.get('/api/przedmioty?all=true').success(function (data) {
-            $scope.przedmioty = data;
-        });
-        $scope.kolko = {
-            id: null,
-            nazwa: null,
-            termin: null,
-            przedmiot: null,
-            szkola: null
-        };
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-        $scope.submit = function () {
-            $scope.submitting = true;
-            console.log("TERMIN " + $scope.kolko.termin);
-            console.log("NAZWA " + $scope.kolko.nazwa);
-            console.log("PRZEDMIOT" + $scope.kolko.przedmiot);
-            $http({
-                method: 'POST',
-                url: '/api/kolkaZainteresowan/' + $scope.kolko.przedmiot,
-                data: $scope.kolko
-            }).success(function (data) {
-                $scope.submitting = false;
-                $modalInstance.close(data);
-            }).error(function (data, status) {
-                $scope.submitting = false;
-                if (status === 400)
-                    $scope.badRequest = data;
-                else if (status === 409)
-                    $scope.badRequest = 'Kolko o takiej nazwie juz istnieje';
-            });
-        };
-    }]);
+
 /**********************************************************************/
 
 //Osiagniecia
@@ -1367,7 +1304,7 @@ biking2Controllers.controller('AddNewPictureCtrl', ['$data', '$scope', '$modalIn
             $scope.submitting = true;
             $upload.upload({
                 method: 'POST',
-                url: '/api/galleryUserEdit/' + $data,
+                url: '/api/galleryUser',
                 file: $scope.imageData,
                 fileFormDataName: 'imageData',
                 withCredentials: true
