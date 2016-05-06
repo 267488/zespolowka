@@ -435,15 +435,29 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
             
             if($scope.uczen.password!==$scope.password2){$scope.editInfo="HASŁA NIE PASUJĄ DO SIEBIE";}
             else{
-            $scope.submitting = true;
+            
             $http({
                 method: 'POST',
                 url: '/api/editUczen',
-                data: $scope.uczen
+                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                /*data:   {uczen_id:$scope.uczen.uczen_id,
+                        name:$scope.uczen.name,
+                        lastname:$scope.uczen.lastname,
+                        mail:$scope.uczen.mail,
+                        login:$scope.uczen.login,
+                        password:$scope.uczen.password,
+                        miasto:$scope.uczen.miasto,
+                        kodpocztowy:$scope.uczen.kodpocztowy,
+                        adres:$scope.uczen.adres,
+                        czegoSzukam:$scope.uczen.czegoSzukam,
+                        galleryId:$scope.uczen.galleryId
+                        }*/
+                data: $scope.uczen    
             }).success(function (data) {
-                $scope.submitting = false;
+                $scope.editInfo="EDYTOWANO POMYŚLNIE";
             }).error(function (data, status) {
-                $scope.submitting = false;
+                
+                
                 if (status === 400)
                 {$scope.badRequest = data;
                     $scope.editInfo="BŁĄD EDYCJI";}
@@ -864,7 +878,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         $scope.submit2 = function () {
                
             console.log($scope.szkola1); 
-            $scope.szkola.galleryId=null;
+            //$scope.szkola.galleryId=null;
 
             $scope.submitting = true;
 
