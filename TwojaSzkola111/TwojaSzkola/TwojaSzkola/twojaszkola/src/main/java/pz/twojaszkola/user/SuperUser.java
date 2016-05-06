@@ -35,7 +35,8 @@ public class SuperUser {
     private String czegoSzukam;
     private GalleryUserEntity galleryId;
 
-    public SuperUser(Integer uczen_id,
+    public SuperUser(
+            Integer uczen_id,
             String name,
             String lastname,
             String mail,

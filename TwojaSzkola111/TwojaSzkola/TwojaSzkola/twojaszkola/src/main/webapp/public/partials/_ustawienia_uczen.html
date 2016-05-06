@@ -41,7 +41,7 @@
                     <label for="inputPassword">NOWE HASŁO</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Hasło musi posiadać minimum 8 znaków."></i>
                     <div class="input-group password">
                         <i class="fa fa-lock fa-1"></i>
-                        <input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło" data-ng-model="password">
+                        <input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło" data-ng-model="uczen.password">
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                         </select>
                     </div>
                 </div>
-
+                <label for="inputZipcode">{{editInfo}}</label>
                 <button class="button-curve btn btn-lg btn-primary btn-block" type="submit" data-ng-click="submit();">ZAPISZ</button>
             </form>	
         </div>
