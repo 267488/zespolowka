@@ -2299,6 +2299,9 @@ nav.navbar #navbar > ul > li.second > a {
     position: absolute;
 	top: 22px;
     left: 420px;
+	font-family: 'Lato', Arial, Tahoma;
+	font-size: 17px;
+    font-weight: 500;
 }
 .main .widget.settings-student #sliders div {
     margin-bottom: 5px;
@@ -2353,6 +2356,39 @@ nav.navbar #navbar > ul > li.second > a {
 .main .widget.settings-student #sliders li:nth-child(9) > .slider > .ui-slider-range,
 .main .widget.settings-student #sliders li:nth-child(17) > .slider > .ui-slider-range {
 	background: #26A69A;
+}
+
+.main .widget.settings-student #sliders li:nth-child(2) > .value,
+.main .widget.settings-student #sliders li:nth-child(10) > .value {
+	color: #1DE9B6;
+}
+.main .widget.settings-student #sliders li:nth-child(3) > .value,
+.main .widget.settings-student #sliders li:nth-child(11) > .value {
+	color: #ffb300;
+}
+.main .widget.settings-student #sliders li:nth-child(4) > .value,
+.main .widget.settings-student #sliders li:nth-child(12) > .value {
+	color: #ff3366;
+}
+.main .widget.settings-student #sliders li:nth-child(5) > .value,
+.main .widget.settings-student #sliders li:nth-child(13) > .value {
+	color: #00B0FF;
+}
+.main .widget.settings-student #sliders li:nth-child(6) > .value,
+.main .widget.settings-student #sliders li:nth-child(14) > .value {
+	color: #ba77ff;
+}
+.main .widget.settings-student #sliders li:nth-child(7) > .value,
+.main .widget.settings-student #sliders li:nth-child(15) > .value {
+	color: #ff99b2;
+}
+.main .widget.settings-student #sliders li:nth-child(8) > .value,
+.main .widget.settings-student #sliders li:nth-child(16) > .value {
+	color: #6563a4;
+}
+.main .widget.settings-student #sliders li:nth-child(9) > .value,
+.main .widget.settings-student #sliders li:nth-child(17) > .value {
+	color: #26A69A;
 }
 
 

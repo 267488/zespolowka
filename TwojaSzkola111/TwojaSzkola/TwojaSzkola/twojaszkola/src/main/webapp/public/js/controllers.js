@@ -428,55 +428,10 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
             }
             
         });
-         $scope.imageData = null;
-        $scope.onFileSelect = function ($files) {
-            $scope.imageData = $files[0];
-        };
-        $scope.submit = function () {
-            console.log($scope.uczen);
-            
-            if($scope.uczen.password!==$scope.password2){$scope.editInfo="HASŁA NIE PASUJĄ DO SIEBIE";}
-            else{
-            
-            $http({
-                method: 'POST',
-                url: '/api/editUczen',
-                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                /*data:   {uczen_id:$scope.uczen.uczen_id,
-                        name:$scope.uczen.name,
-                        lastname:$scope.uczen.lastname,
-                        mail:$scope.uczen.mail,
-                        login:$scope.uczen.login,
-                        password:$scope.uczen.password,
-                        miasto:$scope.uczen.miasto,
-                        kodpocztowy:$scope.uczen.kodpocztowy,
-                        adres:$scope.uczen.adres,
-                        czegoSzukam:$scope.uczen.czegoSzukam,
-                        galleryId:$scope.uczen.galleryId
-                        }*/
-                data: $scope.uczen    
-            }).success(function (data) {
-                $scope.editInfo="EDYTOWANO POMYŚLNIE";
-            }).error(function (data, status) {
-                
-                
-                if (status === 400)
-                {$scope.badRequest = data;
-                    $scope.editInfo="BŁĄD EDYCJI";}
-                else if (status === 409)
-                {$scope.badRequest = 'Uczen o takim nr psl juz istnieje';   
-                    $scope.editInfo="BŁĄD EDYCJI";
-                }          
-            });    
-            }
-        };
-        
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
-            $scope.imageData = $files[0];
-        };
-        $scope.editPicture = function () {
-            $http.delete('/api/pictureDelete')
+        $scope.imageData = $files[0];
+                     $http.delete('/api/pictureDelete')
                     .success(function (data) {
                     })
                     .error(function (data) {
@@ -504,6 +459,90 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 console.log("UNSUCCESS");
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
+        };
+        
+        //SUBMIT FUNCTION
+        $scope.submit = function () {
+            console.log($scope.uczen);
+            
+             $http.delete('/api/pictureDelete')
+                    .success(function (data) {
+                    })
+                    .error(function (data) {
+
+                    });
+            $upload.upload({
+                method: 'POST',
+                url: '/api/galleryUser',
+                file: $scope.imageData,
+                fileFormDataName: 'imageData',
+                withCredentials: true
+            }).success(function (data) {
+                $scope.imageData = null;
+                $http.get('/api/CurrentUczen?all=true').success(function (data) {
+                    $scope.uczen = data;
+                    $scope.zdjecie = "img/brak.jpg";
+                    if ($scope.uczen.galleryId.id != null) {
+                        $scope.zdjecie = "/api/galleryUser/" + $scope.uczen.galleryId.id + ".jpg";
+                    }
+                });
+                alert("DODANO ZDJECIE");
+                console.log("SUCCESS");
+            }).error(function (data) {
+                $scope.submitting = false;
+                console.log("UNSUCCESS");
+                $scope.badRequest = 'There\'s something wrong with your input, please check!';
+            });
+            
+            
+            
+            if($scope.uczen.password!==$scope.password2){$scope.editInfo="HASŁA NIE PASUJĄ DO SIEBIE";}
+            else{
+            
+            $http({
+                method: 'POST',
+                url: '/api/editUczen',
+                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                data: $scope.uczen    
+            }).success(function (data) {
+                $scope.editInfo="EDYTOWANO POMYŚLNIE";
+                        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+
+                        $scope.uczen = data;
+                        $scope.zdjecie = "";
+                        $scope.password2 = $scope.uczen.password;
+                        console.log($scope.uczen.password);
+                        console.log($scope.password2);
+                        console.log($scope.uczen);
+                        if (data.galleryId.id != null) {
+                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                        } else {
+                            $scope.zdjecie = "img/brak.jpg";
+                        }
+
+                        });
+            }).error(function (data, status) {
+                
+                
+                if (status === 400)
+                {$scope.badRequest = data;
+                    $scope.editInfo="BŁĄD EDYCJI";}
+                else if (status === 409)
+                {$scope.badRequest = 'Uczen o takim nr psl juz istnieje';   
+                    $scope.editInfo="BŁĄD EDYCJI";
+                }          
+            });    
+            }
+        };
+        //END SUBMIT
+        
+        
+        $scope.imageData = null;
+        $scope.onFileSelect = function ($files) {
+            $scope.imageData = $files[0];
+        };
+        $scope.editPicture = function () {
+           
         };
         
         $scope.deletePicture = function () {

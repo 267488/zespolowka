@@ -12,15 +12,15 @@
                 <img src="{{zdjecie}}" class="img-circle img-responsive" width="80" height="80" alt="Zdjęcie profilowe" >
             </div>
             <div class="right">
-         <!--        <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
-                <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
-                    <label for="inputImageData" class="col-sm-2 control-label">Image</label>
-                    <div class="col-sm-10">
-                        <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
-                    </div>
-                </div>
-               <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
-             -->   
+                <!--        <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
+                       <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                           <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                           <div class="col-sm-10">
+                               <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                           </div>
+                       </div>
+                      <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
+                -->   
                 <form class="btn-container" action="" method="post" enctype="multipart/form-data">
                     <div class="upload">
                         <input type="file" name="upload" data-ng-file-select="onFileSelect($files);" class="button-curve grey transparent btn btn-block" type="button">
@@ -122,14 +122,89 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="widget">
+            <div class="widget settings-student">
 
-                <h2 class="title">ZAINTERESOWANIA</h2>
+                <h2 class="title">ZAINTERESOWANIA <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Co interesuje Cię najbardziej? Przyznaj temu najwięcej punktów!"></i></h2>
 
                 <hr>
+
+                <div class="sliders-container">
+                    <form>
+
+                        <ul id="sliders">
+                            <li class="title">PUNKTY DO ROZDANIA: <div id="total">100</div><i id="undoIcon" class="fa fa-undo"></i></li>
+                            <li class="sl">
+                                <div class="name">Polski:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Matematyka:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Angielski:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Historia:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">WOS:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Fizyka:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Chemia:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Biologia:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Geografia:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Informatyka:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Sztuka:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">WF:</div>
+                                <div class="slider"></div>
+                                <span class="value">0</span>
+                            </li>
+                        </ul>
+
+                        <button class="button-curve btn btn-lg btn-primary btn-block" type="submit">ZAPISZ</button>
+
+                    </form>
+                </div>
 
             </div>
         </div>
     </div>
+
 </div>
+
+<script src="js/settings-student.js"></script>
 
