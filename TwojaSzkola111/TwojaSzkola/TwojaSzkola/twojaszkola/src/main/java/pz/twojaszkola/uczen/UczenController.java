@@ -71,6 +71,15 @@ public class UczenController {
         return rv;
     }
 
+    @RequestMapping(value = "/uczen/{id}", method = GET)
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public UczenEntity getUczen(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
+
+        final UczenEntity uczen = uczenRepository.findById(id);
+        return uczen;
+    }
+    
     @RequestMapping(value = "/CurrentUczen", method = GET)
     public SuperUser getCurrentUczen() {
         CurrentUser currentUser = null;
