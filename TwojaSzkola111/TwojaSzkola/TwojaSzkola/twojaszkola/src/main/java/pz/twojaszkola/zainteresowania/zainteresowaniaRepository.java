@@ -25,12 +25,12 @@ import pz.twojaszkola.uczen.UczenEntity;
  *
  * @author Agata
  */
-public interface zainteresowaniaRepository extends JpaRepository<zainteresowaniaEntity, Integer>{
+public interface ZainteresowaniaRepository extends JpaRepository<ZainteresowaniaEntity, Integer>{
     
-    List<zainteresowaniaEntity> findByPrzedmiotId(final Integer idPrzedmiotu);
+    List<ZainteresowaniaEntity> findByPrzedmiotId(final Integer idPrzedmiotu);
     List<Integer> findByUczenId(final Integer idUcznia);
-    List<zainteresowaniaEntity> findByUczenId2(final Integer idUcznia);
+    List<ZainteresowaniaEntity> findByUczenId2(final Integer idUcznia);
     UczenEntity getUczenById(final Integer UczenId);
     Integer getStopienZaintByUczenAndPrzedmiot(final Integer idUcznia, final Integer idPrzedmiotu);
-    zainteresowaniaEntity findById(final Integer id);
+    ZainteresowaniaEntity findById(final Integer id);
 }

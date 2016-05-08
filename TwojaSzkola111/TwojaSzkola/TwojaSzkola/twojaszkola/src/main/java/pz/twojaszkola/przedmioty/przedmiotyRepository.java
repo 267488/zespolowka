@@ -21,9 +21,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Agata
  */
-public interface przedmiotyRepository extends JpaRepository<przedmiotyEntity, Integer>  {
+public interface PrzedmiotyRepository extends JpaRepository<PrzedmiotyEntity, Integer>  {
     
-    przedmiotyEntity findById(final int id);
-    przedmiotyEntity findByName(final String name);
+    PrzedmiotyEntity findById(final int id);
+    PrzedmiotyEntity findByName(final String name);
     
 }

@@ -30,7 +30,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.uczen.UczenEntity;
 
 /**
@@ -67,7 +67,7 @@ import pz.twojaszkola.uczen.UczenEntity;
    )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
-public class zainteresowaniaEntity implements Serializable {
+public class ZainteresowaniaEntity implements Serializable {
     
      private static final long serialVersionUID = 1249824815158908981L;
     
@@ -82,17 +82,17 @@ public class zainteresowaniaEntity implements Serializable {
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "przedmiotId", referencedColumnName = "id")
-    private przedmiotyEntity przedmiotId;
+    private PrzedmiotyEntity przedmiotId;
     
     @Column(name = "stopienZainteresowania", nullable = false)
     //@NotBlank
     //@NotNull
     private Integer stopienZainteresowania;
 
-    protected zainteresowaniaEntity() {
+    protected ZainteresowaniaEntity() {
     }
 
-    public zainteresowaniaEntity(UczenEntity uczen_id, przedmiotyEntity przedmiot_id, Integer stopien_zainteresowania) {
+    public ZainteresowaniaEntity(UczenEntity uczen_id, PrzedmiotyEntity przedmiot_id, Integer stopien_zainteresowania) {
         this.uczenId = uczen_id;
         this.przedmiotId = przedmiot_id;
         this.stopienZainteresowania = stopien_zainteresowania;
@@ -114,11 +114,11 @@ public class zainteresowaniaEntity implements Serializable {
         this.uczenId = uczen_id;
     }
 
-    public przedmiotyEntity getPrzedmiotId() {
+    public PrzedmiotyEntity getPrzedmiotId() {
         return przedmiotId;
     }
 
-    public void setPrzedmiotId(przedmiotyEntity przedmiot_id) {
+    public void setPrzedmiotId(PrzedmiotyEntity przedmiot_id) {
         this.przedmiotId = przedmiot_id;
     }
 
@@ -140,10 +140,10 @@ public class zainteresowaniaEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof zainteresowaniaEntity)) {
+        if (!(object instanceof ZainteresowaniaEntity)) {
             return false;
         }
-        zainteresowaniaEntity other = (zainteresowaniaEntity) object;
+        ZainteresowaniaEntity other = (ZainteresowaniaEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

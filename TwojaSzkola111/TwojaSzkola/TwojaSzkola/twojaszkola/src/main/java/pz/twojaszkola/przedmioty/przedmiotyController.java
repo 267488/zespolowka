@@ -39,17 +39,17 @@ import pz.twojaszkola.support.ResourceNotFoundException;
  */
 @RestController
 @RequestMapping("/api")
-public class przedmiotyController {
-        private final przedmiotyRepository przedmiotyRepository;
+public class PrzedmiotyController {
+        private final PrzedmiotyRepository przedmiotyRepository;
 
         @Autowired
-        public przedmiotyController(final przedmiotyRepository przedmiotyRepository) {
+        public PrzedmiotyController(final PrzedmiotyRepository przedmiotyRepository) {
             this.przedmiotyRepository = przedmiotyRepository;
         }
         
         @RequestMapping(value = "/przedmioty", method = GET)
-        public List<przedmiotyEntity> getPrzedmioty(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-            List<przedmiotyEntity> rv;
+        public List<PrzedmiotyEntity> getPrzedmioty(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+            List<PrzedmiotyEntity> rv;
             rv = przedmiotyRepository.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
              //rv = przedmiotyRepository.findByName("matematyka");
             return rv;
@@ -57,12 +57,12 @@ public class przedmiotyController {
         
         @RequestMapping(value = "/przedmioty", method = POST) 
         @PreAuthorize("isAuthenticated()")
-        public przedmiotyEntity createPrzedmioty(final @RequestBody @Valid przedmiotyCmd newPrzedmiot, final BindingResult bindingResult) {
+        public PrzedmiotyEntity createPrzedmioty(final @RequestBody @Valid PrzedmiotyCmd newPrzedmiot, final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final przedmiotyEntity przedmiot = new przedmiotyEntity(newPrzedmiot.getName(), newPrzedmiot.getKategoria());
+            final PrzedmiotyEntity przedmiot = new PrzedmiotyEntity(newPrzedmiot.getName(), newPrzedmiot.getKategoria());
             return this.przedmiotyRepository.save(przedmiot);	
         }
         
@@ -71,7 +71,7 @@ public class przedmiotyController {
     @Transactional
     public void deletePrzedmiot(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
 
-        final przedmiotyEntity przedmiot = przedmiotyRepository.findById(id);
+        final PrzedmiotyEntity przedmiot = przedmiotyRepository.findById(id);
         przedmiotyRepository.delete(przedmiot);
 
     }
@@ -79,12 +79,12 @@ public class przedmiotyController {
         @RequestMapping(value = "/przedmioty/{id:\\d+}", method = PUT)
         @PreAuthorize("isAuthenticated()")
         @Transactional
-        public przedmiotyEntity updatePrzedmiot(final @PathVariable Integer id, final @RequestBody @Valid przedmiotyCmd updatedPrzedmiot, final BindingResult bindingResult) {
+        public PrzedmiotyEntity updatePrzedmiot(final @PathVariable Integer id, final @RequestBody @Valid PrzedmiotyCmd updatedPrzedmiot, final BindingResult bindingResult) {
             if(bindingResult.hasErrors()) {
                 throw new IllegalArgumentException("Invalid arguments.");
             }
 	
-            final przedmiotyEntity przedmiot = przedmiotyRepository.findOne(id);
+            final PrzedmiotyEntity przedmiot = przedmiotyRepository.findOne(id);
             przedmiot.setName(updatedPrzedmiot.getName());
             przedmiot.setKategoria(updatedPrzedmiot.getKategoria());
 		

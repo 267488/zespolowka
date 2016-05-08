@@ -40,7 +40,7 @@ import pz.twojaszkola.kategorie.kategorieEntity;
 import pz.twojaszkola.kolkaZainteresowan.KolkaZainteresowanEntity;
 import pz.twojaszkola.osiagniecia.OsiagnieciaEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
-import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
 
 /**
  *
@@ -51,7 +51,7 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
 @Table(name = "przedmioty")
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
-public class przedmiotyEntity implements Serializable {
+public class PrzedmiotyEntity implements Serializable {
     
     private static final long serialVersionUID = 1249824815158908981L;
     
@@ -70,7 +70,7 @@ public class przedmiotyEntity implements Serializable {
     private kategorieEntity kategoria;
     
     @OneToMany(mappedBy = "przedmiotId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore private List<zainteresowaniaEntity> zainteresowania = new ArrayList<>();
+    @JsonIgnore private List<ZainteresowaniaEntity> zainteresowania = new ArrayList<>();
     
     @OneToMany(mappedBy = "przedmiotId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore private List<RozszerzonePrzedmiotyEntity> rozszerzonePrzedmioty = new ArrayList<>();
@@ -84,10 +84,10 @@ public class przedmiotyEntity implements Serializable {
     @OneToMany(mappedBy = "przedmiot", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore private List<OsiagnieciaEntity> osiagniecia = new ArrayList<>();
 
-    protected przedmiotyEntity() {
+    protected PrzedmiotyEntity() {
     }
 
-    public przedmiotyEntity(String name, kategorieEntity kategoria) {
+    public PrzedmiotyEntity(String name, kategorieEntity kategoria) {
         this.name = name;
         this.kategoria = kategoria;
     }
@@ -116,11 +116,11 @@ public class przedmiotyEntity implements Serializable {
         this.kategoria = kategoria;
     }
     
-    public List<zainteresowaniaEntity> getZainteresowania() {
+    public List<ZainteresowaniaEntity> getZainteresowania() {
         return zainteresowania;
     }
     
-    public void setZainteresowania(List<zainteresowaniaEntity> zainteresowania) {
+    public void setZainteresowania(List<ZainteresowaniaEntity> zainteresowania) {
         this.zainteresowania = zainteresowania;
     }
     

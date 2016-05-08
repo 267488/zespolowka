@@ -39,12 +39,12 @@ import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.mediany.MedianyController;
 import pz.twojaszkola.mediany.MedianyEntity;
 import pz.twojaszkola.mediany.MedianyRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -52,15 +52,15 @@ import pz.twojaszkola.user.CurrentUser;
  */
 @RestController
 @RequestMapping("/api")
-public class zainteresowaniaController {
+public class ZainteresowaniaController {
 
-    private final zainteresowaniaRepository zainteresowaniaRepo;
+    private final ZainteresowaniaRepository zainteresowaniaRepo;
     private final UczenRepository uczenRepo;
-    private final przedmiotyRepository przedmiotRepo;
+    private final PrzedmiotyRepository przedmiotRepo;
     private final MedianyRepository medianyRepo;
 
     @Autowired
-    public zainteresowaniaController(final zainteresowaniaRepository zainteresowaniaRepo, final UczenRepository uczenRepo, final przedmiotyRepository przedmiotRepo, final MedianyRepository medianyRepo) {
+    public ZainteresowaniaController(final ZainteresowaniaRepository zainteresowaniaRepo, final UczenRepository uczenRepo, final PrzedmiotyRepository przedmiotRepo, final MedianyRepository medianyRepo) {
         this.zainteresowaniaRepo = zainteresowaniaRepo;
         this.uczenRepo = uczenRepo;
         this.przedmiotRepo = przedmiotRepo;
@@ -68,8 +68,8 @@ public class zainteresowaniaController {
     }
 
     @RequestMapping(value = "/zainteresowania", method = GET)
-    public List<zainteresowaniaEntity> getZainteresowania(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<zainteresowaniaEntity> rv;
+    public List<ZainteresowaniaEntity> getZainteresowania(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<ZainteresowaniaEntity> rv;
         rv = zainteresowaniaRepo.findAll(new Sort(Sort.Direction.ASC, "uczenId", "przedmiotId", "stopienZainteresowania"));
         return rv;
     }
@@ -77,51 +77,62 @@ public class zainteresowaniaController {
     
     @RequestMapping(value = "/sumaZainteresowanUcznia", method = GET)
     public Integer getSuma(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<zainteresowaniaEntity> rv;
+        List<ZainteresowaniaEntity> rv;
         Integer suma = 0;
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepo.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         //////////////////ID UCZNIA//////////////////////////////////////
         rv = zainteresowaniaRepo.findByUczenId2(idUcznia);
-        for (zainteresowaniaEntity z : rv) {
+        for (ZainteresowaniaEntity z : rv) {
             suma = suma + z.getStopienZainteresowania();
         }
         return suma;
     }
 
     @RequestMapping(value = "/zainteresowaniaUcznia", method = GET)
-    public List<zainteresowaniaEntity> getZainteresowaniaUcznia(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<zainteresowaniaEntity> rv;
+    public List<Zainteresowanie> getZainteresowaniaUcznia(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        List<ZainteresowaniaEntity> rv;
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepo.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
         rv = zainteresowaniaRepo.findByUczenId2(idUcznia);
-        return rv;
+        
+        List<Zainteresowanie> za = new ArrayList<>();
+        
+        for(ZainteresowaniaEntity z : rv)
+        {
+            Zainteresowanie tmp = new Zainteresowanie();
+            
+            tmp.setId(z.getPrzedmiotId().getId());
+            tmp.setValue(z.getStopienZainteresowania());
+            za.add(tmp);
+        }
+        return za;
     }
     
     @RequestMapping(value = "/StopnieZainteresowanUcznia", method = GET)
     public String getStopnieZainteresowanUcznia(final @RequestParam(required = false, defaultValue = "false") boolean all) {
-        List<zainteresowaniaEntity> rv;
+        List<ZainteresowaniaEntity> rv;
         List<Integer> st = new ArrayList<Integer>();
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepo.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
         rv = zainteresowaniaRepo.findByUczenId2(idUcznia);
-        for(zainteresowaniaEntity z : rv){
+        for(ZainteresowaniaEntity z : rv){
             st.add(z.getStopienZainteresowania());
         }
         String string = st.toString();
@@ -135,14 +146,14 @@ public class zainteresowaniaController {
     @Transactional
     public void deleteZainteresowaniaUcznia(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
 
-        final zainteresowaniaEntity zainteresowania = zainteresowaniaRepo.findOne(id);
+        final ZainteresowaniaEntity zainteresowania = zainteresowaniaRepo.findOne(id);
         zainteresowaniaRepo.delete(zainteresowania);
 
     }
 
     @RequestMapping(value = "/zainteresowania", method = POST)
     @PreAuthorize("isAuthenticated()")
-    public zainteresowaniaEntity createZainteresowania(final @RequestBody @Valid zainteresowaniaCmd newZainteresowania, final BindingResult bindingResult) {
+    public ZainteresowaniaEntity createZainteresowania(final @RequestBody @Valid ZainteresowaniaCmd newZainteresowania, final BindingResult bindingResult) {
         // public RozszerzonePrzedmiotyEntity createZainteresowania(){
         if (bindingResult.hasErrors()) {
             throw new IllegalArgumentException("Jakis blad z argumentami.");
@@ -153,29 +164,29 @@ public class zainteresowaniaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepo.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         //Integer idUcznia = 1; ////////////////////////////////ID UCZNIA/////////////////////////////////////////////////////
         final UczenEntity uczen = uczenRepo.findById(idUcznia);
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG1: " + newZainteresowania.getStopienZainteresowania());
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + newZainteresowania.getPrzedmiotName());
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG1: " + newZainteresowania.getStopienZainteresowania());
 
-        final przedmiotyEntity przedmiot = przedmiotRepo.findByName(newZainteresowania.getPrzedmiotName());
+        final PrzedmiotyEntity przedmiot = przedmiotRepo.findByName(newZainteresowania.getPrzedmiotName());
 
-        List<zainteresowaniaEntity> rv;
+        List<ZainteresowaniaEntity> rv;
         rv = zainteresowaniaRepo.findByPrzedmiotId(przedmiot.getId());
         boolean dodawanie = true;
-        for (zainteresowaniaEntity zaint : rv) {
+        for (ZainteresowaniaEntity zaint : rv) {
             if (zaint.getUczenId().getId() == uczen.getId()) {
                 dodawanie = false;
             }
         }
 
         if (dodawanie) {
-            final zainteresowaniaEntity zainteresowania = new zainteresowaniaEntity(uczen, przedmiot, newZainteresowania.getStopienZainteresowania());
-            final zainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
+            final ZainteresowaniaEntity zainteresowania = new ZainteresowaniaEntity(uczen, przedmiot, newZainteresowania.getStopienZainteresowania());
+            final ZainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
 
             List<Integer> lz;
             lz = zainteresowaniaRepo.findByUczenId(uczen.getId());
@@ -183,13 +194,13 @@ public class zainteresowaniaController {
 
             if (medianyRepo.findByUczenId2(uczen.getId()) == null) {
                 //nie ma
-                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Nie ma " + med);
+                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "Nie ma " + med);
 
                 MedianyEntity mediana = new MedianyEntity(uczen, med);
                 this.medianyRepo.save(mediana);
             } else {
                 //jest
-                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Jest" + med);
+                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "Jest" + med);
                 MedianyEntity mediana = medianyRepo.findByUczenId2(uczen.getId());
                 mediana.setMediana(med);
                 this.medianyRepo.save(mediana);
@@ -202,15 +213,15 @@ public class zainteresowaniaController {
     @RequestMapping(value = "/zainteresowania/{id:\\d+}", method = PUT)
     @PreAuthorize("isAuthenticated()")
     @Transactional
-    public zainteresowaniaEntity updateZainteresowania(final @PathVariable Integer id, final @RequestBody @Valid zainteresowaniaCmd updatedZainteresowania, final BindingResult bindingResult) {
+    public ZainteresowaniaEntity updateZainteresowania(final @PathVariable Integer id, final @RequestBody @Valid ZainteresowaniaCmd updatedZainteresowania, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new IllegalArgumentException("Invalid arguments.");
         }
 
-        final zainteresowaniaEntity zainteresowania = zainteresowaniaRepo.findOne(id);
+        final ZainteresowaniaEntity zainteresowania = zainteresowaniaRepo.findOne(id);
         zainteresowania.setStopienZainteresowania(updatedZainteresowania.getStopienZainteresowania());
         final UczenEntity uczen = uczenRepo.findById(zainteresowania.getUczenId().getId());
-        final zainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
+        final ZainteresowaniaEntity e = this.zainteresowaniaRepo.save(zainteresowania);
 
         if (zainteresowania == null) {
             throw new ResourceNotFoundException();
@@ -222,18 +233,39 @@ public class zainteresowaniaController {
 
         if (medianyRepo.findByUczenId2(uczen.getId()) == null) {
             //nie ma
-            Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Nie ma " + med);
+            Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "Nie ma " + med);
 
             MedianyEntity mediana = new MedianyEntity(uczen, med);
             this.medianyRepo.save(mediana);
         } else {
             //jest
-            Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "Jest" + med);
+            Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "Jest" + med);
             MedianyEntity mediana = medianyRepo.findByUczenId2(uczen.getId());
             mediana.setMediana(med);
             this.medianyRepo.save(mediana);
         }
 
         return e;
+    }
+    
+    
+    @RequestMapping(value = "/setZainteresowania", method = POST)
+    public void updateZainteresowania( final @RequestBody @Valid List<Zainteresowanie> newZainteresowanie) {
+        System.out.println("SET ZAINERESOWANIA");
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();        
+        
+        List<ZainteresowaniaEntity> zainteresowania = zainteresowaniaRepo.findByUczenId2(currentUser.getId());
+        
+        for(Zainteresowanie z : newZainteresowanie)
+        {
+            for(ZainteresowaniaEntity z1 : zainteresowania)
+            {
+                if(z.getId()==z1.getId())z1.setStopienZainteresowania(z.getValue());
+            }
+        }
+        
+        zainteresowaniaRepo.save(zainteresowania);
     }
 }

@@ -18,7 +18,7 @@ package pz.twojaszkola.zainteresowania;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.uczen.UczenEntity;
 
 /**
@@ -26,7 +26,7 @@ import pz.twojaszkola.uczen.UczenEntity;
  * @author Agata
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class zainteresowaniaCmd {
+public class ZainteresowaniaCmd {
     
     
     private Integer uczenId;

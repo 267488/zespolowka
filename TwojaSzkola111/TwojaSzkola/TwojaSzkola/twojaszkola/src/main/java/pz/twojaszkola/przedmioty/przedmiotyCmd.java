@@ -25,7 +25,7 @@ import pz.twojaszkola.kategorie.kategorieEntity;
  * @author Agata
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class przedmiotyCmd {
+public class PrzedmiotyCmd {
     
     @NotBlank //niepusty
     @Size(max = 255)
