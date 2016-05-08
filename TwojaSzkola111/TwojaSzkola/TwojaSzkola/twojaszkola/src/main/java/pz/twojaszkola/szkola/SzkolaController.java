@@ -303,6 +303,26 @@ public class SzkolaController {
         return szkoly;
     }
 
+    private List <SzkolaEntity> szkoly = new ArrayList<>();
+
+@RequestMapping(value = "/szkolaBy/{typ}", method = GET)
+    public List<SzkolaEntity> getSzkolaByTyp(@PathVariable String typ, final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        if ("SzkolaPodstawowa".equals(typ)) {
+            typ = "Szkoła Podstawowa";
+        } else if ("SzkolaZawodowa".equals(typ)) {
+            typ = "Szkoła Zawodowa";
+        } else if ("SzkolaSredniaDowolnegoTypu".equals(typ)) {
+            typ = "Szkoła Średnia dowolnego typu";
+        }
+        if(!"Szkoła Średnia dowolnego typu".equals(typ)){
+        szkoly = szkolaRepository.findByTypSzkoly(typ);
+        }
+        else{
+            szkoly=szkolaRepository.findSzkolySrednie("Liceum","Technikum","Szkoła Zawodowa");
+        }
+        return szkoly;
+    }
+    
     @RequestMapping(value = "/szkola", method = POST)
     @PreAuthorize("isAuthenticated()")
     public SzkolaEntity createSzkola(final @RequestBody @Valid SzkolaCmd newSzkola) {

@@ -31,11 +31,15 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
         $scope.ileDanych = 0;
         $scope.licznik = 0;
         $scope.licznikKolo = 0;
+<<<<<<< HEAD
 
 
 
 
 
+=======
+        
+>>>>>>> origin/nowa-galaz
         $http.get('/api/ProponowaneSzkoly').success(function (data) {
             $scope.proponowaneSzkoly = data;
 
@@ -158,6 +162,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
 
                 console.log("SUCCESS");
                 $modal.close(data);
+                $scope.imageData = null;
             }).error(function (data) {
                 $scope.submitting = false;
                 console.log("UNSUCCESS");
@@ -305,6 +310,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
                 else if (status === 409)
                     $scope.badRequest = 'Blad, prawdopodobnie ID_szkoly';
             });
+            $scope.imageData = null;
         };
 
     }]);
@@ -1652,3 +1658,22 @@ biking2Controllers.controller('myCtrl', function ($rootScope, $scope, $http, $lo
         });
     };
 }); 
+
+biking2Controllers.controller('OcenaPrzedmiotuCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
+        $http.get('/api/ocenaPrzedmiotu?all=true').success(function (data) {
+            $scope.ocenaPrzedmiotu = data;
+        });
+        $scope.openNewOcenaPrzedmiotuDlg = function () {
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/_new_ocena_przedmiotu.html',
+                controller: 'AddNewOcenaPrzedmiotuCtrl',
+                scope: $scope
+            });
+            modalInstance.result.then(
+                    function (newOcenaPrzedmiotu) {
+                        $scope.ocenaPrzedmiotu.push(newOcenaPrzedmiotu);
+                    },
+                    function () {
+                    });
+        };
+    }]);

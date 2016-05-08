@@ -18,10 +18,11 @@ $(document).ready(function () {
     //$.getJSON('http://localhost:8090/currentID/', function (data3) {
     $.getJSON('http://localhost:8090/currentID/', function (data3) {
         
+        currentId = data3; //trzeba sprawdzic
         $.getJSON('http://localhost:8090/api/uczen/' + currentId, function (data2) {
 
             $.getJSON('http://localhost:8090/api/szkolaBy/' + data2.czegoSzukam, function (data) {
-                currentId = data3; //trzeba sprawdzic
+                
                 console.log("Biezace id" + currentId);
                 czegoSzukam = data2.czegoSzukam;
                 adresUcznia = data2.adres + " " + data2.kodpocztowy;
