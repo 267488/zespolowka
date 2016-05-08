@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.support.ResourceNotFoundException;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -47,10 +47,10 @@ public class OcenaPrzedmiotuController {
 
     private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepository;
     private final ProfilRepository profilRepo;
-    private final przedmiotyRepository przedmiotRepo;
+    private final PrzedmiotyRepository przedmiotRepo;
 
     @Autowired
-    public OcenaPrzedmiotuController(final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepository, final ProfilRepository profilRepo, final przedmiotyRepository przedmiotRepo) {
+    public OcenaPrzedmiotuController(final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepository, final ProfilRepository profilRepo, final PrzedmiotyRepository przedmiotRepo) {
         this.ocenaPrzedmiotuRepository = ocenaPrzedmiotuRepository;
         this.profilRepo = profilRepo;
         this.przedmiotRepo = przedmiotRepo;
@@ -73,7 +73,7 @@ public class OcenaPrzedmiotuController {
 
         //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
         final ProfilEntity profil = profilRepo.findById(4);
-        final przedmiotyEntity przedmiot = przedmiotRepo.findById(1);
+        final PrzedmiotyEntity przedmiot = przedmiotRepo.findById(1);
         final Integer a = 10;
 
         final OcenaPrzedmiotuEntity OcenaPrzedmiotu = new OcenaPrzedmiotuEntity(profil, przedmiot, a);

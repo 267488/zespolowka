@@ -43,8 +43,8 @@ import pz.twojaszkola.user.CurrentUser;
 import pz.twojaszkola.user.SuperUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
-import pz.twojaszkola.zainteresowania.zainteresowaniaController;
-import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
 
 /**
  *
@@ -77,7 +77,7 @@ public class UczenController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
 
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + currentUser.getId());
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + currentUser.getId());
         final User user = userRepository.findById(currentUser.getId());
         final UczenEntity uczen = uczenRepository.findByUserId(user.getId());
         
@@ -100,34 +100,34 @@ public class UczenController {
     }
 
     @RequestMapping(value = "/CurrentUczen/zainteresowania", method = GET)
-    public List<zainteresowaniaEntity> getZainteresowaniaUczniaById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public List<ZainteresowaniaEntity> getZainteresowaniaUczniaById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
 
         return uczen.getZainteresowania();
     }
 
-    class zainteresowaniaStopienComparator implements Comparator<zainteresowaniaEntity> {
+    class zainteresowaniaStopienComparator implements Comparator<ZainteresowaniaEntity> {
 
         @Override
-        public int compare(zainteresowaniaEntity z1, zainteresowaniaEntity z2) {
+        public int compare(ZainteresowaniaEntity z1, ZainteresowaniaEntity z2) {
             return z2.getStopienZainteresowania() - z1.getStopienZainteresowania();
         }
     }
 
     @RequestMapping(value = "/CurrentUczen/zainteresowaniamax", method = GET)
-    public zainteresowaniaEntity getMaxZainteresowaniaUczniaById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+    public ZainteresowaniaEntity getMaxZainteresowaniaUczniaById(final @RequestParam(required = false, defaultValue = "false") boolean all) {
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
-        List<zainteresowaniaEntity> lz = uczen.getZainteresowania();
+        List<ZainteresowaniaEntity> lz = uczen.getZainteresowania();
         Collections.sort(lz, new zainteresowaniaStopienComparator());
 
         return lz.get(0);
@@ -143,7 +143,7 @@ public class UczenController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
 
         User user = userRepository.findById(idUsera);
         final UczenEntity uczen = new UczenEntity(newUczen.getName(), newUczen.getLastname(), newUczen.getCzegoSzukam(), newUczen.getKodpocztowy(), newUczen.getMiasto(), newUczen.getAdres(), user);
@@ -179,9 +179,9 @@ public class UczenController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         User user = userRepository.findById(currentUser.getId());
         UczenEntity uczen = uczenRepository.findByUserId(currentUser.getId());

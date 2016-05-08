@@ -75,13 +75,19 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
                 {
                 if($scope.userReg.password===$scope.userReg.passwordConfirm)
                 {
+                    console.log($location.host()+$location.port());
+                    
                     $scope.infoColor = "green";
                     $scope.signUpError = "Wszystko ok";
                                     $http({
                                     method : 'POST',
                                     url : '/reg',
                                     headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                                    data: {login:$scope.userReg.login,email:$scope.userReg.email,password:$scope.userReg.password,role:$scope.userReg.role}
+                                    data: {login:$scope.userReg.login,
+                                           email:$scope.userReg.email,
+                                           password:$scope.userReg.password,
+                                           role:$scope.userReg.role,
+                                            host:$location.host()+":"+$location.port()}
                                     }).then(function mySucces(response) {
                                         console.log(response.data);                    
                                         $window.location.href="/sign-upSuccess.html";          
@@ -103,5 +109,39 @@ app.controller("reg",function($rootScope,$scope, $http,$location,$window){
             };
     
         
-});              
+});
+
+app.controller("active",function($rootScope,$scope, $http,$location,$window){
+                console.log("hejo");
+                console.log($location.absUrl());
+                console.log($location.url());
+                
+                $scope.url = $location.absUrl();
+                $scope.id = '';
+                for(var i = 0;i<$scope.url.length;i++)
+                {
+                    //console.log($scope.url.toString().charAt(i));
+                    if($scope.url.toString().charAt(i) == '?')
+                    {
+                        for(i=i+1;i<$scope.url.length;i++)
+                        {
+                            $scope.id=$scope.id+$scope.url.toString().charAt(i);
+                        }
+                    }
+                }
+                
+                console.log($scope.id);
+                $http({
+                method: 'POST',
+                url: '/active',
+                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                data: $scope.id
+                }).success(function (data) {
+ 
+                }).error(function (data) {
+
+                });
+    
+        
+}); 
 

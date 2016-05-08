@@ -29,7 +29,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import pz.twojaszkola.profil.ProfilEntity;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 
 /**
  *
@@ -69,7 +69,7 @@ public class OcenaPrzedmiotuEntity implements Serializable {
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "przedmiotId", referencedColumnName = "id")
-    private przedmiotyEntity przedmiotId;
+    private PrzedmiotyEntity przedmiotId;
     
     @Column(name = "ocena", nullable = false)
     private Integer ocena;
@@ -77,7 +77,7 @@ public class OcenaPrzedmiotuEntity implements Serializable {
     protected OcenaPrzedmiotuEntity() {
     }
 
-    public OcenaPrzedmiotuEntity(ProfilEntity profil_id, przedmiotyEntity przedmiot_id, Integer ocena) {
+    public OcenaPrzedmiotuEntity(ProfilEntity profil_id, PrzedmiotyEntity przedmiot_id, Integer ocena) {
         this.profilId = profil_id;
         this.przedmiotId = przedmiot_id;
         this.ocena = ocena;
@@ -99,11 +99,11 @@ public class OcenaPrzedmiotuEntity implements Serializable {
         this.profilId = profil_id;
     }
 
-    public przedmiotyEntity getPrzedmiotId() {
+    public PrzedmiotyEntity getPrzedmiotId() {
         return przedmiotId;
     }
 
-    public void setPrzedmiotId(przedmiotyEntity przedmiot_id) {
+    public void setPrzedmiotId(PrzedmiotyEntity przedmiot_id) {
         this.przedmiotId = przedmiot_id;
     }
 

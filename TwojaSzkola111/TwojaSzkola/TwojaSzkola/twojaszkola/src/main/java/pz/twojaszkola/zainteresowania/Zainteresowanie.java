@@ -13,33 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pz.twojaszkola.rozszerzonePrzedmioty;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
-import pz.twojaszkola.uczen.UczenEntity;
+package pz.twojaszkola.zainteresowania;
 
 /**
  *
- * @author Agata
+ * @author radon
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class RozszerzonePrzedmiotyCmd {
-    
-    
-    private Integer profilId;
-    
-    
-    private Integer przedmiotId;
+public class Zainteresowanie {
+    private Integer id;
+    private Integer value;
 
-    public Integer getProfilId() {
-        return profilId;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getPrzedmiotId() {
-        return przedmiotId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
     }
     
     

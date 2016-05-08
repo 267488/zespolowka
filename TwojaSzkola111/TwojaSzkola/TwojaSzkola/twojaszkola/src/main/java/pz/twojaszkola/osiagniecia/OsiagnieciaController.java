@@ -41,13 +41,13 @@ import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
 import pz.twojaszkola.aktualnosciSzkola.aktualnosci;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaRepository;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
 import pz.twojaszkola.user.CurrentUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -60,7 +60,7 @@ public class OsiagnieciaController {
     private final OsiagnieciaRepository osiagnieciaRepository;
     private final UserRepository userRepository;
     private final SzkolaRepository szkolaRepository;
-    private final przedmiotyRepository przedmiotyRepo;
+    private final PrzedmiotyRepository przedmiotyRepo;
     private final ProfilRepository profilRepository;
     private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
 
@@ -68,7 +68,7 @@ public class OsiagnieciaController {
     public OsiagnieciaController(final OsiagnieciaRepository osiagnieciaRepository,
             final UserRepository userRepository,
             final SzkolaRepository szkolaRepository,
-            final przedmiotyRepository przedmiotyRepo,
+            final PrzedmiotyRepository przedmiotyRepo,
             final ProfilRepository profilRepository,
             final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {
         this.osiagnieciaRepository = osiagnieciaRepository;
@@ -132,7 +132,7 @@ public class OsiagnieciaController {
 
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "LOG1 ID PRZEDMIOTU : " + id);
 
-        przedmiotyEntity przedmiot = przedmiotyRepo.findById(newOsiagniecie.getPrzedmiot());
+        PrzedmiotyEntity przedmiot = przedmiotyRepo.findById(newOsiagniecie.getPrzedmiot());
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "PRZEDMIOT NAME" + przedmiot.getName());
 
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "NAZWA KONKURSU " + newOsiagniecie.getNazwakonkursu());

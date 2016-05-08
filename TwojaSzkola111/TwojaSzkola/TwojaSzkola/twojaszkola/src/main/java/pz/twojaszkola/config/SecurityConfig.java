@@ -71,9 +71,25 @@ public class SecurityConfig {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/","sign-up.html").permitAll()
-                    .antMatchers("/index2","/profile","/location","/ocenaPrzedmiotu","/ustawieniaSzkoly","/szkoly2", "/profilSzkoly", "/kolkaZainteresowan", "/osiagniecia", "/aktualnosciSzkola","partials/*").hasAuthority("SZKOLA")
+                    .antMatchers("/index2",
+                            "/profile",
+                            "/location",
+                            "/ocenaPrzedmiotu",
+                            "/ustawieniaSzkoly",
+                            "/szkoly2", 
+                            "/profilSzkoly", 
+                            "/kolkaZainteresowan", 
+                            "/osiagniecia", 
+                            "/aktualnosciSzkola",
+                            "partials/*").hasAuthority("SZKOLA")
                     .antMatchers("/admin.html","/admin.html/*").hasAuthority("ADMIN")
-                    .antMatchers("/index","/osiagniecia", "/zainteresowania","/uczen", "/ustawieniaUcznia","/szkoly","partials/*").hasAuthority("UCZEN")
+                    .antMatchers("/index",
+                            "/osiagniecia", 
+                            "/zainteresowania",
+                            "/uczen", 
+                            "/index.html/ustawieniaUcznia",
+                            "/szkoly",
+                            "partials/*").hasAuthority("UCZEN")
                     .and()
                     .rememberMe().authenticationSuccessHandler(customSuccessHandler).rememberMeCookieName("remember-me-cookie")
                     .and()

@@ -28,7 +28,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import pz.twojaszkola.profil.ProfilEntity;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 
 /**
  *
@@ -60,13 +60,13 @@ public class RozszerzonePrzedmiotyEntity implements Serializable {
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "przedmiotId", referencedColumnName = "id")
-    private przedmiotyEntity przedmiotId;
+    private PrzedmiotyEntity przedmiotId;
     
 
     protected RozszerzonePrzedmiotyEntity() {
     }
 
-    public RozszerzonePrzedmiotyEntity(ProfilEntity profil_id, przedmiotyEntity przedmiot_id) {
+    public RozszerzonePrzedmiotyEntity(ProfilEntity profil_id, PrzedmiotyEntity przedmiot_id) {
         this.profilId = profil_id;
         this.przedmiotId = przedmiot_id;
     }
@@ -87,11 +87,11 @@ public class RozszerzonePrzedmiotyEntity implements Serializable {
         this.profilId = profil_id;
     }
 
-    public przedmiotyEntity getPrzedmiotId() {
+    public PrzedmiotyEntity getPrzedmiotId() {
         return przedmiotId;
     }
 
-    public void setPrzedmiotId(przedmiotyEntity przedmiot_id) {
+    public void setPrzedmiotId(PrzedmiotyEntity przedmiot_id) {
         this.przedmiotId = przedmiot_id;
     }
 

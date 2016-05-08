@@ -25,8 +25,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
-import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
-import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaRepository;
 
 /**
  *
@@ -36,11 +36,11 @@ import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
 public class MedianyController {
 
     private final MedianyRepository medianyRepository;
-    private final zainteresowaniaRepository zainteresowaniaRepository;
+    private final ZainteresowaniaRepository zainteresowaniaRepository;
      private final UczenRepository uczenRepository;
 
     @Autowired
-    public MedianyController(final MedianyRepository medianyRepository, final zainteresowaniaRepository zainteresowaniaRepository, final UczenRepository uczenRepository) {
+    public MedianyController(final MedianyRepository medianyRepository, final ZainteresowaniaRepository zainteresowaniaRepository, final UczenRepository uczenRepository) {
         this.medianyRepository = medianyRepository;
         this.zainteresowaniaRepository = zainteresowaniaRepository;
         this.uczenRepository = uczenRepository;

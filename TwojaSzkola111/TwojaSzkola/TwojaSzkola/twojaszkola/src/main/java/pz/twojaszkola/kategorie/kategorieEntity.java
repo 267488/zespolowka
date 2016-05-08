@@ -31,7 +31,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 
 /**
  *
@@ -55,7 +55,7 @@ public class kategorieEntity implements Serializable {
     private String name;
     
     @OneToMany(mappedBy = "kategoria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore private List<przedmiotyEntity> przedmioty = new ArrayList<>();
+    @JsonIgnore private List<PrzedmiotyEntity> przedmioty = new ArrayList<>();
 
     protected kategorieEntity() {
     }
@@ -81,11 +81,11 @@ public class kategorieEntity implements Serializable {
         this.name = name;
     }
     
-    public List<przedmiotyEntity> getPrzedmioty() {
+    public List<PrzedmiotyEntity> getPrzedmioty() {
         return przedmioty;
     }
     
-    public void setPrzedmioty(List<przedmiotyEntity> przedmioty) {
+    public void setPrzedmioty(List<PrzedmiotyEntity> przedmioty) {
         this.przedmioty = przedmioty;
     }
     

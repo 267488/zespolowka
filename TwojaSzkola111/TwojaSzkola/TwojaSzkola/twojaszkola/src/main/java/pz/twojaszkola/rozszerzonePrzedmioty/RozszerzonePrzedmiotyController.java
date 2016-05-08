@@ -33,11 +33,11 @@ import org.springframework.web.bind.annotation.RestController;
 import pz.twojaszkola.kategorie.kategorieEntity;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -49,10 +49,10 @@ public class RozszerzonePrzedmiotyController {
 
      private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepository;
      private final ProfilRepository profilRepository;
-     private final przedmiotyRepository przedmiotyRepo;
+     private final PrzedmiotyRepository przedmiotyRepo;
      
     @Autowired
-    public RozszerzonePrzedmiotyController(final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepository, ProfilRepository profilRepository, przedmiotyRepository przedmiotyRepo) {
+    public RozszerzonePrzedmiotyController(final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepository, ProfilRepository profilRepository, PrzedmiotyRepository przedmiotyRepo) {
         this.rozszerzonePrzedmiotyRepository = rozszerzonePrzedmiotyRepository;
         this.profilRepository = profilRepository;
         this.przedmiotyRepo = przedmiotyRepo;
@@ -74,7 +74,7 @@ public class RozszerzonePrzedmiotyController {
     }
     
     //final przedmiotyEntity przedmiot = zainteresowaniaRepo.getPrzedmiotById(nazwa);
-    final przedmiotyEntity przedmiot = przedmiotyRepo.findById(3);
+    final PrzedmiotyEntity przedmiot = przedmiotyRepo.findById(3);
     final ProfilEntity profil = profilRepository.findById(1);
  
     final RozszerzonePrzedmiotyEntity rozszerzone = new RozszerzonePrzedmiotyEntity(profil, przedmiot);

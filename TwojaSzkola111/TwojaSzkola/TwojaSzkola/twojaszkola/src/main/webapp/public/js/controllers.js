@@ -24,16 +24,18 @@ var biking2Controllers = angular
             title: {text: ''},
             loading: true
         });
-biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
         
-         $scope.ileDanych = 0;
+
+biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$upload', '$modal', function ($scope, $http, $interval, $upload, $modal) {
+
+        $scope.ileDanych = 0;
         $scope.licznik = 0;
         $scope.licznikKolo = 0;
-        
 
 
 
-        
+
+
         $http.get('/api/ProponowaneSzkoly').success(function (data) {
             $scope.proponowaneSzkoly = data;
 
@@ -43,21 +45,29 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
         });
         $http.get('/api/CurrentUczen').success(function (data) {
             $scope.uczen = data;
-            
-            if($scope.uczen.mail!=null)$scope.licznik+=1;
-            if($scope.uczen.password!=null)$scope.licznik+=1;
-            if($scope.uczen.name!=null)$scope.licznik+=1;
-            if($scope.uczen.lastname!=null)$scope.licznik+=1;
-            if($scope.uczen.miasto!=null)$scope.licznik+=1;
-            if($scope.uczen.kodpocztowy!=null)$scope.licznik+=1;
-            if($scope.uczen.adres!=null)$scope.licznik+=1;
-            if($scope.uczen.czegoSzukam!=null)$scope.licznik+=1;
-            $scope.licznikKolo = ($scope.licznik/8)*100;
-            
+
+            if ($scope.uczen.mail != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.password != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.name != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.lastname != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.miasto != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.kodpocztowy != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.adres != null)
+                $scope.licznik += 1;
+            if ($scope.uczen.czegoSzukam != null)
+                $scope.licznik += 1;
+            $scope.licznikKolo = ($scope.licznik / 8) * 100;
+
             console.log($scope.licznik);
             console.log($scope.licznikKolo);
-            
-            
+
+
             $scope.zdjecie = "";
             if ($scope.uczen.galleryId.id) {
                 $scope.zdjecie = "/api/galleryUser/" + $scope.uczen.galleryId.id + ".jpg";
@@ -65,9 +75,9 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
                 $scope.zdjecie = "img/brak.jpg";
             }
             console.log("get current user");
-            
-        });    
-        
+
+        });
+
 
         $http.get('/api/aktualnosciSzkola').success(function (data) {
             $scope.aktualnosci = data;
@@ -213,7 +223,7 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
-            
+
         });
 
 
@@ -411,10 +421,41 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
 
 biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$upload', function ($scope, $modal, $http, $upload) {
 
+
+        $scope.tabZaiteresowania = [];
+        for (var i = 0; i < 15; i++)
+        {
+            $scope.tabZaiteresowania[i] = 0;
+        }
+
+        $http.get('/api/przedmioty?all=true').success(function (data) {
+            $scope.przedmioty = data;
+        });
+
+        $http.get('/api/zainteresowaniaUcznia?all=true').success(function (data) {
+            $scope.zainteresowania = data;
+            console.log($scope.zainteresowania);
+            for (var i = 0; i < 15; i++)
+            {
+                $scope.tabZaiteresowania[i] = 0;
+            }
+            for (var i = 0; i < 12; i++)
+            {
+                $scope.tabZaiteresowania[$scope.zainteresowania[i].id] = $scope.zainteresowania[i].value;
+            }
+
+            console.log($scope.tabZaiteresowania);
+            console.log("koniec get zainteresowania");
+            
+
+        });
+
+
+
         $scope.editInfo = '';
         $scope.password2;
         $http.get('/api/CurrentUczen?all=true').success(function (data) {
-            
+
             $scope.uczen = data;
             $scope.zdjecie = "";
             $scope.password2 = $scope.uczen.password;
@@ -426,12 +467,12 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
-            
+
         });
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
-        $scope.imageData = $files[0];
-                     $http.delete('/api/pictureDelete')
+            $scope.imageData = $files[0];
+            $http.delete('/api/pictureDelete')
                     .success(function (data) {
                     })
                     .error(function (data) {
@@ -460,12 +501,12 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
         };
-        
+
         //SUBMIT FUNCTION
         $scope.submit = function () {
             console.log($scope.uczen);
-            
-             $http.delete('/api/pictureDelete')
+
+            $http.delete('/api/pictureDelete')
                     .success(function (data) {
                     })
                     .error(function (data) {
@@ -493,20 +534,21 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                 console.log("UNSUCCESS");
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
-            
-            
-            
-            if($scope.uczen.password!==$scope.password2){$scope.editInfo="HASŁA NIE PASUJĄ DO SIEBIE";}
-            else{
-            
-            $http({
-                method: 'POST',
-                url: '/api/editUczen',
-                headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                data: $scope.uczen    
-            }).success(function (data) {
-                $scope.editInfo="EDYTOWANO POMYŚLNIE";
-                        $http.get('/api/CurrentUczen?all=true').success(function (data) {
+
+
+
+            if ($scope.uczen.password !== $scope.password2) {
+                $scope.editInfo = "HASŁA NIE PASUJĄ DO SIEBIE";
+            } else {
+
+                $http({
+                    method: 'POST',
+                    url: '/api/editUczen',
+                    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                    data: $scope.uczen
+                }).success(function (data) {
+                    $scope.editInfo = "EDYTOWANO POMYŚLNIE";
+                    $http.get('/api/CurrentUczen?all=true').success(function (data) {
 
                         $scope.uczen = data;
                         $scope.zdjecie = "";
@@ -520,31 +562,33 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
                             $scope.zdjecie = "img/brak.jpg";
                         }
 
-                        });
-            }).error(function (data, status) {
-                
-                
-                if (status === 400)
-                {$scope.badRequest = data;
-                    $scope.editInfo="BŁĄD EDYCJI";}
-                else if (status === 409)
-                {$scope.badRequest = 'Uczen o takim nr psl juz istnieje';   
-                    $scope.editInfo="BŁĄD EDYCJI";
-                }          
-            });    
+                    });
+                }).error(function (data, status) {
+
+
+                    if (status === 400)
+                    {
+                        $scope.badRequest = data;
+                        $scope.editInfo = "BŁĄD EDYCJI";
+                    } else if (status === 409)
+                    {
+                        $scope.badRequest = 'Uczen o takim nr psl juz istnieje';
+                        $scope.editInfo = "BŁĄD EDYCJI";
+                    }
+                });
             }
         };
         //END SUBMIT
-        
-        
+
+
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
         $scope.editPicture = function () {
-           
+
         };
-        
+
         $scope.deletePicture = function () {
             $http.delete('/api/pictureDelete')
                     .success(function (data) {
@@ -561,6 +605,156 @@ biking2Controllers.controller('EditUczenCtrl', ['$scope', '$modal', '$http', '$u
 
                     });
         };
+
+        $scope.przedmioty1 = {
+            polski: null,
+            matematyka: null,
+            angielski: null,
+        };
+
+        $scope.zainteresowanie = {
+            id: null,
+            value: null
+
+        };
+
+        $scope.infoZainteresowania = '';
+        
+        $scope.addNewZainteresowanie = function ()
+        {
+            $scope.tmp = [];
+
+
+            $("#sliders > li.sl > .value").each(function () {
+                $scope.zainteresowanie = new Object();
+                $scope.zainteresowanie.id = $(this).attr("id").toString().substring(7);
+                $scope.zainteresowanie.value = $(this).text();
+                console.log($scope.zainteresowanie.id);
+                console.log($scope.zainteresowanie.value);
+                $scope.tmp.push($scope.zainteresowanie);
+            });
+            console.log($scope.tmp);
+
+
+
+            $http({
+                method: 'POST',
+                url: '/api/setZainteresowania',
+                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                data: $scope.tmp
+            }).success(function (data) {
+                $scope.infoZainteresowania = "zapisano pomyślnie";
+            }).error(function (data) {
+                $scope.infoZainteresowania = "błąd zapisu";
+            });
+        };
+            
+            setTimeout(function(){
+            console.log("tworze suwaki");
+            
+            /*var done = false;
+            var test = false;
+
+            $('#sliders').bind("DOMSubtreeModified", function () {
+
+                if (!done) {
+
+                    $('#sliders > li.sl > span.value').each(function () {
+                        if (parseInt($(this).text(), 10) > 0) {
+                            test = true;
+                        }
+                    });
+
+                    if (test) {
+                        done = true;
+                        tutaj_wklej_cały_kod_tworzący_suwaki
+                    }
+
+                }
+
+            });*/
+
+
+            
+
+            $(document).ready(function () {
+                //$scope.temp = $("#sliders > li").length;
+                //if( $scope.temp > 2 ) {
+
+                $scope.sliders = $("#sliders .slider");
+                $scope.smax = 100;
+                $scope.smin = 0;
+
+                console.log("slider michala:");
+                console.log($scope.sliders);
+
+                $scope.sliders.each(function () {
+                    $scope.tempMaxValue = 0;
+                    $scope.startValue = parseInt($(this).siblings(".value").text(), 10);
+                    //$scope.startValue = parseInt(5, 10);
+                    $scope.totalValue = $("#total").text();
+
+                    $("#total").html($scope.totalValue - $scope.startValue);
+
+                    $(this).empty().slider({
+                        value: $scope.startValue,
+                        min: $scope.smin,
+                        max: $scope.smax,
+                        range: 'min',
+                        step: 1,
+                        slide: function (event, ui) {
+
+                            $(this).siblings(".value").text(ui.value);
+
+                            $scope.total = 0;
+
+                            $scope.sliders.not(this).each(function () {
+                                $scope.total += $(this).slider("option", "value");
+                            });
+
+                            $scope.total += ui.value;
+
+                            if ($scope.total == $scope.smax) {
+                                $scope.tempMaxValue = ui.value;
+                            }
+                            if ($scope.total > $scope.smax) {
+                                ui.value = $scope.tempMaxValue;
+                                $(this).siblings(".value").text(ui.value);
+                                return false;
+                            }
+
+                            $("#total").html($scope.smax - $scope.total);
+                        }
+                    });
+
+                });
+                /*
+                 sliders.each(function() {
+                 var v = parseInt( $(this).siblings(".value"). text(), 10 );
+                 $(this).slider( "option", "value", v);
+                 });*/
+
+                 
+
+                $("#undoIcon").on("click", function () {
+                    $scope.sliders.each(function () {
+                        $("#total").html("100");
+                        $(this).siblings(".value").text(0);
+                        $(this).find(".ui-slider-range").animate({"width": "0%"}, 400);
+                        $(this).find(".ui-slider-handle").animate({"left": "0%"}, 400);
+
+                        setTimeout(function () {
+                            $scope.sliders.each(function () {
+                                $(this).slider("option", "value", 0);
+                            });
+                        }, 400);
+                    });
+                });
+            });
+            //});
+            }, 3000);
+
+
     }]);
 //////////////// ZAINTERESOWANIA CONTROLLER /////////////////////////
 
@@ -823,19 +1017,19 @@ biking2Controllers.controller('AddNewSzkolaCtrl', ['$scope', '$modalInstance', '
 biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$upload', function ($scope, $http, $modal, $upload) {
 
         $scope.szkola1 = {
-            id:null,
-            login:null,
-            password:null,
-            mail:null,
-            name:null,
-            numer:null,
-            miasto:null,
-            adres:null,
-            kodpocztowy:null,
-            typSzkoly:null,
-            rodzajSzkoly:null,
-            galleryId:null
-        };  
+            id: null,
+            login: null,
+            password: null,
+            mail: null,
+            name: null,
+            numer: null,
+            miasto: null,
+            adres: null,
+            kodpocztowy: null,
+            typSzkoly: null,
+            rodzajSzkoly: null,
+            galleryId: null
+        };
         $scope.tmp_password;
         $scope.editError;
         $http.get('/api/przedmioty?all=true').success(function (data) {
@@ -851,7 +1045,7 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
             } else {
                 $scope.zdjecie = "img/brak.jpg";
             }
-            
+
         });
         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
             $scope.profile = data;
@@ -916,8 +1110,8 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
         };
         $scope.editInfoColor = '';
         $scope.submit2 = function () {
-               
-            console.log($scope.szkola1); 
+
+            console.log($scope.szkola1);
             //$scope.szkola.galleryId=null;
 
             $scope.submitting = true;
@@ -930,26 +1124,26 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 $http({
                     method: 'POST',
                     url: '/api/editSchool',
-                    headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
                     data: $scope.szkola
                 }).success(function (data) {
                     $scope.editInfoColor = "green";
                     $scope.editError = "edytowano pomyślnie";
                     $modal.close(data);
-                                $http.get('/api/CurrentSzkola').success(function (data) {
-                                        $scope.szkola1 = data;
-                                        $scope.tmp_password = $scope.szkola1.password;
-                                        $scope.zdjecie = "";
-                                        console.log($scope.szkola1);
-                                        if (data.galleryId.id) {
-                                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
-                                        } else {
-                                            $scope.zdjecie = "img/brak.jpg";
-                                        }
-            
-                                });
+                    $http.get('/api/CurrentSzkola').success(function (data) {
+                        $scope.szkola1 = data;
+                        $scope.tmp_password = $scope.szkola1.password;
+                        $scope.zdjecie = "";
+                        console.log($scope.szkola1);
+                        if (data.galleryId.id) {
+                            $scope.zdjecie = "/api/galleryUser/" + data.galleryId.id + ".jpg";
+                        } else {
+                            $scope.zdjecie = "img/brak.jpg";
+                        }
+
+                    });
                 }).error(function (data, status) {
-                    
+
                     if (status === 400)
                     {
                         $scope.editInfoColor = "red";
@@ -1095,12 +1289,12 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                     $scope.badRequest = 'Kolko o takiej nazwie juz istnieje';
             });
         };
-        
+
         $scope.imageData = null;
         $scope.onFileSelect = function ($files) {
             $scope.imageData = $files[0];
         };
-    
+
         $scope.deletePicture = function () {
             alert("DELETE");
             $http.delete('/api/pictureDelete')

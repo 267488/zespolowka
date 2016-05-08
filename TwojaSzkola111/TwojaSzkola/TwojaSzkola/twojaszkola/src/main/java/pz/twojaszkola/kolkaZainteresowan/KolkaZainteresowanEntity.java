@@ -30,7 +30,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.szkola.SzkolaEntity;
 
 /**
@@ -73,7 +73,7 @@ public class KolkaZainteresowanEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "przedmiot")
-    private przedmiotyEntity przedmiot;
+    private PrzedmiotyEntity przedmiot;
 
     @ManyToOne
     @JoinColumn(name = "szkola")
@@ -82,7 +82,7 @@ public class KolkaZainteresowanEntity implements Serializable {
     protected KolkaZainteresowanEntity() {
     }
 
-    public KolkaZainteresowanEntity(String nazwa, String termin, przedmiotyEntity przedmiot, SzkolaEntity szkola) {
+    public KolkaZainteresowanEntity(String nazwa, String termin, PrzedmiotyEntity przedmiot, SzkolaEntity szkola) {
         this.nazwa = nazwa;
         this.termin = termin;
         this.przedmiot = przedmiot;
@@ -113,11 +113,11 @@ public class KolkaZainteresowanEntity implements Serializable {
         this.id = id;
     }
 
-    public przedmiotyEntity getPrzedmiot() {
+    public PrzedmiotyEntity getPrzedmiot() {
         return przedmiot;
     }
 
-    public void setPrzedmiot(przedmiotyEntity przedmiot) {
+    public void setPrzedmiot(PrzedmiotyEntity przedmiot) {
         this.przedmiot = przedmiot;
     }
 

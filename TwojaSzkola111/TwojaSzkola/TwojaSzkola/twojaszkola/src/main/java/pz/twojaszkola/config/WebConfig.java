@@ -18,6 +18,7 @@ package pz.twojaszkola.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule.Priority;
+import org.hibernate.sql.Template;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
@@ -25,6 +26,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -72,6 +74,28 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public String index() {
 	    return "forward:/login.html";
 	}
+        
+        @RequestMapping("/ustawieniaUcznia")
+        public String ustawieniaUcznia(Model model)
+        {
+          
+            return "redirect:/index.html";
+        }
+        
+        @RequestMapping("/uczen")
+        public String ustawieniaUcznia1(){
+          
+            return "redirect:/index.html";
+        }
+        
+        @RequestMapping("/szkoly")
+        public String ustawieniaUcznia2(Model model)
+        {
+          
+            return "redirect:/index.html";
+        }
+        
+        
     }
     
     /**

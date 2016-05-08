@@ -39,15 +39,15 @@ import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuEntity;
 import pz.twojaszkola.OcenaPrzedmiotu.OcenaPrzedmiotuRepository;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyCmd;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaRepository;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -59,14 +59,14 @@ public class KolkaZainteresowanController {
 
     private final KolkaZainteresowanRepository kolkaZainteresowanRepository;
     private final SzkolaRepository szkolaRepository;
-    private final przedmiotyRepository przedmiotyRepo;
+    private final PrzedmiotyRepository przedmiotyRepo;
     private final ProfilRepository profilRepository;
     private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
 
     @Autowired
     public KolkaZainteresowanController(final KolkaZainteresowanRepository kolkaZainteresowanRepository,
             final SzkolaRepository szkolaRepository,
-            final przedmiotyRepository przedmiotyRepo,
+            final PrzedmiotyRepository przedmiotyRepo,
             final ProfilRepository profilRepository,
             final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo) {
         this.kolkaZainteresowanRepository = kolkaZainteresowanRepository;
@@ -112,7 +112,7 @@ public class KolkaZainteresowanController {
 
        //final przedmiotyEntity przedmiot = przedmiotyRepo.findById(newRozszerzone.getPrzedmiotId());
 
-        przedmiotyEntity przedmiot = przedmiotyRepo.findById(newKolko.getPrzedmiot());
+        PrzedmiotyEntity przedmiot = przedmiotyRepo.findById(newKolko.getPrzedmiot());
         Logger.getLogger(KolkaZainteresowanController.class.getName()).log(Level.SEVERE, "PRZEDMIOT NAME" + przedmiot.getName());
         //       List<przedmiotyEntity> przedmioty = new ArrayList<przedmiotyEntity>();
 //        for (int i = 0; i < newRozszerzone.length; i++) {

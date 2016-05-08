@@ -40,7 +40,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import pz.twojaszkola.mediany.MedianyEntity;
 import pz.twojaszkola.ulubione.UlubionaSzkolaEntity2;
 import pz.twojaszkola.user.User;
-import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
 
 /**
  *
@@ -94,7 +94,7 @@ public class UczenEntity implements Serializable {
     private User userId;
     
     @OneToMany(mappedBy = "uczenId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore private List<zainteresowaniaEntity> zainteresowania = new ArrayList<>();
+    @JsonIgnore private List<ZainteresowaniaEntity> zainteresowania = new ArrayList<>();
     
     @OneToMany(mappedBy = "uczenId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore private List<MedianyEntity> mediany = new ArrayList<>();
@@ -179,11 +179,11 @@ public class UczenEntity implements Serializable {
         this.userId = userId;
     }
     
-    public List<zainteresowaniaEntity> getZainteresowania() {
+    public List<ZainteresowaniaEntity> getZainteresowania() {
         return zainteresowania;
     }
     
-    public void setZainteresowania(List<zainteresowaniaEntity> zainteresowania) {
+    public void setZainteresowania(List<ZainteresowaniaEntity> zainteresowania) {
         this.zainteresowania = zainteresowania;
     }
     

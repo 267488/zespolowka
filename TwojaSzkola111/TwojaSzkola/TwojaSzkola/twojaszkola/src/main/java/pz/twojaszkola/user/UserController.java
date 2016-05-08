@@ -2,6 +2,7 @@ package pz.twojaszkola.user;
 
 
 import java.lang.reflect.Field;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -27,10 +28,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaRepository;
 /**
  *
  * @author radon
@@ -44,7 +49,8 @@ public class UserController{
     private final UserService userService;
     private final SzkolaRepository szkolaRepository;
     private final UczenRepository uczenRepository;
-    
+    private final PrzedmiotyRepository przedmiotyRepositoy;
+    private final ZainteresowaniaRepository zainteresowaniaRepository;
     static Properties mailServerProperties;
     static Session getMailSession;
     static MimeMessage generateMailMessage;
@@ -55,11 +61,15 @@ public class UserController{
     public UserController(UserRepository userRepository,
                           UserService userService,
                           SzkolaRepository szkolaRepository,
-                          UczenRepository uczenRepository) {
+                          UczenRepository uczenRepository,
+                          PrzedmiotyRepository przedmiotyRepository,
+                          ZainteresowaniaRepository zainteresowaniaRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.szkolaRepository = szkolaRepository;
         this.uczenRepository = uczenRepository;
+        this.przedmiotyRepositoy = przedmiotyRepository;
+        this.zainteresowaniaRepository = zainteresowaniaRepository;
     }
     
     @CrossOrigin
@@ -80,6 +90,16 @@ public class UserController{
         UczenEntity uczen = new UczenEntity(null, null, null, null, null, null, user);
         
         uczenRepository.save(uczen);
+        ZainteresowaniaEntity za = null;
+        List<ZainteresowaniaEntity> zainteresowania = new ArrayList<>();
+        List<PrzedmiotyEntity> prz = przedmiotyRepositoy.findAll();
+        int[] pid = {1,2,3,4,5,6,7,8,9,12,13,14};
+        for(PrzedmiotyEntity p : prz)
+        {
+            za = new ZainteresowaniaEntity(uczen,p,0);
+            zainteresowania.add(za);
+        }
+        zainteresowaniaRepository.save(zainteresowania);
         }
         if(usertest.getRole().equals("SZKOLA"))
         {
@@ -106,7 +126,7 @@ public class UserController{
                         + "\n user id: "+user.getId()
                         + "\n user login: "+user.getLogin()
                         + "\n user password: "+user.getPassword()                       
-                        + " \n\n http://localhost:8090/active/"+user.getId();
+                        + " \n\n http://"+usertest.getHost()+"/activeSuccess.html?"+user.getId();
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("RegCtrl:  Mail Session has been created successfully..");
  
@@ -346,17 +366,19 @@ public class UserController{
     }
 
     
-        @RequestMapping(value="/active/{id:\\d+}", method = RequestMethod.GET)   
-    public String test(final @PathVariable Integer id)
+    @RequestMapping(value="/active", method = RequestMethod.POST)   
+    public void test(@RequestBody String str)
     {
+        System.out.println("ACTIVE string: "+str);
+        Integer id = Integer.parseInt(str);
+        System.out.println("ACTIVE id: "+id);
         User user = userRepository.findById(id);
         user.setState("ACTIVE");
         userRepository.save(user);
         System.out.println("strona aktywacyjna");
         //return "strona aktywacyjna | user id to activation: "+id+"<a href='/'>wroc do strony logowania</a>";
         //return "activeSuccess.html";
-        
-        return "Aktywowano konto <br> <a href=\"/login.html\">Wróć do strony logowania</a>";
+               
     }
 }
     

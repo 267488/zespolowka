@@ -60,7 +60,11 @@ import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
-import pz.twojaszkola.zainteresowania.zainteresowaniaController;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
+import static java.lang.String.format;
+import static java.security.MessageDigest.getInstance;
+import static java.time.ZoneId.of;
+import static java.time.ZonedDateTime.now;
 
 /**
  * @author Michael J. Simons, 2014-02-22
@@ -119,7 +123,7 @@ public class GalleryUserController {
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 currentUser = (CurrentUser) auth.getPrincipal();
                 Integer idUsera = currentUser.getId();
-                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
                 
                 
                 User user = userRepository.findById(idUsera);
@@ -160,7 +164,7 @@ public class GalleryUserController {
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 currentUser = (CurrentUser) auth.getPrincipal();
                 Integer idUsera = currentUser.getId();
-                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
                 
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
@@ -184,7 +188,7 @@ public class GalleryUserController {
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 currentUser = (CurrentUser) auth.getPrincipal();
                 Integer idUsera = currentUser.getId();
-                Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
                 
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);

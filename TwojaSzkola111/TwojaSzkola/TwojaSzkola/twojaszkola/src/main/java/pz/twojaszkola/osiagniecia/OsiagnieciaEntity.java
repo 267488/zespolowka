@@ -34,7 +34,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.user.User;
 
 /**
@@ -78,7 +78,7 @@ public class OsiagnieciaEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "przedmiot")
-    private przedmiotyEntity przedmiot;
+    private PrzedmiotyEntity przedmiot;
 
     @Column(name = "szczebel")
     @Size(max = 255)
@@ -97,7 +97,7 @@ public class OsiagnieciaEntity implements Serializable {
     protected OsiagnieciaEntity() {
     }
 
-    public OsiagnieciaEntity(String nazwakonkursu, Calendar termin, przedmiotyEntity przedmiot, String szczebel,String nagroda, User userId) {
+    public OsiagnieciaEntity(String nazwakonkursu, Calendar termin, PrzedmiotyEntity przedmiot, String szczebel,String nagroda, User userId) {
         this.nazwakonkursu = nazwakonkursu;
         this.termin = termin;
         this.przedmiot = przedmiot;
@@ -130,11 +130,11 @@ public class OsiagnieciaEntity implements Serializable {
         this.termin = termin;
     }
 
-    public przedmiotyEntity getPrzedmiot() {
+    public PrzedmiotyEntity getPrzedmiot() {
         return przedmiot;
     }
 
-    public void setPrzedmiot(przedmiotyEntity przedmiot) {
+    public void setPrzedmiot(PrzedmiotyEntity przedmiot) {
         this.przedmiot = przedmiot;
     }
 

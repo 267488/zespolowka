@@ -39,6 +39,7 @@ public class UserTest {
     private String login;
     private String password;
     private String role;
+    private String host;
 
     public String getEmail() {
         return email;
@@ -71,6 +72,14 @@ public class UserTest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
     
     

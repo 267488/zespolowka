@@ -42,7 +42,7 @@ import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
-import pz.twojaszkola.zainteresowania.zainteresowaniaController;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
 
 /**
  *
@@ -76,9 +76,9 @@ public class UlubionaSzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         rv = ulubionaSzkolaRepository.findByUczenId(idUcznia);
         for (UlubionaSzkolaEntity2 u : rv) {
@@ -102,7 +102,7 @@ public class UlubionaSzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
 
         rv = ulubionaSzkolaRepository.findByUczenId(uczen.getId());
@@ -131,7 +131,7 @@ public class UlubionaSzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
         rv = ulubionaSzkolaRepository.findByUczenId(uczen.getId());
         //Logger.getLogger(UlubionaSzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + newUlubionaSzkola.getId());

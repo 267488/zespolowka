@@ -44,8 +44,7 @@ import pz.twojaszkola.mediany.MedianyRepository;
 import pz.twojaszkola.profil.ProfilEntity;
 import pz.twojaszkola.profil.ProfilRepository;
 import pz.twojaszkola.proponowaneSzkoly.proponowaneSzkolyEntity;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
@@ -55,8 +54,9 @@ import pz.twojaszkola.user.CurrentUser;
 import pz.twojaszkola.user.SuperSzkola;
 import pz.twojaszkola.user.User;
 import pz.twojaszkola.user.UserRepository;
-import pz.twojaszkola.zainteresowania.zainteresowaniaController;
-import pz.twojaszkola.zainteresowania.zainteresowaniaRepository;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaRepository;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -69,9 +69,9 @@ public class SzkolaController {
     private final SzkolaRepository szkolaRepository;
     private final MedianyRepository medianyRepository;
     private final ProfilRepository profilRepository;
-    private final przedmiotyRepository przedmiotyRepo;
+    private final PrzedmiotyRepository przedmiotyRepo;
     private final UczenRepository uczenRepository;
-    private final zainteresowaniaRepository zainteresowaniaRepo;
+    private final ZainteresowaniaRepository zainteresowaniaRepo;
     private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
     private final UlubionaSzkolaRepository ulubionaSzkolaRepo;
     private final UserRepository userRepository;
@@ -81,9 +81,9 @@ public class SzkolaController {
     public SzkolaController(final SzkolaRepository szkolaRepository,
             final MedianyRepository medianyRepository,
             final ProfilRepository profilRepository,
-            final przedmiotyRepository przedmiotyRepo,
+            final PrzedmiotyRepository przedmiotyRepo,
             final UczenRepository uczenRepository,
-            final zainteresowaniaRepository zainteresowaniaRepo,
+            final ZainteresowaniaRepository zainteresowaniaRepo,
             final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo,
             final UlubionaSzkolaRepository ulubionaSzkolaRepo,
             final UserRepository userRepository,
@@ -221,12 +221,12 @@ public class SzkolaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         Integer idUcznia = uczenRepository.findByUserId(idUsera).getId();
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUcznia);
 
         List<proponowaneSzkolyEntity> proponowane = new ArrayList<proponowaneSzkolyEntity>();
-        List<przedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
+        List<PrzedmiotyEntity> przedmioty = przedmiotyRepo.findAll(new Sort(Sort.Direction.ASC, "name", "kategoria"));
         final UczenEntity uczen = uczenRepository.findById(idUcznia);
         final String typ = uczen.getCzegoSzukam();
         Logger.getLogger(SzkolaController.class.getName()).log(Level.SEVERE, "LOG TYP: " + typ);
@@ -240,7 +240,7 @@ public class SzkolaController {
 
         for (ProfilEntity prof : profile) {
             Integer punktacja = 0;
-            for (przedmiotyEntity przed : przedmioty) {
+            for (PrzedmiotyEntity przed : przedmioty) {
                 Integer stZaint = 0;
                 Integer ocenaPrzed = 0;
                 Integer mediana = 0;
@@ -341,7 +341,7 @@ public class SzkolaController {
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
         User user = userRepository.findById(idUsera);
-        Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         SzkolaEntity szkola = szkolaRepository.findByUserId(idUsera);
         szkola.setName(updatedSzkola.getName());
         szkola.setNumer(updatedSzkola.getNumer());

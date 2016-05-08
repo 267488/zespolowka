@@ -42,16 +42,16 @@ import pz.twojaszkola.kolkaZainteresowan.KolkaZainteresowanEntity;
 import pz.twojaszkola.kolkaZainteresowan.KolkaZainteresowanRepository;
 import pz.twojaszkola.osiagniecia.OsiagnieciaEntity;
 import pz.twojaszkola.osiagniecia.OsiagnieciaRepository;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyCmd;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyEntity;
 import pz.twojaszkola.rozszerzonePrzedmioty.RozszerzonePrzedmiotyRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaRepository;
-import pz.twojaszkola.przedmioty.przedmiotyRepository;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.user.CurrentUser;
-import pz.twojaszkola.zainteresowania.zainteresowaniaController;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
+import pz.twojaszkola.przedmioty.PrzedmiotyRepository;
 
 /**
  *
@@ -64,7 +64,7 @@ public class ProfileController {
     private final ProfilRepository profilRepository;
     private final SzkolaRepository szkolaRepository;
     private final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo;
-    private final przedmiotyRepository przedmiotyRepo;
+    private final PrzedmiotyRepository przedmiotyRepo;
     private final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo;
     private final KolkaZainteresowanRepository kolkaZainteresowanRepo;
     private final OsiagnieciaRepository osiagnieciaRepo;
@@ -73,7 +73,7 @@ public class ProfileController {
     public ProfileController(final ProfilRepository profilRepository,
             final SzkolaRepository szkolaRepository,
             final RozszerzonePrzedmiotyRepository rozszerzonePrzedmiotyRepo,
-            final przedmiotyRepository przedmiotyRepo,
+            final PrzedmiotyRepository przedmiotyRepo,
             final OcenaPrzedmiotuRepository ocenaPrzedmiotuRepo,
             final KolkaZainteresowanRepository kolkaZainteresowanRepo,
             final OsiagnieciaRepository osiagnieciaRepo) {
@@ -132,7 +132,7 @@ public class ProfileController {
 
         List<ProfilEntity> rv;
         
-        List<przedmiotyEntity> przedmioty = new ArrayList<przedmiotyEntity>();
+        List<PrzedmiotyEntity> przedmioty = new ArrayList<PrzedmiotyEntity>();
         for (int i = 0; i < newRozszerzone.length; i++) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG4 ID " + i + "  przedmiot: " + newRozszerzone[i].getPrzedmiotId());
             if (newRozszerzone[i].getPrzedmiotId() != null) {
@@ -151,7 +151,7 @@ public class ProfileController {
         if (dodawanie) {
             final ProfilEntity profil = new ProfilEntity(nazwa, szkola);
             final ProfilEntity e = this.profilRepository.save(profil);
-            for (przedmiotyEntity przedmiot : przedmioty) {
+            for (PrzedmiotyEntity przedmiot : przedmioty) {
                 RozszerzonePrzedmiotyEntity rozsz = new RozszerzonePrzedmiotyEntity(profil, przedmiot);
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG5 name przedmiotu: " + przedmiot.getName());
 

@@ -37,7 +37,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotBlank;
 import pz.twojaszkola.uczen.UczenEntity;
-import pz.twojaszkola.zainteresowania.zainteresowaniaEntity;
+import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
 
 @Entity
 @Table(name = "mediany")
@@ -109,7 +109,7 @@ public class MedianyEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof zainteresowaniaEntity)) {
+        if (!(object instanceof ZainteresowaniaEntity)) {
             return false;
         }
         MedianyEntity other = (MedianyEntity) object;

@@ -18,7 +18,7 @@ package pz.twojaszkola.osiagniecia;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Calendar;
 import org.hibernate.validator.constraints.NotBlank;
-import pz.twojaszkola.przedmioty.przedmiotyEntity;
+import pz.twojaszkola.przedmioty.PrzedmiotyEntity;
 import pz.twojaszkola.szkola.SzkolaEntity;
 import pz.twojaszkola.user.User;
 
