@@ -138,7 +138,7 @@ public class OsiagnieciaController {
         Logger.getLogger(OsiagnieciaController.class.getName()).log(Level.SEVERE, "NAZWA KONKURSU " + newOsiagniecie.getNazwakonkursu());
         final OsiagnieciaEntity osiagniecie = new OsiagnieciaEntity(newOsiagniecie.getNazwakonkursu(), newOsiagniecie.getTermin(), przedmiot, newOsiagniecie.getSzczebel(), newOsiagniecie.getNagroda(), user);
         final OsiagnieciaEntity e = this.osiagnieciaRepository.save(osiagniecie);
-        if (user.getRole() == "SZKOLA") {
+        if ("SZKOLA".equals(user.getRole())) {
             Integer idSzkoly = szkolaRepository.findByUserId(idUsera).getId();
             List<ProfilEntity> profile = profilRepository.findBySzkolaId(idSzkoly);
             Integer pkt = 0;
@@ -227,7 +227,8 @@ public class OsiagnieciaController {
                     OcenaPrzedmiotuEntity ocPrzedmiotu = new OcenaPrzedmiotuEntity(profil, przedmiot, pkt);
                     this.ocenaPrzedmiotuRepo.save(ocPrzedmiotu);
                 } else {
-                    ocena.setOcena(ocena.getOcena() + pkt);
+                    Integer oldOc =ocena.getOcena();
+                    ocena.setOcena(oldOc + pkt);
                     //ocena.setId(ocena.getId());
                     this.ocenaPrzedmiotuRepo.save(ocena);
                 }
