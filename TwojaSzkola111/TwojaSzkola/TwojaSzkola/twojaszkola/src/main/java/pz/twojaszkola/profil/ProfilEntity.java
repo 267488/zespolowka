@@ -72,7 +72,13 @@ import pz.twojaszkola.szkola.SzkolaEntity;
 	    + " where b.szkola.typSzkoly = :s1 "
             + " or b.szkola.typSzkoly = :s2 "
             + " or b.szkola.typSzkoly = :s3 "
-    )
+    ),
+    @NamedQuery(
+	    name = "ProfilEntity.rmById",
+	    query
+	    = "Delete from ProfilEntity b "
+	    + " where b.id = :id"
+   )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class ProfilEntity implements Serializable {

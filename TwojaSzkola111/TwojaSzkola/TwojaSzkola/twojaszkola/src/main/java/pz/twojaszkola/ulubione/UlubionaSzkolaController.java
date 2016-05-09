@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +36,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pz.twojaszkola.aktualnosciSzkola.aktualnosciSzkolaEntity;
 import pz.twojaszkola.galleryUser.GalleryUserRepository;
 import pz.twojaszkola.support.ResourceNotFoundException;
 import pz.twojaszkola.szkola.SzkolaEntity;
@@ -42,6 +44,7 @@ import pz.twojaszkola.szkola.SzkolaRepository;
 import pz.twojaszkola.uczen.UczenEntity;
 import pz.twojaszkola.uczen.UczenRepository;
 import pz.twojaszkola.user.CurrentUser;
+import pz.twojaszkola.user.User;
 import pz.twojaszkola.zainteresowania.ZainteresowaniaController;
 
 /**
@@ -94,6 +97,18 @@ public class UlubionaSzkolaController {
         return rv2;
     }
 
+    @RequestMapping(value = "/CurrentSzkola/likecount", method = GET)
+    public int getCurrentSizeLike(final @RequestParam(required = false, defaultValue = "false") boolean all) {
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+        final SzkolaEntity szk = szkolaRepository.findByUserId(idUsera);
+        List<UlubionaSzkolaEntity2> ulubionaSzkola = ulubionaSzkolaRepository.findBySzkolaId(szk.getId()); //user.getAktualnosciSzkola();
+
+        return ulubionaSzkola.size();
+    }
+    
     @RequestMapping(value = "/ulubionaSzkola/{id:\\d+}", method = POST)
     @PreAuthorize("isAuthenticated()")
     public UlubionaSzkolaEntity2 createUlubionaSzkola(@PathVariable Integer id) {
@@ -123,18 +138,21 @@ public class UlubionaSzkolaController {
         return null;
     }
 
-    @RequestMapping(value = "/ulubionaSzkolaDelete/{id:\\d+}", method = DELETE)
+    @RequestMapping(value = "/ulubionaSzkolaDelete/{id}", method = DELETE)
     @PreAuthorize("isAuthenticated()")
+    @Modifying
+    @Transactional
     public UlubionaSzkolaEntity2 deleteUlubionaSzkola(@PathVariable Integer id) {
         List<UlubionaSzkolaEntity2> rv;
         CurrentUser currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         currentUser = (CurrentUser) auth.getPrincipal();
         Integer idUsera = currentUser.getId();
-        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+       // Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
         final UczenEntity uczen = uczenRepository.findByUserId(idUsera);
         rv = ulubionaSzkolaRepository.findByUczenId(uczen.getId());
         //Logger.getLogger(UlubionaSzkolaController.class.getName()).log(Level.SEVERE, "LOG: " + newUlubionaSzkola.getId());
+        //Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOGdelUlubId: " + id);
         UlubionaSzkolaEntity2 szkolaDoUsuniecia = null;
         boolean usuwanie = false;
         for (UlubionaSzkolaEntity2 szk : rv) {
@@ -144,9 +162,11 @@ public class UlubionaSzkolaController {
             }
         }
         if (usuwanie) {
-            final SzkolaEntity szkola = szkolaRepository.findById(id);
-            this.szkolaRepository.save(szkola);
-            ulubionaSzkolaRepository.delete(szkolaDoUsuniecia);
+            //final SzkolaEntity szkola = szkolaRepository.findById(id);
+            //this.szkolaRepository.save(szkola);
+            //Logger.getLogger(zainteresowaniaController.class.getName()).log(Level.SEVERE, "LOGdelUlubName: " + szkolaDoUsuniecia.getId());
+            //ulubionaSzkolaRepository.delete(szkolaDoUsuniecia);
+            ulubionaSzkolaRepository.rmById(szkolaDoUsuniecia.getId());
             return szkolaDoUsuniecia;
         }
         return null;

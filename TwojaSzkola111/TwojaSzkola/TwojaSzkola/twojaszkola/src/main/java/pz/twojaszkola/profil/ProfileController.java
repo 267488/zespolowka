@@ -275,13 +275,16 @@ public class ProfileController {
         return profilRepository.save(profil);
     }
 
-    @RequestMapping(value = "/profilDelete/{id}", method = DELETE)
+    @RequestMapping(value = "/profil/{id}", method = DELETE)
     @PreAuthorize("isAuthenticated()")
     @Transactional
     public void deleteProfil(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
 
         final ProfilEntity profil = profilRepository.findById(id);
-        profilRepository.delete(profil);
+        Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, "LOG " + profil.getNazwa());
+        ocenaPrzedmiotuRepo.deleteInBatch(profil.getOcenyPrzedmiotow());
+        rozszerzonePrzedmiotyRepo.deleteInBatch(profil.getRozszerzonePrzedmioty());
+        profilRepository.rmById(profil.getId());
 
         //return uczen;
     }

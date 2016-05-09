@@ -31,15 +31,7 @@ biking2Controllers.controller('IndexCtrl', ['$scope', '$http', '$interval', '$up
         $scope.ileDanych = 0;
         $scope.licznik = 0;
         $scope.licznikKolo = 0;
-<<<<<<< HEAD
 
-
-
-
-
-=======
-        
->>>>>>> origin/nowa-galaz
         $http.get('/api/ProponowaneSzkoly').success(function (data) {
             $scope.proponowaneSzkoly = data;
 
@@ -230,7 +222,9 @@ biking2Controllers.controller('Index2Ctrl', ['$scope', '$http', '$interval', '$u
             }
 
         });
-
+        $http.get('/api/CurrentSzkola/likecount?all=true').success(function (data) {
+            $scope.like = data;
+        });
 
         $scope.editSuperSzkola = function () {
 
@@ -326,7 +320,7 @@ biking2Controllers.controller('UczenCtrl', ['$scope', '$http', '$modal', '$uploa
                 $scope.zdjecie = "img/brak.jpg";
             }
         });
-        $http.get('/api/zainteresowaniaUcznia?all=true').success(function (data) {
+        $http.get('/api/ZainteresowaniaUcznia2?all=true').success(function (data) {
             $scope.zainteresowania = data;
         });
         $http.get('/api//StopnieZainteresowanUcznia?all=true').success(function (data) {
@@ -1191,13 +1185,13 @@ biking2Controllers.controller('EditSzkolaCtrl', ['$scope', '$http', '$modal', '$
                 $scope.badRequest = 'There\'s something wrong with your input, please check!';
             });
         };
-        $scope.UsunProfil = function (profil) {
-            $http.delete('/api/profilDelete/' + profil.id)
+        $scope.UsunProfil = function (id) {
+            $http.delete('/api/profil/' + id)
                     .success(function () {
                         $http.get('/api/profileCurrentSchool?all=true').success(function (data) {
                             $scope.profile = data;
                         });
-                        alert(" USUNIETO PROFIL " + profil.id);
+                        alert(" USUNIETO PROFIL " + id);
                     })
                     .error(function () {
 

@@ -17,6 +17,7 @@ package pz.twojaszkola.profil;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  *
@@ -28,4 +29,6 @@ public interface ProfilRepository extends JpaRepository<ProfilEntity, Integer> {
     List<ProfilEntity> findBySzkolaId(final Integer idSzkoly);
     List<ProfilEntity> findByTypSzkoly(final String typSzkoly);
     List<ProfilEntity> findSzkolySrednie(final String s1, final String s2, final String s3);
+    @Modifying
+    void rmById(final Integer id);
 }
