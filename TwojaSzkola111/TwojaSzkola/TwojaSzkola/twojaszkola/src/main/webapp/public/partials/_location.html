@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Lokalizacja</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+
+        <p>Lokalizacja szkół, które szukasz.</p>
+        <div class="list-container" style="margin: 10px;">    
+            <!--<div class="content" ng-repeat="s in szkola| orderBy:['name', 'adres', 'kodpocztowy']">
+                {{ s.name}}
+                {{ s.miasto}}
+                {{ s.adres}}
+			Zakomentowane, możliwość zobaczenia jakie są dodane szkoły
+            </div>-->
+        </div>
+
+
+        <p data-ng-show="locations.length > 0">Last update was on: {{locations[locations.length - 1].createdAt| date: 'HH:mm:ss'}}.</p>
+    </div>
+    <div class="col-md-9">
+        <div id="map" style="width: 500px; height: 500px; border: 1px solid black; background: white;">    
+        </div>
+    </div>
+    <script src="../js/locations.js" type="text/javascript"></script>   
+    <script src="../js/controllers.js" type="text/javascript"></script>
+</div>
+

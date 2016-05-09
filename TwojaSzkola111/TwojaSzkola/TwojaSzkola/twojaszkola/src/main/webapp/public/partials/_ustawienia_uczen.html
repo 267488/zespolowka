@@ -1,0 +1,210 @@
+<!-- FORMS -->
+<div class="col-sm-12 col-lg-6">
+
+    <div class="widget profile-edition">
+
+        <h2 class="title">TWÓJ PROFIL</h2>
+
+        <hr>
+
+        <div class="main-info">
+            <div class="left">
+                <img src="{{zdjecie}}" class="img-circle img-responsive" width="80" height="80" alt="Zdjęcie profilowe" >
+            </div>
+            <div class="right">
+                <!--        <h3 class="name">{{uczen.name}} {{uczen.lastname}}</h3>
+                       <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                           <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                           <div class="col-sm-10">
+                               <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                           </div>
+                       </div>
+                      <a class="button-curve grey transparent btn btn-block" data-ng-click="editPicture();">ZMIEŃ ZDJĘCIE</a>
+                -->   
+                <form class="btn-container" action="" method="post" enctype="multipart/form-data">
+                    <div class="upload">
+                        <input type="file" name="upload" data-ng-file-select="onFileSelect($files);" class="button-curve grey transparent btn btn-block" type="button">
+                    </div>
+                </form>
+                <a class="button-curve orange transparent btn btn-block" data-ng-click="deletePicture();" >USUŃ ZDJĘCIE</a> 
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="forms-container">
+            <form class="forms">
+
+                <div class="form">
+                    <label for="inputEmail">E-MAIL</label>
+                    <div class="input-group email">
+                        <i class="fa fa-envelope fa-1"></i>
+                        <input type="email" id="inputEmail" class="form-control have-icon" placeholder="Zmień adres e-mail" data-ng-model="uczen.mail">
+                    </div>
+                </div>
+
+                <div class="form half-width-1">
+                    <label for="inputPassword">NOWE HASŁO</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Hasło musi posiadać minimum 8 znaków."></i>
+                    <div class="input-group password">
+                        <i class="fa fa-lock fa-1"></i>
+                        <input type="password" id="inputPassword" class="form-control have-icon" placeholder="Wpisz nowe hasło" data-ng-model="uczen.password">
+                    </div>
+                </div>
+
+                <div class="form half-width-2">
+                    <label for="inputPassword2">POTWIERDŹ HASŁO</label>
+                    <div class="input-group password2">
+                        <i class="fa fa-lock fa-1"></i>
+                        <input type="password" id="inputPassword2" class="form-control have-icon" placeholder="Wpisz ponownie hasło" data-ng-model="password2">
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form half-width-1">
+                    <label for="inputName">IMIĘ</label>
+                    <div class="input-group">
+                        <input type="text" id="inputName"  class="form-control" placeholder="Wpisz swoje imię" data-ng-model="uczen.name">
+                    </div>
+                </div>
+
+                <div class="form half-width-2">
+                    <label for="inputEmail">NAZWISKO</label>
+                    <div class="input-group">
+                        <input type="text" id="inputSurname"  class="form-control" placeholder="Wpisz swoje nazwisko" data-ng-model="uczen.lastname">
+                    </div>
+                </div>
+
+                <div class="form half-width-1">
+                    <label for="inputCity">MIASTO</label>
+                    <div class="input-group">
+                        <input  type="text" id="inputCity"  class="form-control" placeholder="Podaj nazwę miasta" value="Toruń">
+                    </div>
+                </div>
+
+                <div class="form half-width-2">
+                    <label for="inputZipcode">KOD POCZTOWY</label>
+                    <div class="input-group">
+                        <input  type="text" id="inputZipcode"  class="form-control" placeholder="Wpisz kod pocztowy" data-ng-model="uczen.kodpocztowy">
+                    </div>
+                </div>
+
+                <div class="form">
+                    <label for="inputZipcode">ADRES ZAMIESZKANIA</label><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Jeśli podasz swój adres, algorytm będzie liczył Twoją odległość od szkoły."></i>
+                    <div class="input-group">
+                        <input data-ng-model="uczen.adres" type="text" id="inputZipcode"  class="form-control" placeholder="Podaj nazwę ulicy i nr bloku/domu" value="ul. Warszawska 13/48">
+                    </div>
+                </div>
+
+                <div class="form last">
+                    <label for="inputSearchingSchool">CZEGO SZUKAM</label><i class="fa fa-info-circle" id="list2-tooltip" data-toggle="tooltip" data-placement="top" title="Jakiego typu szkoły poszukujesz?"></i>
+                    <div class="input-group">
+                        <select class="form-control" id="inputSearchingSchool" ng-model="uczen.czegoSzukam">
+                            <option>Szkoła Podstawowa</option>
+                            <option>Gimnazjum</option>
+                            <option>Technikum</option>
+                            <option>Szkoła Zawodowa</option>
+                            <option>Liceum</option>
+                            <option>Szkoła Średnia dowolnego typu</option>
+                        </select>
+                    </div>
+                </div>
+                <label for="inputZipcode">{{editInfo}}</label>
+                <button class="button-curve btn btn-lg btn-primary btn-block" type="submit" data-ng-click="submit();">ZAPISZ</button>
+            </form>	
+        </div>
+
+    </div>
+</div>
+
+<!-- ZAINTERESOWANIA -->
+<div class="col-sm-12 col-lg-6">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget settings-student">
+
+                <h2 class="title">ZAINTERESOWANIA <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Co interesuje Cię najbardziej? Przyznaj temu najwięcej punktów!"></i></h2>
+
+                <hr>
+
+                <div class="sliders-container">
+                    <form>
+
+                        <ul id="sliders">
+                            <li class="title">PUNKTY DO ROZDANIA: <div id="total">100</div><i id="undoIcon" class="fa fa-undo"></i></li>
+                            <li class="sl">
+                                <div class="name">Polski:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-7">{{tabZaiteresowania[7]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Matematyka:</div>
+                                <div class="slider"></div>
+                                <span  class="value" id="szkola-1">{{tabZaiteresowania[1]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Angielski:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-12">{{tabZaiteresowania[12]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Historia:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-8">{{tabZaiteresowania[8]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">WOS:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-9">{{tabZaiteresowania[9]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Fizyka:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-5">{{tabZaiteresowania[5]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Chemia:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-4">{{tabZaiteresowania[4]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Biologia:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-2">{{tabZaiteresowania[2]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Geografia:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-3">{{tabZaiteresowania[3]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Informatyka:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-6">{{tabZaiteresowania[6]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">Sztuka:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-13">{{tabZaiteresowania[13]}}</span>
+                            </li>
+                            <li class="sl">
+                                <div class="name">WF:</div>
+                                <div class="slider"></div>
+                                <span class="value" id="szkola-14">{{tabZaiteresowania[14]}}</span>
+                            </li>
+                        </ul>
+
+                        <button class="button-curve btn btn-lg btn-primary btn-block" type="submit" data-ng-click="addNewZainteresowanie()">ZAPISZ</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<script src="js/settings-student.js"></script>-->
+

@@ -1,0 +1,172 @@
+<!-- PANEL BOCZNY -->
+<div class="col-sm-12 col-lg-6 col-lg-push-6">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget info-widget">
+
+                <h2 class="title">PROFIL</h2>
+
+                <div class="text">
+                    UZUPEŁNIJ DANE W SWOIM PROFILU, ABYŚMY MOGLI ZAPROPONOWAĆ CI SZKOŁĘ, KTÓRA BĘDZIE LEPIEJ DO CIEBIE PASOWAĆ!
+                </div>
+
+                <div class="counter">
+                    <div class="numbers">
+                        <span class="number">{{licznik}}</span>
+                        <em>/</em>
+                        <span class="total">8</span>
+                    </div>
+                    <div id="graph0" class="piechart" 
+                         data-amounts="1,4"
+                         data-fills="#6563a4,#e3e7f0"
+                         data-size="30"
+                         style="width: 30px; height: 30px;"
+                         data-thickness="5">
+                    </div>
+                </div>
+
+                <div class="counter-title">WYPEŁNIONO</div>
+
+                <div class="button-container"> 
+                    <a href="/ustawieniaUcznia" type="button" class="button-curve btn btn-primary btn-lg">UZUPEŁNIJ DANE</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 widget-container">
+
+            <h2 class="title">PROPONOWANE SZKOŁY</h2>
+
+            <div class="widget suggested">
+
+                <div class="list-container" data-mcs-theme="minimal-dark">
+
+                    <div class="content level1" ng-repeat="s in proponowaneSzkoly">
+
+                        <a href="#" title="{{ s.szkola.profilId.szkola.name}}">
+                            <img class="img" src="{{s.zdjecie}}" >
+                        </a>
+
+                        <div class="text-container">
+                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.szkola.profilId.szkola.typSzkoly}}</span><span> nr </span><span class="number">{{ s.szkola.profilId.szkola.numer}}</span></h5></a>
+                            <a href="#" title=""><h4 class="profile-name">{{ s.szkola.profilId.nazwa}}</h4></a>
+                            <div class="city">{{ s.szkola.profilId.szkola.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.szkola.profilId.szkola.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
+                        </div>
+
+                       
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 widget-container">
+
+            <h2 class="title">ULUBIONE SZKOŁY</h2>
+
+            <div class="widget favorite">
+
+                <div class="list-container" data-mcs-theme="minimal-dark">
+                    <div class="content level1" ng-repeat="s in ulubione_szkoly| orderBy:['szkolaId']">
+
+                        <a href="#" title="{{ s.ulubiona.szkolaId.name}}">
+                            <img class="img" src="{{s.zdjecie}}" >
+                        </a>
+
+                        <div class="text-container">
+                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.ulubiona.szkolaId.typSzkoly}}</span><span> nr </span><span class="number">{{ s.ulubiona.szkolaId.numer}}</span></h5></a>
+                            <div class="city">{{ s.ulubiona.szkolaId.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.ulubiona.szkolaId.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
+                        </div>
+
+                        <span class="glyphicon glyphicon-star" id="{{ s.ulubiona.szkolaId.id}}" ng-click="Ulubione($event)"></span>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- TABLICA -->
+<div class="col-sm-12 col-lg-6 col-lg-pull-6">
+    <div class="widget-container">
+
+        <h2 class="title">TABLICA <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Twój post będą mogli zobaczyć wszyscy."></i></h2>
+
+        <div class="widget board">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="feedback">
+
+                        <div class="form-group">
+                            <label for="boardFeedback" class="">TYTUŁ</label>
+                            <input id="boardFeedback" class="form-control text" placeholder="Nazwij swój post" data-ng-model="NewAktualnosc.tytul"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="boardFeedback" class="">TWOJA WIADOMOŚĆ</label>
+                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="O czym chcesz napisać?" data-ng-model="NewAktualnosc.tekst">></textarea>
+                        </div>
+                        
+                        <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                            <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                            </div>
+                        </div>
+
+                        <div class="button-container">
+                            <button class="send button-curve btn btn-lg" data-ng-click="submit()">OPUBLIKUJ</button>
+                        </div>
+
+                    </div>
+
+                    <div class="posts" data-mcs-theme="minimal-dark">
+
+                        <div class="post" ng-repeat="a in aktualnosci">
+
+                            <div class="profile-info">
+                                <img src="{{a.zdjecie}}" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
+                                <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
+                            </div>
+
+                            <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
+                            <div class="image" ng-repeat="i in a.galleryId">
+                                <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
+                            </div>
+                            <div class="text">{{ a.aktualnosc.tekst}}</div>
+
+                            <div class="meta">
+
+                                <div class="time" data-toggle="tooltip" data-placement="right" title="23 minuty temu">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    <span class="count">{{ a.aktualnosc.dataPost | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script src="js/home-student.js"></script>

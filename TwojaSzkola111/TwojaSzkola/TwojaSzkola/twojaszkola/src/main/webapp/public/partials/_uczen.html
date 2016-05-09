@@ -1,0 +1,205 @@
+
+<!-- PANEL BOCZNY -->
+<div class="col-sm-12 col-lg-6">
+
+    <!-- PROFIL -->
+    <div class="row">						
+        <div class="col-sm-12">
+
+            <div class="widget profile-info">
+
+                <div class="main-info">
+                    <div class="left">
+                        <img src="{{zdjecie}}" class="img-responsive" alt="Zdjęcie profilowe" >
+                    </div>
+                    <div class="right">
+                        <h3 class="name">{{ uczen.name}} {{ uczen.lastname}}</h3>
+                        <div class="meta">
+                            <span class="city">Toruń</span>
+                            <span class="searchingSchool">{{ uczen.czegoSzukam}}</span>
+                        </div>
+                        <div class="summary posts">
+                            <span><i class="fa fa-pencil-square" aria-hidden="true"></i> POSTY: </span>
+                            <span class="number">{{ilosc}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>				
+
+        </div>
+    </div>
+
+    <!-- WYKRES -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="widget">
+
+                <h2 class="title">ZAINTERESOWANIA</h2>
+
+                <hr>
+
+                <div class="graph-container">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="graph chart">
+                                <div id="graph0" class="piechart" 
+                                     data-amounts="17,17,14,13,39"
+                                     data-fills="#1DE9B6,#ffb300,#ff3366,#00B0FF,#ba77ff,#ff99b2,#6563a4,#26A69A"
+                                     data-size="200"
+                                     style="width: 200px; height: 200px;"
+                                     data-thickness="7">
+                                    <div class="center-info">
+                                        <span>{{max.stopienZainteresowania}}</span>
+                                        <em>%</em>
+                                        <div class="name">{{max.przedmiotId.name}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+                            <ul class="graph legend two-rows">
+                                <li data-ng-repeat="z in zainteresowania">
+                                    <span class="color">{{z.stopienZainteresowania}}</span>
+                                    <em>%</em> 
+                                    <div class="name">{{z.przedmiotId.name}}</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ULUBIONE SZKOŁY -->
+    <div class="row">
+        <div class="col-sm-12 widget-container">
+
+            <h2 class="title">ULUBIONE SZKOŁY</h2>
+
+            <div class="widget favorite">
+
+                <div class="list-container" data-mcs-theme="minimal-dark">
+                    <div class="content level1" ng-repeat="s in ulubione_szkoly">
+
+                        <a href="#" title="{{ s.ulubiona.szkolaId.name}}">
+                            <img class="img" src="{{s.zdjecie}}" >
+                        </a>
+
+                        <div class="text-container">
+                            <a href="#" title=""><h5 class="name"><span class="type">{{ s.ulubiona.szkolaId.typSzkoly}}</span><span> nr </span><span class="number">{{ s.ulubiona.szkolaId.numer}}</span></h5></a>
+                            <div class="city">{{ s.ulubiona.szkolaId.miasto}}</div><div class="school">Szkoła</div><div class="school-genre">{{ s.ulubiona.szkolaId.rodzajSzkoly}}</div><div class="distance">null</div><div class="unit">km</div>
+                        </div>
+
+                        <span class="glyphicon glyphicon-star" id="{{ s.ulubiona.szkolaId.id}}" ng-click="Ulubione($event)"></span>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- TABLICA -->
+<div class="col-sm-12 col-lg-6">
+    <div class="widget-container">
+
+        <h2 class="title">POSTY UŻYTKOWNIKA <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Twój post będą mogli zobaczyć wszyscy."></i></h2>
+
+        <div class="widget board">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="feedback">
+
+                        <div class="form-group">
+                            <label for="boardFeedback" class="">TYTUŁ</label>
+                            <input id="boardFeedback" class="form-control text" placeholder="Nazwij swój post" data-ng-model="NewAktualnosc.tytul"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="boardFeedback" class="">TWOJA WIADOMOŚĆ</label>
+                            <textarea id="boardFeedback" class="form-control text" rows="3" placeholder="O czym chcesz napisać?" data-ng-model="NewAktualnosc.tekst">></textarea>
+                        </div>
+
+                        <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                            <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                            </div>
+                        </div>
+
+                        <div class="button-container">
+                            <button class="send button-curve btn btn-lg" data-ng-click="submit()">OPUBLIKUJ</button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="posts" data-mcs-theme="minimal-dark">
+
+                        <div class="post" ng-repeat="a in aktualnosci">
+
+                            <div class="profile-info">
+                                <img src="{{a.zdjecie}}" class="profile-img img-circle img-responsive" alt="Zdjęcie profilowe">
+                                <h5 class="name-container"><span class="name">{{ a.podpis}}</span></h5>
+                            </div>
+
+                            <h4 class="title">{{ a.aktualnosc.tytul}}</h4>
+                            <div class="image" ng-repeat="i in a.galleryId">
+                                <a href="#"><img src="/api/galleryPictures/{{i.id}}.jpg" class="img-responsive" alt="Zdjęcie profilowe" ></a>
+                            </div>
+                            <div class="text">{{ a.aktualnosc.tekst}}</div>
+
+                            <div class="meta">
+
+                                <div class="time" data-toggle="tooltip" data-placement="right" title="23 minuty temu">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    <span class="count">{{ a.aktualnosc.dataPost | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                                </div>
+
+                            </div>
+                            <div>
+                                <!--         <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+                                             <label for="inputImageData" class="col-sm-2 control-label">Image</label>
+                                             <div class="col-sm-10">
+                                                 <input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+                                             </div>
+                                         </div>
+         
+                                         <div>
+                                             <br />
+                                             <button type="button" id="{{a.aktualnosc.id}}" class="btn btn-default" data-ng-click="ZaladujObrazek($event);">Dodaj Obrazek</button>
+                                         </div>
+                                -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="js/profile-student.js"></script>

@@ -1,0 +1,90 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel();">&times;</button>
+    <h4 class="modal-title">Nowa szkola</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="theForm" role="form" data-ng-submit="submit();">
+        <div class="form-group" data-ng-show="badRequest">
+            <div class="col-sm-offset-2 col-sm-10">
+                <label class="text-danger">
+                    {{badRequest}}
+                </label>
+            </div>
+        </div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputName.$invalid,'has-success': theForm.inputName.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">NAZWA</label>
+            <div class="col-sm-10">
+                <input id="inputName" name="inputName" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.name" data-ng-required="true"/>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputNumer.$invalid,'has-success': theForm.inputNumer.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">NUMER</label>
+            <div class="col-sm-10">
+                <input id="inputNumer" name="inputNumer" type="number" class="form-control" data-ng-model="szkola.numer" data-ng-required="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="searchEducationLevel">TYP SZKOŁY</label>
+            <select class="form-control" ng-model="szkola.typSzkoly" id="searchEducationLevel">
+                <option>Szkoła Podstawowa</option>
+                <option>Gimnazjum</option>
+                <option>Technikum</option>
+                <option>Szkoła Zawodowa</option>
+                <option>Liceum</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="searchSchoolType">RODZAJ SZKOŁY</label>
+            <select class="form-control" ng-model="szkola.rodzajSzkoly" id="searchSchoolType">
+                <option>publiczna</option>
+                <option>prywatna</option>
+            </select>
+        </div>
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputMail.$invalid,'has-success': theForm.inputMail.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">E-MAIL</label>
+            <div class="col-sm-10">
+                <input id="inputMail" name="inputMail" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" data-ng-model="szkola.mail" data-ng-required="true"/>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputKodpocztowy.$invalid,'has-success': theForm.inputKodpocztowy.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">KOD POCZTOWY</label>
+            <div class="col-sm-10">
+                <input id="inputKodpocztowy" name="inputKodpocztowy" type="text" class="form-control" data-ng-model="szkola.kodpocztowy" data-ng-required="true"/>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputMiasto.$invalid,'has-success': theForm.inputMiasto.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">MIASTO</label>
+            <div class="col-sm-10">
+                <input id="inputMiasto" name="inputMiasto" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.miasto" data-ng-required="true"/>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputAdres.$invalid,'has-success': theForm.inputAdres.$valid}">
+            <label for="inputName" class="col-sm-2 control-label">ULICA</label>
+            <div class="col-sm-10">
+                <input id="inputAdres" name="inputAdres" type="text" pattern="[a-zA-Z]" class="form-control" data-ng-model="szkola.adres" data-ng-required="true"/>
+            </div>
+        </div>
+        
+        <div class="form-group" data-ng-class="{'has-error': theForm.inputImageData.$invalid,'has-success': theForm.inputImageData.$valid}">
+	    <label for="inputImageData" class="col-sm-2 control-label">Image file</label>
+	    <div class="col-sm-10">
+		<input type="file" id="inputImageData" name="inputImageData" data-ng-file-select="onFileSelect($files);" />
+	    </div>
+	</div>
+        
+        <div>
+	    <br />
+	    <button type="button" class="btn btn-default" data-ng-click="ZaladujObrazek();">Załaduj Obrazek</button>
+	</div>
+        
+    </form>
+</div>
+<div class="modal-footer">
+    <img src="/img/waiting.gif" alt="waiting" data-ng-show="submitting" />&#160;&#160;
+    <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="theForm.$invalid || submitting" data-ng-click="submit();">Save szkola</button>
+</div>
