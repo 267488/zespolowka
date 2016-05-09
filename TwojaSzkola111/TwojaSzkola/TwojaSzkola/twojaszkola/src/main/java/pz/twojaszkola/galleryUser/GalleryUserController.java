@@ -65,6 +65,7 @@ import static java.lang.String.format;
 import static java.security.MessageDigest.getInstance;
 import static java.time.ZoneId.of;
 import static java.time.ZonedDateTime.now;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Michael J. Simons, 2014-02-22
@@ -124,8 +125,7 @@ public class GalleryUserController {
                 currentUser = (CurrentUser) auth.getPrincipal();
                 Integer idUsera = currentUser.getId();
                 Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-                
-                
+
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
                 user.setGalleryId(galleryUser);
@@ -146,6 +146,7 @@ public class GalleryUserController {
     ////// nieużywana //////////////////
     @RequestMapping(value = "/api/galleryUserEdit", method = POST)
     @PreAuthorize("isAuthenticated()")
+    @Transactional
     public ResponseEntity<GalleryUserEntity> editGalleryUser(
             @RequestParam("imageData")
             final MultipartFile imageData
@@ -165,11 +166,11 @@ public class GalleryUserController {
                 currentUser = (CurrentUser) auth.getPrincipal();
                 Integer idUsera = currentUser.getId();
                 Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-                
+
                 User user = userRepository.findById(idUsera);
                 GalleryUserEntity galleryUser = new GalleryUserEntity(user, filename);
                 GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);
-                this.galleryUserRepository.delete(oldGallery);
+                this.galleryUserRepository.rmById(oldGallery.getId());
                 rv = new ResponseEntity<>(this.galleryUserRepository.save(galleryUser), HttpStatus.OK);
             } catch (IOException e) {
                 // Could not store data...
@@ -180,22 +181,23 @@ public class GalleryUserController {
         }
         return rv;
     }
-    
-     @RequestMapping(value = "/api/pictureDelete", method = DELETE)
+
+    @RequestMapping(value = "/api/pictureDelete", method = DELETE)
     @PreAuthorize("isAuthenticated()")
+    @Transactional
     public GalleryUserEntity deleteGalleryUser() {
-                CurrentUser currentUser = null;
-                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                currentUser = (CurrentUser) auth.getPrincipal();
-                Integer idUsera = currentUser.getId();
-                Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
-                
-                User user = userRepository.findById(idUsera);
-                GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);
-                this.galleryUserRepository.delete(oldGallery);
-                return oldGallery;
+        CurrentUser currentUser = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        currentUser = (CurrentUser) auth.getPrincipal();
+        Integer idUsera = currentUser.getId();
+        Logger.getLogger(ZainteresowaniaController.class.getName()).log(Level.SEVERE, "LOG: " + idUsera);
+
+        User user = userRepository.findById(idUsera);
+        GalleryUserEntity oldGallery = galleryUserRepository.findByUserId(idUsera);
+        this.galleryUserRepository.rmById(oldGallery.getId());
+        return oldGallery;
     }
-    
+
     @RequestMapping({"/api/galleryUser/{id:\\d+}.jpg"})
     public void getGalleryUser(
             final @PathVariable Integer id,

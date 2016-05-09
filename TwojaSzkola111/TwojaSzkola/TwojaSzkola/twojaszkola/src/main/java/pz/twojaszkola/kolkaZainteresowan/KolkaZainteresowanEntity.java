@@ -51,7 +51,13 @@ import pz.twojaszkola.szkola.SzkolaEntity;
             query
             = "Select b from KolkaZainteresowanEntity b "
             + " where b.przedmiot.id = :idPrzedmiotu"
-    )
+    ),
+    @NamedQuery(
+	    name = "KolkaZainteresowanEntity.rmById",
+	    query
+	    = "Delete from KolkaZainteresowanEntity b "
+	    + " where b.id = :id"
+   )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class KolkaZainteresowanEntity implements Serializable {

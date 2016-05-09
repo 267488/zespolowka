@@ -31,6 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -236,6 +237,15 @@ public class OsiagnieciaController {
         }
         return e;
 
+    }
+    
+    @RequestMapping(value = "/osiagniecia/{id}", method = DELETE)
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public void deleteOsiagniecia(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
+
+        final OsiagnieciaEntity kolo = osiagnieciaRepository.findById(id);
+        osiagnieciaRepository.rmById(kolo.getId());
     }
 
     @RequestMapping(value = "/osiagniecia{id:\\d+}", method = PUT)

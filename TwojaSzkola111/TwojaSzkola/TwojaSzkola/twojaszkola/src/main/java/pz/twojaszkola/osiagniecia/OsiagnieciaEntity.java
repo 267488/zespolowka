@@ -56,7 +56,13 @@ import pz.twojaszkola.user.User;
             = "Select b from OsiagnieciaEntity b "
             + " where b.przedmiot.id = :idPrzedmiotu"
             + " and b.userId.id = :idUsera"
-    )
+    ),
+    @NamedQuery(
+	    name = "OsiagnieciaEntity.rmById",
+	    query
+	    = "Delete from OsiagnieciaEntity b "
+	    + " where b.id = :id"
+   )
 })
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class OsiagnieciaEntity implements Serializable {

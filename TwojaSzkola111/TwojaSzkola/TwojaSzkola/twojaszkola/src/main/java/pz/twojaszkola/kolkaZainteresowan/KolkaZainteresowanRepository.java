@@ -17,6 +17,7 @@ package pz.twojaszkola.kolkaZainteresowan;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  *
@@ -26,5 +27,6 @@ public interface KolkaZainteresowanRepository extends JpaRepository<KolkaZainter
     KolkaZainteresowanEntity findById(final int id);
     List<KolkaZainteresowanEntity> findBySzkolaId(final Integer idSzkoly);
     List<KolkaZainteresowanEntity> findByPrzedmiotId(final Integer idPrzedmiotu);
-    
+    @Modifying
+    void rmById(final Integer id);
 }

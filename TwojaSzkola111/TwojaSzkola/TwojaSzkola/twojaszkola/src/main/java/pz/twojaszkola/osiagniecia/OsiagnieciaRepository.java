@@ -17,6 +17,7 @@ package pz.twojaszkola.osiagniecia;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  *
@@ -27,5 +28,6 @@ public interface OsiagnieciaRepository extends JpaRepository<OsiagnieciaEntity, 
     //List<OsiagnieciaEntity> findBySzkolaId(final Integer idSzkoly);
     List<OsiagnieciaEntity> findByPrzedmiotIdAndUserId(final Integer idPrzedmiotu, final Integer idUsera);
     List<OsiagnieciaEntity> findByUserId(final Integer idUsera);
-    
+    @Modifying
+    void rmById(final Integer id);
 }

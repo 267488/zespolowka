@@ -16,10 +16,13 @@
 package pz.twojaszkola.galleryUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  * @author Michael J. Simons, 2014-02-22
  */
 public interface GalleryUserRepository extends JpaRepository<GalleryUserEntity, Integer> {
     GalleryUserEntity findByUserId(final int userId);
+    @Modifying
+    void rmById(final Integer id);
 }

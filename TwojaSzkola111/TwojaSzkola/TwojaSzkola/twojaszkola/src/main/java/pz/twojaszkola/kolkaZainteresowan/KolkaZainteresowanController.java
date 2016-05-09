@@ -30,6 +30,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -151,6 +152,15 @@ public class KolkaZainteresowanController {
         }
 
         return null;
+    }
+    
+    @RequestMapping(value = "/kolkaZainteresowan/{id}", method = DELETE)
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public void deleteKolkoZainteresowan(@PathVariable Integer id, final @RequestParam(required = false, defaultValue = "false") boolean all) {
+
+        final KolkaZainteresowanEntity kolo = kolkaZainteresowanRepository.findById(id);
+        kolkaZainteresowanRepository.rmById(kolo.getId());
     }
 
     @RequestMapping(value = "/kolkaZainteresowan{id:\\d+}", method = PUT)

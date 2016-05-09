@@ -43,6 +43,12 @@ import pz.twojaszkola.user.User;
         query
         = "Select b from GalleryUserEntity b "
         + " where b.userId.id = :userId"
+   ),
+    @NamedQuery(
+	    name = "GalleryUserEntity.rmById",
+	    query
+	    = "Delete from GalleryUserEntity b "
+	    + " where b.id = :id"
    )
 })
 public class GalleryUserEntity implements Serializable {
