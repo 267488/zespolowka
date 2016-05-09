@@ -41,27 +41,27 @@ import pz.twojaszkola.uczen.UczenEntity;
 @Table(name = "zainteresowania")
 @NamedQueries({
     @NamedQuery(
-	    name = "zainteresowaniaEntity.findByPrzedmiotId",
+	    name = "ZainteresowaniaEntity.findByPrzedmiotId",
 	    query
-	    = "Select b from zainteresowaniaEntity b "
+	    = "Select b from ZainteresowaniaEntity b "
 	    + " where b.przedmiotId.id = :idPrzedmiotu"
     ),
     @NamedQuery(
-        name = "zainteresowaniaEntity.findByUczenId",
+        name = "ZainteresowaniaEntity.findByUczenId",
         query
-        = "Select b.stopienZainteresowania from zainteresowaniaEntity b "
+        = "Select b.stopienZainteresowania from ZainteresowaniaEntity b "
         + " where b.uczenId.id = :idUcznia"
    ),
     @NamedQuery(
-        name = "zainteresowaniaEntity.findByUczenId2",
+        name = "ZainteresowaniaEntity.findByUczenId2",
         query
-        = "Select b from zainteresowaniaEntity b "
+        = "Select b from ZainteresowaniaEntity b "
         + " where b.uczenId.id = :idUcznia"
    ),
    @NamedQuery(
-        name = "zainteresowaniaEntity.getStopienZaintByUczenAndPrzedmiot",
+        name = "ZainteresowaniaEntity.getStopienZaintByUczenAndPrzedmiot",
         query
-        = "Select b.stopienZainteresowania from zainteresowaniaEntity b "
+        = "Select b.stopienZainteresowania from ZainteresowaniaEntity b "
         + " where b.uczenId.id = :idUcznia"
         + " and b.przedmiotId.id = :idPrzedmiotu"
    )

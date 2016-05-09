@@ -49,7 +49,6 @@ import pz.twojaszkola.zainteresowania.ZainteresowaniaEntity;
 
 @Entity
 @Table(name = "przedmioty")
-
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class PrzedmiotyEntity implements Serializable {
     
