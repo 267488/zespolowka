@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-03-08 10:50:28 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping auto-import="true">
+    <class name="model.pojo.Uczen" table="UCZEN" schema="KOSTRZEWA" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="imie" type="string">
+            <column name="IMIE" length="50" />
+        </property>
+        <property name="nazwisko" type="string">
+            <column name="NAZWISKO" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
